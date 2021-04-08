@@ -72,6 +72,26 @@ export const ServicesProvider = ({ children }) => {
         }
     };
 
+    const deleteVideos = async (id) => {
+        try {
+            await API.delete(`/videos/${id}`, bearer(token));
+
+            return 'Deleted';
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const deleteImages = async (id) => {
+        try {
+            await API.delete(`/images/${id}`, bearer(token));
+
+            return 'Deleted';
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <ServicesContext.Provider
             value={{
@@ -80,7 +100,9 @@ export const ServicesProvider = ({ children }) => {
                 videoRegister,
                 imageRegister,
                 getImages,
-                getVideos
+                getVideos,
+                deleteVideos,
+                deleteImages
             }}
         >
             {children}
