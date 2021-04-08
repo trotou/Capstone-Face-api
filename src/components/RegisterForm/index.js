@@ -17,7 +17,12 @@ const RegisterForm = () => {
         name: yup.string().required('Campo obrigatório')
     });
 
-    const { register, handleSubmit, errors, reset } = useForm({
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        reset
+    } = useForm({
         resolver: yupResolver(schema)
     });
 
@@ -38,40 +43,41 @@ const RegisterForm = () => {
 
             <h1>Register</h1>
 
-            <form onSubmit={handleSubmit(handleForm)}>
+            <form>
                 <Input
                     name="email"
                     type="email"
                     label="Email"
                     margin="normal"
                     variant="filled"
-                    //inputRef={register}
-                    // error={!!errors.email}
-                    // helperText={errors.email?.message}
-                ></Input>
+                    {...register('email')}
+                    error={!!errors.email}
+                    helperText={errors.email?.message}
+                />
                 <Input
                     name="password"
                     label="Senha"
                     type="password"
                     margin="normal"
                     variant="filled"
-                    //inputRef={register}
-                    // error={!!errors.password}
-                    // helperText={errors.password?.message}
-                ></Input>
+                    {...register('password')}
+                    error={!!errors.password}
+                    helperText={errors.password?.message}
+                />
                 <Input
                     name="name"
                     label="Nome"
                     type="text"
                     margin="normal"
                     variant="filled"
-                    //inputRef={register}
-                    // error={!!errors.password}
-                    // helperText={errors.password?.message}
-                ></Input>
-                <div>
-                    <Btn type="submit">Login</Btn>
-                </div>
+                    {...register('name')}
+                    error={!!errors.name}
+                    helperText={errors.name?.message}
+                />
+
+                <Btn type="submit" onClick={handleSubmit(handleForm)}>
+                    Login
+                </Btn>
             </form>
         </Container>
     );
