@@ -1,5 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import FaceApiVideo from '../../temporary/faceapivideo';
+// import FaceApiVideo from '../../temporary/faceapivideo';
 
 const HomePage = () => {
     return (
@@ -8,7 +10,7 @@ const HomePage = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}>
-            <div>Login</div>
+            <div><FaceApiVideo/></div>
         </motion.div>
     );
 };
