@@ -1,5 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import * as faceapi from 'face-api.js';
+// import Player from '../components/Player';
+import ReactPlayer from 'react-player';
 
 const FaceApiVideo = () => {
     const videoHeight = 400;
@@ -7,6 +9,15 @@ const FaceApiVideo = () => {
     const [initializing, setInitializing] = useState(false);
     const videoRef = useRef(); //SRC DO VIDEO
     const canvasRef = useRef();
+    const [play, setPlay] = useState(false);
+
+    const [inputValue, setInputValue] = useState('');
+    const [url, setUrl] = useState('');
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setUrl(inputValue);
+    };
 
     useEffect(() => {
         const loadModels = async () => {
@@ -23,14 +34,17 @@ const FaceApiVideo = () => {
         loadModels();
     }, []);
 
+    // const startVideo = () => {
+    //     navigator.getUserMedia(
+    //         {
+    //             video: {}
+    //         },
+    //         (stream) => (videoRef.current.srcObject = stream),
+    //         (err) => console.error(err)
+    //     );
+    // };
     const startVideo = () => {
-        navigator.getUserMedia(
-            {
-                video: {}
-            },
-            (stream) => (videoRef.current.srcObject = stream),
-            (err) => console.error(err)
-        );
+        setPlay(true);
     };
 
     const handleVideoOnPlay = () => {
@@ -61,14 +75,41 @@ const FaceApiVideo = () => {
     return (
         <div>
             <span>{initializing ? 'Initializing' : 'Ready'}</span>
-            <video
+            {/* <video
                 ref={videoRef}
                 autoPlay
                 muted
                 height={videoHeight}
                 width={videoWidth}
                 onPlay={handleVideoOnPlay}
-            />
+            /> */}
+            <div>
+                <div>
+                    <form onSubmit={(e) => handleSubmit(e)}>
+                        <input
+                            onChange={(e) => setInputValue(e.target.value)}
+                            style={{ margin: '20px' }}
+                            className="form-control"
+                            type="text"
+                            placeholder="Input the video url"
+                        />
+                        <button style={{ margin: '20px' }} className="btn btn-primary">
+                            PLAY VIDEO
+                        </button>
+                    </form>
+                </div>
+                {play && (
+                    <ReactPlayer
+                        url={url}
+                        onPlay={handleVideoOnPlay}
+                        height={videoHeight}
+                        width={videoWidth}
+                        ref={videoRef}
+                        autoPlay
+                    />
+                )}
+            </div>
+
             <canvas ref={canvasRef} />
         </div>
     );
