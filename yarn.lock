@@ -1277,10 +1277,10 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@hookform/resolvers@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-2.0.0.tgz#256414308d4584f2037d5c4349c119dbd66d11d6"
-  integrity sha512-picG6qjP516JNblvg/wuDc8JPfdm3aNbtPbfu+PXQWFXp6ED6dyBL2IoB/tDvPFaNwwqUEwb6UYVKMIFAH+aqQ==
+"@hookform/resolvers@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-2.0.1.tgz#4dda765e4a5350e0eec34c95ab499e72fe09f84c"
+  integrity sha512-iBkzeqKU+AgVETtsKHoVxBwUtWIjSnlBiFxduiOAfVAccGoCKUEqHQ2TuZZfAO14spGqUPBaESMNBl2FWs61Kg==
 
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
@@ -10002,6 +10002,13 @@ react-transition-group@^4.4.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
+react-use-faceapi@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-use-faceapi/-/react-use-faceapi-1.0.1.tgz#d9497cd3ded2a58d5587e63a156e49dc4cc720b8"
+  integrity sha512-h1+jAWtHuC8tKAmxvHQ014BeuLoz1cGAnf1VTPPQnFpTAbjxq6C3dvFNNzTtikLmJV8pSy2LUGOWj7hYvaOT/Q==
+  dependencies:
+    face-api.js "^0.22.2"
+
 react@^17.0.2:
   version "17.0.2"
   resolved "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
@@ -11688,10 +11695,17 @@ typedarray@^0.0.6:
   resolved "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
+<<<<<<< HEAD
 ua-parser-js@^0.7.18:
   version "0.7.27"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.27.tgz#b54f8ce9eb6c7abf3584edeaf9a3d8b3bd92edba"
   integrity sha512-eXMaRYK2skomGocoX0x9sBXzx5A1ZVQgXfrW4mTc8dT0zS7olEcyfudAzRC5tIIRgLxQ69B6jut3DI+n5hslPA==
+=======
+typescript@^4.2.4:
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.2.4.tgz#8610b59747de028fda898a8aef0e103f156d0961"
+  integrity sha512-V+evlYHZnQkaz8TRBuxTA92yZBPotr5H+WhQ7bD3hZUndx5tGOa1fuCgeSjxAzM1RiN5IzvadIXTVefuuwZCRg==
+>>>>>>> 4190e67cb9742a0d442ae6fa7fb457afe71b9ea5
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"

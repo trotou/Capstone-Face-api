@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import * as faceapi from 'face-api.js';
+// import ReactPlayer from 'react-player';
 // import Player from '../components/Player';
-import ReactPlayer from 'react-player';
+// import ReactPlayer from 'react-player';
 
 const FaceApiVideo = () => {
     const videoHeight = 400;
@@ -9,7 +10,7 @@ const FaceApiVideo = () => {
     const [initializing, setInitializing] = useState(false);
     const videoRef = useRef(); //SRC DO VIDEO
     const canvasRef = useRef();
-    const [play, setPlay] = useState(false);
+    const [videoFilePath, setVideoPath] = useState(null);
 
     const [inputValue, setInputValue] = useState('');
     const [url, setUrl] = useState('');
@@ -28,32 +29,34 @@ const FaceApiVideo = () => {
                 faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
                 faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
                 faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL)
-            ]).then(startVideo);
+            ]);
         };
 
         loadModels();
     }, []);
 
-    // const startVideo = () => {
-    //     navigator.getUserMedia(
-    //         {
-    //             video: {}
-    //         },
-    //         (stream) => (videoRef.current.srcObject = stream),
-    //         (err) => console.error(err)
-    //     );
-    // };
+    const handleVideoUpload = (event) => {
+        setVideoPath(URL.createObjectURL(event.target.files[0]));
+    };
+
+    const leftVideo = document.getElementById('player');
+
     const startVideo = () => {
-        setPlay(true);
+        if (leftVideo.ended !== true) {
+            leftVideo.onplay = function () {
+                const stream = leftVideo.captureStream();
+                videoRef.current.srcObject = stream;
+            };
+        }
     };
 
     const handleVideoOnPlay = () => {
+        startVideo();
         setInterval(async () => {
             //A CADA INTERVALO, CALCULA OS DADOS DA API
             if (initializing) {
                 setInitializing(false);
             }
-
             canvasRef.current.innerHTML = faceapi.createCanvasFromMedia(videoRef.current);
             const displaySize = { width: videoWidth, height: videoHeight };
             faceapi.matchDimensions(canvasRef.current, displaySize);
@@ -62,54 +65,34 @@ const FaceApiVideo = () => {
                 .detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions())
                 .withFaceLandmarks()
                 .withFaceExpressions();
-
-            const resizedDetections = faceapi.resizeResults(detections, displaySize);
-            canvasRef.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
-            faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
-            faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
-            faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections);
-            console.log(detections);
-        }, 100); //INTERVALO DETERMINADO
+            await canvasRef.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
+            if (detections[0] !== undefined && leftVideo.ended !== true) {
+                console.log(detections[0].expressions);
+            }
+        }, 200); //INTERVALO DETERMINADO
     };
 
     return (
         <div>
-            <span>{initializing ? 'Initializing' : 'Ready'}</span>
-            {/* <video
+            <span>{initializing ? 'Waiting input' : 'Analyzing'}</span>
+            <video
                 ref={videoRef}
                 autoPlay
                 muted
+                src={videoFilePath}
                 height={videoHeight}
                 width={videoWidth}
                 onPlay={handleVideoOnPlay}
-            /> */}
+                id="player"
+            />
+
             <div>
                 <div>
                     <form onSubmit={(e) => handleSubmit(e)}>
-                        <input
-                            onChange={(e) => setInputValue(e.target.value)}
-                            style={{ margin: '20px' }}
-                            className="form-control"
-                            type="text"
-                            placeholder="Input the video url"
-                        />
-                        <button style={{ margin: '20px' }} className="btn btn-primary">
-                            PLAY VIDEO
-                        </button>
+                        <input type="file" onChange={handleVideoUpload} />
                     </form>
                 </div>
-                {play && (
-                    <ReactPlayer
-                        url={url}
-                        onPlay={handleVideoOnPlay}
-                        height={videoHeight}
-                        width={videoWidth}
-                        ref={videoRef}
-                        autoPlay
-                    />
-                )}
             </div>
-
             <canvas ref={canvasRef} />
         </div>
     );

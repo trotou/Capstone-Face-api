@@ -4,29 +4,37 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
+import { useServices } from '../../providers/Services';
+
 const LoginForm = () => {
+    const { login } = useServices();
+
+    const requiredFild = 'Campo obrigatório';
+
     const schema = yup.object().shape({
-        email: yup.string().email('Email inválido').required('Campo obrigatório'),
+        email: yup.string().email('Email inválido').required(requiredFild),
+
         password: yup
             .string()
+            .min(8, 'Mínimo de 8 dígitos')
             .matches(
                 /^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-                'Senha Invalida'
+                'Senha Incorreta'
             )
-            .required('Campo obrigatório')
+            .required(requiredFild)
     });
 
     const {
         register,
         handleSubmit,
-        formState: { errors },
-        // reset
+        formState: { errors }
     } = useForm({
         resolver: yupResolver(schema)
     });
 
     const handleForm = (data) => {
         console.log(data);
+        login(data);
     };
 
     return (
@@ -42,32 +50,30 @@ const LoginForm = () => {
 
             <h1>Login</h1>
 
-            <form>
+            <form onSubmit={handleSubmit(handleForm)}>
                 <Input
                     name="email"
                     type="email"
+                    inputProps={register('email')}
                     label="Email"
                     margin="normal"
                     variant="filled"
-                    {...register('email')}
                     error={!!errors.email}
                     helperText={errors.email?.message}
                 />
 
                 <Input
                     name="password"
-                    label="Senha"
                     type="password"
+                    inputProps={register('password')}
+                    label="Senha"
                     margin="normal"
                     variant="filled"
-                    {...register('password')}
                     error={!!errors.password}
                     helperText={errors.password?.message}
                 />
 
-                <Btn type="submit" onClick={handleSubmit(handleForm)}>
-                    Login
-                </Btn>
+                <Btn type="submit">Login</Btn>
             </form>
         </Container>
     );
