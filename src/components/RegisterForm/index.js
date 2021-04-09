@@ -5,7 +5,13 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useServices } from '../../providers/Services';
 
+import { useServices } from '../../providers/Services';
+
 const RegisterForm = () => {
+    const { userRegister } = useServices();
+
+    const requiredFild = 'Campo obrigatório';
+
     const schema = yup.object().shape({
         email: yup.string().email('Email inválido').required('Campo obrigatório'),
         password: yup.string().required('Campo obrigatório'),
@@ -18,24 +24,12 @@ const RegisterForm = () => {
         register,
         handleSubmit,
         formState: { errors }
-        // reset
     } = useForm({
         resolver: yupResolver(schema)
     });
 
     const handleForm = (data) => {
         registerForm(data);
-        // axios
-        //     .post('https://kabit-api.herokuapp.com/users/', data)
-        //     .then(() => {
-        //         reset();
-        //         history.push('/');
-        //     })
-        //     .catch(function (e) {
-        //         if (e.response.status === 400) {
-        //             handleMsgErr();
-        //         }
-        //     });
     };
 
     return (
@@ -51,14 +45,14 @@ const RegisterForm = () => {
 
             <h1>Register</h1>
 
-            <form>
+            <form onSubmit={handleSubmit(handleForm)}>
                 <Input
                     name="email"
                     type="email"
                     label="Email"
                     margin="normal"
                     variant="filled"
-                    {...register('email')}
+                    inputProps={register('email')}
                     error={!!errors.email}
                     helperText={errors.email?.message}
                 />
@@ -68,7 +62,7 @@ const RegisterForm = () => {
                     type="password"
                     margin="normal"
                     variant="filled"
-                    {...register('password')}
+                    inputProps={register('password')}
                     error={!!errors.password}
                     helperText={errors.password?.message}
                 />
@@ -78,14 +72,11 @@ const RegisterForm = () => {
                     type="text"
                     margin="normal"
                     variant="filled"
-                    {...register('name')}
+                    inputProps={register('name')}
                     error={!!errors.name}
                     helperText={errors.name?.message}
                 />
-
-                <Btn type="submit" onClick={handleSubmit(handleForm)}>
-                    Register
-                </Btn>
+                <Btn type="submit">Register</Btn>
             </form>
         </Container>
     );
