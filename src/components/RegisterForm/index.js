@@ -3,31 +3,39 @@ import { Container, Btn, Input } from './styles';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useServices } from '../../providers/Services';
 
 const RegisterForm = () => {
     const schema = yup.object().shape({
         email: yup.string().email('Email inválido').required('Campo obrigatório'),
-        password: yup
-            .string()
-            .matches(
-                /^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-                'Senha Invalida'
-            )
-            .required('Campo obrigatório'),
+        password: yup.string().required('Campo obrigatório'),
         name: yup.string().required('Campo obrigatório')
     });
+
+    const { registerForm } = useServices();
 
     const {
         register,
         handleSubmit,
-        formState: { errors },
-        reset
+        formState: { errors }
+        // reset
     } = useForm({
         resolver: yupResolver(schema)
     });
 
     const handleForm = (data) => {
-        console.log(data);
+        registerForm(data);
+        // axios
+        //     .post('https://kabit-api.herokuapp.com/users/', data)
+        //     .then(() => {
+        //         reset();
+        //         history.push('/');
+        //     })
+        //     .catch(function (e) {
+        //         if (e.response.status === 400) {
+        //             handleMsgErr();
+        //         }
+        //     });
     };
 
     return (
@@ -76,7 +84,7 @@ const RegisterForm = () => {
                 />
 
                 <Btn type="submit" onClick={handleSubmit(handleForm)}>
-                    Login
+                    Register
                 </Btn>
             </form>
         </Container>
