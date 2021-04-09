@@ -4,30 +4,42 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
+import { useServices } from '../../providers/Services';
+
 const RegisterForm = () => {
+    const { userRegister } = useServices();
+
+    const requiredFild = 'Campo obrigatório';
+
     const schema = yup.object().shape({
-        email: yup.string().email('Email inválido').required('Campo obrigatório'),
+        name: yup
+            .string()
+            .max(18, 'O nome deve ter no maximo 18 caracteres')
+            .required(requiredFild),
+
+        email: yup.string().email('Email inválido').required(requiredFild),
+
         password: yup
             .string()
+            .min(8, 'Mínimo de 8 dígitos')
             .matches(
                 /^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-                'Senha Invalida'
+                'Senha deve conter ao menos uma letra maiúscula, uma minúscula, um número e um caracter especial!'
             )
-            .required('Campo obrigatório'),
-        name: yup.string().required('Campo obrigatório')
+            .required(requiredFild)
     });
 
     const {
         register,
         handleSubmit,
-        formState: { errors },
-        reset
+        formState: { errors }
     } = useForm({
         resolver: yupResolver(schema)
     });
 
     const handleForm = (data) => {
         console.log(data);
+        userRegister(data);
     };
 
     return (
@@ -43,14 +55,14 @@ const RegisterForm = () => {
 
             <h1>Register</h1>
 
-            <form>
+            <form onSubmit={handleSubmit(handleForm)}>
                 <Input
                     name="email"
                     type="email"
                     label="Email"
                     margin="normal"
                     variant="filled"
-                    {...register('email')}
+                    inputProps={register('email')}
                     error={!!errors.email}
                     helperText={errors.email?.message}
                 />
@@ -60,7 +72,7 @@ const RegisterForm = () => {
                     type="password"
                     margin="normal"
                     variant="filled"
-                    {...register('password')}
+                    inputProps={register('password')}
                     error={!!errors.password}
                     helperText={errors.password?.message}
                 />
@@ -70,14 +82,12 @@ const RegisterForm = () => {
                     type="text"
                     margin="normal"
                     variant="filled"
-                    {...register('name')}
+                    inputProps={register('name')}
                     error={!!errors.name}
                     helperText={errors.name?.message}
                 />
 
-                <Btn type="submit" onClick={handleSubmit(handleForm)}>
-                    Login
-                </Btn>
+                <Btn type="submit">Register</Btn>
             </form>
         </Container>
     );

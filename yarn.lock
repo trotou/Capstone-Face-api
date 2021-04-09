@@ -1272,10 +1272,10 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@hookform/resolvers@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-2.0.0.tgz#256414308d4584f2037d5c4349c119dbd66d11d6"
-  integrity sha512-picG6qjP516JNblvg/wuDc8JPfdm3aNbtPbfu+PXQWFXp6ED6dyBL2IoB/tDvPFaNwwqUEwb6UYVKMIFAH+aqQ==
+"@hookform/resolvers@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-2.0.1.tgz#4dda765e4a5350e0eec34c95ab499e72fe09f84c"
+  integrity sha512-iBkzeqKU+AgVETtsKHoVxBwUtWIjSnlBiFxduiOAfVAccGoCKUEqHQ2TuZZfAO14spGqUPBaESMNBl2FWs61Kg==
 
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
@@ -9637,6 +9637,13 @@ react-transition-group@^4.4.0:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+react-use-faceapi@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-use-faceapi/-/react-use-faceapi-1.0.1.tgz#d9497cd3ded2a58d5587e63a156e49dc4cc720b8"
+  integrity sha512-h1+jAWtHuC8tKAmxvHQ014BeuLoz1cGAnf1VTPPQnFpTAbjxq6C3dvFNNzTtikLmJV8pSy2LUGOWj7hYvaOT/Q==
+  dependencies:
+    face-api.js "^0.22.2"
 
 react@^17.0.2:
   version "17.0.2"
