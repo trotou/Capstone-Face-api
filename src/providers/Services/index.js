@@ -10,7 +10,7 @@ const ServicesContext = React.createContext();
 export const ServicesProvider = ({ children }) => {
     const [token, setToken] = React.useState('');
 
-    const userRegister = async (data) => {
+    const registerForm = async (data) => {
         try {
             const response = await API.post('/register/', data);
 
@@ -96,7 +96,7 @@ export const ServicesProvider = ({ children }) => {
         <ServicesContext.Provider
             value={{
                 login,
-                userRegister,
+                registerForm,
                 videoRegister,
                 imageRegister,
                 getImages,
