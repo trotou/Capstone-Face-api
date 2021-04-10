@@ -3,6 +3,7 @@ import { Container, Btn, Input } from './styles';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useServices } from '../../providers/Services';
 
 import { useServices } from '../../providers/Services';
 
@@ -12,22 +13,12 @@ const RegisterForm = () => {
     const requiredFild = 'Campo obrigatório';
 
     const schema = yup.object().shape({
-        name: yup
-            .string()
-            .max(18, 'O nome deve ter no maximo 18 caracteres')
-            .required(requiredFild),
-
-        email: yup.string().email('Email inválido').required(requiredFild),
-
-        password: yup
-            .string()
-            .min(8, 'Mínimo de 8 dígitos')
-            .matches(
-                /^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-                'Senha deve conter ao menos uma letra maiúscula, uma minúscula, um número e um caracter especial!'
-            )
-            .required(requiredFild)
+        email: yup.string().email('Email inválido').required('Campo obrigatório'),
+        password: yup.string().required('Campo obrigatório'),
+        name: yup.string().required('Campo obrigatório')
     });
+
+    const { registerForm } = useServices();
 
     const {
         register,
@@ -38,8 +29,7 @@ const RegisterForm = () => {
     });
 
     const handleForm = (data) => {
-        console.log(data);
-        userRegister(data);
+        registerForm(data);
     };
 
     return (
@@ -86,7 +76,6 @@ const RegisterForm = () => {
                     error={!!errors.name}
                     helperText={errors.name?.message}
                 />
-
                 <Btn type="submit">Register</Btn>
 
                 <div>
