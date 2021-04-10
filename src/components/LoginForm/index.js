@@ -14,14 +14,7 @@ const LoginForm = () => {
     const schema = yup.object().shape({
         email: yup.string().email('Email inválido').required(requiredFild),
 
-        password: yup
-            .string()
-            .min(8, 'Mínimo de 8 dígitos')
-            .matches(
-                /^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-                'Senha Incorreta'
-            )
-            .required(requiredFild)
+        password: yup.string().required(requiredFild)
     });
 
     const {
@@ -77,7 +70,7 @@ const LoginForm = () => {
 
                 <div>
                     <p>Don’t have an account yet?</p>
-                    <p>Register!</p>
+                    <button className="btn__register">Register!</button>
                 </div>
             </form>
         </Container>

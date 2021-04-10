@@ -38,6 +38,7 @@ export const Btn = styled.button`
     font-size: 1rem;
     margin-top: 30px;
     margin-bottom: 30px;
+    cursor: pointer;
 `;
 
 export const Container = styled.div`
@@ -60,5 +61,13 @@ export const Container = styled.div`
         width: 7rem;
         height: 5rem;
         margin-top: 30px;
+    }
+
+    .btn__register {
+        background: none;
+        border: none;
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+        color: #e5e4e4;
     }
 `;

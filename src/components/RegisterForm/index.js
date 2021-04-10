@@ -1,21 +1,31 @@
 import { Container, Btn, Input } from './styles';
 
+import { useHistory } from 'react-router-dom';
+
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useServices } from '../../providers/Services';
 
 import { useServices } from '../../providers/Services';
 
 const RegisterForm = () => {
-    const { userRegister } = useServices();
+    const history = useHistory();
 
     const requiredFild = 'Campo obrigatório';
 
     const schema = yup.object().shape({
-        email: yup.string().email('Email inválido').required('Campo obrigatório'),
-        password: yup.string().required('Campo obrigatório'),
-        name: yup.string().required('Campo obrigatório')
+        email: yup.string().email('Email inválido').required(requiredFild),
+
+        password: yup
+            .string()
+            .min(8, 'Mínimo de 8 dígitos')
+
+            .matches(
+                /^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+                'Senha Incorreta'
+            )
+            .required(requiredFild),
+        name: yup.string().required(requiredFild)
     });
 
     const { registerForm } = useServices();
@@ -30,6 +40,7 @@ const RegisterForm = () => {
 
     const handleForm = (data) => {
         registerForm(data);
+        history.push('/login');
     };
 
     return (
@@ -77,12 +88,10 @@ const RegisterForm = () => {
                     helperText={errors.name?.message}
                 />
                 <Btn type="submit">Register</Btn>
-
-                <div>
-                    <p>Already have an account?</p>
-                    <p>Login!</p>
-                </div>
             </form>
+
+            <p>Already have an account?</p>
+            <button className="btn__login">Login</button>
         </Container>
     );
 };
