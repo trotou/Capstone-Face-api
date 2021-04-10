@@ -88,6 +88,11 @@ const RegisterForm = () => {
                 />
 
                 <Btn type="submit">Register</Btn>
+
+                <div>
+                    <p>Already have an account?</p>
+                    <p>Login!</p>
+                </div>
             </form>
         </Container>
     );

@@ -74,6 +74,11 @@ const LoginForm = () => {
                 />
 
                 <Btn type="submit">Login</Btn>
+
+                <div>
+                    <p>Don’t have an account yet?</p>
+                    <p>Register!</p>
+                </div>
             </form>
         </Container>
     );
