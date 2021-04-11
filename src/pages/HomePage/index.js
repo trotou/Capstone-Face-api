@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import FaceApiVideo from '../../temporary/faceapivideo';
-// import FaceApiVideo from '../../temporary/faceapivideo';
+import Carrosel from '../../components/Carousel';
 
 const HomePage = () => {
     return (
@@ -11,8 +11,18 @@ const HomePage = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
         >
-            <div>
-                <FaceApiVideo />
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    width: '80vw',
+                    height: '100vh',
+                    alignContent: 'center',
+                    padding: '5%'
+                }}
+            >
+                <FaceApiVideo />                
+                <Carrosel />
             </div>
         </motion.div>
     );

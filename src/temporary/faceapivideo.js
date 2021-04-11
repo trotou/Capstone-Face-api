@@ -1,8 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import * as faceapi from 'face-api.js';
-// import ReactPlayer from 'react-player';
-// import Player from '../components/Player';
-// import ReactPlayer from 'react-player';
+import FormDialog from '../components/ModalAddVideo';
 
 const FaceApiVideo = () => {
     const videoHeight = 400;
@@ -92,6 +90,7 @@ const FaceApiVideo = () => {
                         <input type="file" onChange={handleVideoUpload} />
                     </form>
                 </div>
+                <FormDialog />
             </div>
             <canvas ref={canvasRef} />
         </div>

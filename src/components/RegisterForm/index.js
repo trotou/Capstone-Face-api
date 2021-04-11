@@ -5,12 +5,10 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useServices } from '../../providers/Services';
 
-import { useServices } from '../../providers/Services';
-
 const RegisterForm = () => {
-    const { userRegister } = useServices();
+    // const { userRegister } = useServices();
 
-    const requiredFild = 'Campo obrigatório';
+    // const requiredFild = 'Campo obrigatório';
 
     const schema = yup.object().shape({
         email: yup.string().email('Email inválido').required('Campo obrigatório'),
