@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import FaceApiVideo from '../../temporary/faceapivideo';
 import Graphs from '../../components/Graphs';
 // import FaceApiVideo from '../../temporary/faceapivideo';
+import Carrosel from '../../components/Carousel';
 
 const HomePage = () => {
     const data = [
@@ -95,8 +96,18 @@ const HomePage = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
         >
-            <div>
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    width: '80vw',
+                    height: '100vh',
+                    alignContent: 'center',
+                    padding: '5%'
+                }}
+            >
                 <FaceApiVideo />
+                <Carrosel />
             </div>
             <Graphs data={data} />
         </motion.div>

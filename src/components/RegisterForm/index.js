@@ -5,11 +5,11 @@ import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-
 import { useServices } from '../../providers/Services';
 
 const RegisterForm = () => {
     const history = useHistory();
+    const { registerForm } = useServices();
 
     const requiredFild = 'Campo obrigatório';
 
@@ -27,8 +27,6 @@ const RegisterForm = () => {
             .required(requiredFild),
         name: yup.string().required(requiredFild)
     });
-
-    const { registerForm } = useServices();
 
     const {
         register,
