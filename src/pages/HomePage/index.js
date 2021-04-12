@@ -1,4 +1,7 @@
 import React from 'react';
+
+import { Container } from './styles';
+
 import { motion } from 'framer-motion';
 import FaceApiVideo from '../../temporary/faceapivideo';
 import Graphs from '../../components/Graphs';
@@ -96,19 +99,10 @@ const HomePage = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
         >
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    width: '80vw',
-                    height: '100vh',
-                    alignContent: 'center',
-                    padding: '5%'
-                }}
-            >
+            <Container>
                 <FaceApiVideo />
                 <Carrosel />
-            </div>
+            </Container>
             <Graphs data={data} />
         </motion.div>
     );

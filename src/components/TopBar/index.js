@@ -6,7 +6,7 @@ import { makeStyles, AppBar, Toolbar, MenuItem, Button, Typography } from '@mate
 
 const useStyles = makeStyles({
     header: {
-        width: '100%',
+        width: '100vw',
 
         display: 'flex',
         justifyContent: 'center',

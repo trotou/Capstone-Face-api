@@ -1,9 +1,12 @@
 import { useEffect, useState, useRef } from 'react';
 import * as faceapi from 'face-api.js';
 import FormDialog from '../components/ModalAddVideo';
+import { Container, SelectFile, VideoContainer, ImageContainer, Button } from './faceVideoStyles';
 // import ImageUp from './image';
 
 const FaceApiVideo = () => {
+    const [showVideoOrImage, setShowVideoOrImage] = useState(false);
+
     const videoHeight = 200;
     const videoWidth = 320;
     const [initializing, setInitializing] = useState(false);
@@ -102,45 +105,61 @@ const FaceApiVideo = () => {
     };
 
     return (
-        <div>
-            <span>{!initializing && play === true ? 'Analyzing' : ''}</span>
-            {play && (
-                <div>
-                    <video
-                        poster="images/videologo.png"
-                        ref={videoRef}
-                        autoPlay
-                        muted
-                        src={videoFilePath}
-                        height={videoHeight}
-                        width={videoWidth}
-                        onPlay={handleVideoOnPlay}
-                        id="player"
-                    />
-                    <form onSubmit={(e) => handleSubmit(e)}>
-                        <input type="file" onChange={handleVideoUpload} />
-                    </form>
-                </div>
-            )}
-            {!play && (
-                <>
-                    <FormDialog />
-                    <button onClick={() => window.location.reload()}>Try other video</button>
-                </>
+        <Container>
+            <Button
+                className="button-Change"
+                onClick={() => setShowVideoOrImage(!showVideoOrImage)}
+            >
+                {showVideoOrImage ? 'Analyze Video' : 'Analyze Imagem'}
+            </Button>
+
+            {!showVideoOrImage && (
+                <VideoContainer>
+                    <span>{!initializing && play === true ? 'Analyzing' : ''}</span>
+                    {play && (
+                        <div>
+                            <video
+                                poster="images/videologo.png"
+                                ref={videoRef}
+                                autoPlay
+                                muted
+                                src={videoFilePath}
+                                height={videoHeight}
+                                width={videoWidth}
+                                onPlay={handleVideoOnPlay}
+                                id="player"
+                            />
+                            <form onSubmit={(e) => handleSubmit(e)}>
+                                <SelectFile type="file" onChange={handleVideoUpload} />
+                            </form>
+                        </div>
+                    )}
+                    {!play && (
+                        <>
+                            <FormDialog />
+                            <Button onClick={() => window.location.reload()}>
+                                Try other video
+                            </Button>
+                        </>
+                    )}
+                </VideoContainer>
             )}
 
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <img alt="" id="myImg" width="200px" height="200px" />
-                <input
-                    id="myFileUpload"
-                    type="file"
-                    onChange={(e) => setUrl(e.target.value)}
-                    accept=".jpg, .jpeg, .png"
-                />
-                <button onClick={start}>go</button>
-            </div>
+            {showVideoOrImage && (
+                <ImageContainer>
+                    <img alt="" id="myImg" width="200px" height="200px" />
+                    <SelectFile
+                        id="myFileUpload"
+                        type="file"
+                        onChange={(e) => setUrl(e.target.value)}
+                        accept=".jpg, .jpeg, .png"
+                    />
+                    <Button onClick={start}>Analyze</Button>
+                </ImageContainer>
+            )}
+
             <canvas ref={canvasRef} />
-        </div>
+        </Container>
     );
 };
 
