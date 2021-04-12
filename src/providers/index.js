@@ -1,6 +1,7 @@
 // providers
 import { ServicesProvider } from '../providers/Services';
 import { EmotionsProvider } from '../providers/Emotions';
+
 // ------------------------------------------------------
 const Providers = ({ children }) => {
     return (
