@@ -57,7 +57,7 @@ export const Container = styled.div`
     background-color: #1b1b1b;
     color: #e5e4e4;
 
-    .div_svg svg {
+    .div_svg img {
         width: 7rem;
         height: 5rem;
         margin-top: 30px;
