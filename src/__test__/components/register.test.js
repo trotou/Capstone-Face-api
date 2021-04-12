@@ -9,18 +9,25 @@ jest.mock('react-hook-form', () => {
     return {
         useForm: () => ({
             handleSubmit: mockedHandleSubmit,
-            errors: {
-                username: 'mockedUsername',
-                password: 'mockedPassword',
-                email: 'mockedemail'
-            }
+            formState: {
+                errors: {
+                    username: 'mockedUsername',
+                    password: 'mockedpassword',
+                    email: 'mockedmail'
+                }
+            },
+            register: jest.fn()
         })
     };
 });
 
-jest.mock('../../components/RegisterForm', () => ({
-    formState: "dasd"
-}));
+jest.mock('../../providers/Services', () => {
+    return {
+        useServices: () => ({
+            registerForm: jest.fn()
+        })
+    };
+});
 
 describe('When submits the form', () => {
     test('Should call handleSubmit', () => {
@@ -31,9 +38,9 @@ describe('When submits the form', () => {
         const emailInput = screen.getAllByTestId('emailTestId');
         const form = screen.getByTestId('formRegisterTestId');
 
-        userEvent.type(userInput, 'user');
-        userEvent.type(passwordInput, '123456');
         userEvent.type(emailInput, 'mock@mail.com');
+        userEvent.type(passwordInput, '123456');
+        userEvent.type(userInput, 'user');
 
         fireEvent.submit(form);
 
