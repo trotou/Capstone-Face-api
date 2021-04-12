@@ -5,8 +5,6 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useServices } from '../../providers/Services';
 
-import { useServices } from '../../providers/Services';
-
 const RegisterForm = () => {
     const { userRegister } = useServices();
 
