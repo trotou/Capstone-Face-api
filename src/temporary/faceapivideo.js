@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import * as faceapi from 'face-api.js';
 import FormDialog from '../components/ModalAddVideo';
 import { useEmotions } from '../providers/Emotions';
+import { useVideoPlay } from '../providers/VideoPlay';
 // import ImageUp from './image';
 
 const FaceApiVideo = () => {
@@ -12,13 +13,14 @@ const FaceApiVideo = () => {
     const canvasRef = useRef();
     const [videoFilePath, setVideoPath] = useState(null);
     const { emotions, setEmotions } = useEmotions();
-    const [play, setPlay] = useState(true);
+    const { videoPlay, setVideoPlay } = useVideoPlay();
+    console.log(videoPlay);
 
     const [inputValue, setInputValue] = useState('');
     const [url, setUrl] = useState('');
 
     const handleSubmit = (event) => {
-        setPlay(true);
+        setVideoPlay(true);
         event.preventDefault();
         setUrl(inputValue);
     };
@@ -55,6 +57,16 @@ const FaceApiVideo = () => {
     };
 
     const handleVideoOnPlay = () => {
+        const newEmotions = {
+            angry: [0],
+            disgusted: [0],
+            fearful: [0],
+            happy: [0],
+            neutral: [0],
+            sad: [0],
+            surprised: [0]
+        };
+        console.log('UNO', emotions.angry.length, newEmotions.angry.length);
         startVideo();
         const interval = setInterval(async () => {
             //A CADA INTERVALO, CALCULA OS DADOS DA API
@@ -70,7 +82,6 @@ const FaceApiVideo = () => {
                 .withFaceLandmarks()
                 .withFaceExpressions();
             if (detections[0] !== undefined && leftVideo.ended !== true) {
-                const newEmotions = { ...emotions };
                 for (const x in detections[0].expressions) {
                     switch (x) {
                         case 'sad':
@@ -87,12 +98,21 @@ const FaceApiVideo = () => {
                             break;
                     }
                 }
-                setEmotions(newEmotions);
                 // await canvasRef.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
             }
-            if (leftVideo.ended) {
-                clearInterval(interval);
-                setPlay(false);
+            if (videoPlay && leftVideo.ended) {
+                setVideoPlay(false);
+                setTimeout(() => {
+                    console.log(emotions.angry.length);
+                    console.log('EMOTIONS: ', emotions);
+                    console.log('NEWEMOTIONS: ', newEmotions);
+                    if (!videoPlay) {
+                        console.log('entrou');
+                        setEmotions(newEmotions);
+                        console.log('setouEmotions', newEmotions);
+                    }
+                    clearInterval(interval);
+                }, 5000);
             }
         }, 200);
     };
@@ -112,8 +132,8 @@ const FaceApiVideo = () => {
 
     return (
         <div>
-            <span>{!initializing && play === true ? 'Analyzing' : ''}</span>
-            {play && (
+            <span>{!initializing && videoPlay === true ? 'Analyzing' : ''}</span>
+            {videoPlay && (
                 <div>
                     <video
                         poster="images/videologo.png"
@@ -131,7 +151,7 @@ const FaceApiVideo = () => {
                     </form>
                 </div>
             )}
-            {!play && (
+            {!videoPlay && (
                 <>
                     <FormDialog />
                     <button onClick={() => window.location.reload()}>Try other video</button>
