@@ -52,9 +52,14 @@ export const ServicesProvider = ({ children }) => {
 
     const getImages = async () => {
         try {
-            const response = await API.get('/images/', bearer(token));
+            const response = await API.get(
+                '/images/',
+                bearer(
+                    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hdGhAbWFpbC5jb20iLCJpYXQiOjE2MTgxODMwNzEsImV4cCI6MTYxODE4NjY3MSwic3ViIjoiMSJ9.upmqy9OY9NW8GxVnjxTXbWGUWqLixxmTpkHHd89Pm9A'
+                )
+            );
 
-            console.log(response.data);
+            // console.log(response.data);
             return response.data;
         } catch (error) {
             console.log(error);
@@ -63,9 +68,14 @@ export const ServicesProvider = ({ children }) => {
 
     const getVideos = async () => {
         try {
-            const response = await API.get('/videos/', bearer(token));
+            const response = await API.get(
+                '/videos/?userId=1',
+                bearer(
+                    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hdGhAbWFpbC5jb20iLCJpYXQiOjE2MTgxODMwNzEsImV4cCI6MTYxODE4NjY3MSwic3ViIjoiMSJ9.upmqy9OY9NW8GxVnjxTXbWGUWqLixxmTpkHHd89Pm9A'
+                )
+            );
 
-            console.log(response.data);
+            // console.log(response.data);
             return response.data;
         } catch (error) {
             console.log(error);
@@ -74,7 +84,12 @@ export const ServicesProvider = ({ children }) => {
 
     const deleteVideos = async (id) => {
         try {
-            await API.delete(`/videos/${id}`, bearer(token));
+            await API.delete(
+                `/videos/${id}`,
+                bearer(
+                    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hdGhAbWFpbC5jb20iLCJpYXQiOjE2MTgxODYxNTQsImV4cCI6MTYxODE4OTc1NCwic3ViIjoiMSJ9.k7PyreElONibE_vWWwnilAyfbYKNoWbpRmTN_UAA5JE'
+                )
+            );
 
             return 'Deleted';
         } catch (error) {
