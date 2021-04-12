@@ -1,91 +1,71 @@
-import { ResponsiveStream } from '@nivo/stream';
+import { ResponsiveAreaBump } from '@nivo/bump';
 
-const Graphs = ({ data }) => (
+const generateFakeData = () => {
+    let answer = [];
+    for (let i = 1; i <= 10; i++) {
+        answer.push({ x: i, y: Math.floor(Math.random() * 99) });
+    }
+
+    return answer;
+};
+
+const data = [
+    // X === POSIÇÃO HORIZONTAL (index dos dadosDaApi)
+    // Y === POSIÇÃO VERTICAL (dados da Api no dito Index)
+    {
+        id: 'angry',
+        data: generateFakeData()
+    },
+    {
+        id: 'disgusted',
+        data: generateFakeData()
+    },
+    {
+        id: 'fearful',
+        data: generateFakeData()
+    },
+    {
+        id: 'happy',
+        data: generateFakeData()
+    },
+    {
+        id: 'neutral',
+        data: generateFakeData()
+    },
+    {
+        id: 'sad',
+        data: generateFakeData()
+    },
+    {
+        id: 'surprised',
+        data: generateFakeData()
+    }
+];
+
+const Graphs = () => (
     <div style={{ width: '50vw', height: '50vh' }}>
-        <ResponsiveStream
+        <ResponsiveAreaBump
             data={data}
-            keys={['Angry', 'Happy', 'Fearful', 'Neutral', 'Surprised', 'Disgusted', 'Sad']}
-            margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-            axisTop={null}
-            axisRight={null}
+            margin={{ top: 40, right: 100, bottom: 40, left: 100 }}
+            spacing={8}
+            colors={['#C60000', '#7EBA00', '#FFF448', '#2780B9', '#CCCCCC', '#13365A', '#FF00FF']}
+            startLabel="id"
+            axisTop={{
+                tickSize: 5,
+                tickPadding: 5,
+                tickRotation: 0,
+                legend: '',
+                legendPosition: 'middle',
+                legendOffset: -36
+            }}
             axisBottom={{
-                orient: 'bottom',
                 tickSize: 5,
                 tickPadding: 5,
                 tickRotation: 0,
                 legend: '',
-                legendOffset: 36
+                legendPosition: 'middle',
+                legendOffset: 32
             }}
-            axisLeft={{
-                orient: 'left',
-                tickSize: 5,
-                tickPadding: 5,
-                tickRotation: 0,
-                legend: '',
-                legendOffset: -40
-            }}
-            offsetType="silhouette"
-            colors={{ scheme: 'nivo' }}
-            fillOpacity={0.85}
-            borderColor={{ theme: 'background' }}
-            defs={[
-                {
-                    id: 'dots',
-                    type: 'patternDots',
-                    background: 'inherit',
-                    color: '#2c998f',
-                    size: 4,
-                    padding: 2,
-                    stagger: true
-                },
-                {
-                    id: 'squares',
-                    type: 'patternSquares',
-                    background: 'inherit',
-                    color: '#e4c912',
-                    size: 6,
-                    padding: 2,
-                    stagger: true
-                }
-            ]}
-            fill={[
-                {
-                    match: {
-                        id: 'Paul'
-                    },
-                    id: 'dots'
-                },
-                {
-                    match: {
-                        id: 'Marcel'
-                    },
-                    id: 'squares'
-                }
-            ]}
-            dotSize={8}
-            dotColor={{ from: 'color' }}
-            dotBorderWidth={2}
-            dotBorderColor={{ from: 'color', modifiers: [['darker', '0.7']] }}
-            legends={[
-                {
-                    anchor: 'bottom-right',
-                    direction: 'column',
-                    translateX: 100,
-                    itemWidth: 80,
-                    itemHeight: 20,
-                    itemTextColor: '#999999',
-                    symbolSize: 12,
-                    symbolShape: 'circle',
-                    effects: [
-                        {
-                            on: 'hover',
-                            style: {
-                                itemTextColor: '#000000'
-                            }
-                        }
-                    ]
-                }
-            ]}
         />
     </div>
 );
