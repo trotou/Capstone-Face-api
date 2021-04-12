@@ -1,10 +1,54 @@
-import { AppBar, Toolbar, MenuItem } from '@material-ui/core/';
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import { ButtonConteiner } from './styles';
+import { makeStyles, AppBar, Toolbar, MenuItem, Button, Typography } from '@material-ui/core/';
+
+const useStyles = makeStyles({
+    header: {
+        width: '100%',
+
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+
+        borderWidth: '0px, 0px, 5px 0px',
+        borderColor: '#3d3d3d',
+        boxShadow: '0px 0px 30px 0px rgba(61, 61, 61, 1)',
+
+        backgroundColor: '#202020',
+        color: '#fff'
+    },
+
+    tollbar: {
+        width: '90%',
+        margin: 'auto 0',
+
+        display: 'flex',
+        justifyContent: 'space-between'
+    },
+
+    menuButton: {
+        marginLeft: '5px',
+        background: '#c4c4c4',
+        color: '#000',
+        '&:hover': {
+            background: '#c4c4c4'
+        }
+    }
+});
 
 const TopBar = () => {
+    const [fake, setFake] = useState(false);
+
+    const history = useHistory();
+
+    const classes = useStyles();
+
     return (
-        <AppBar position="static">
-            <Toolbar>
-                <MenuItem>
+        <AppBar position="static" className={classes.header}>
+            <Toolbar className={classes.tollbar}>
+                <MenuItem onClick={() => history.push('/')}>
                     <svg
                         width="6rem"
                         height="4rem"
@@ -18,7 +62,27 @@ const TopBar = () => {
                         />
                     </svg>
                 </MenuItem>
-                <MenuItem>Login</MenuItem>
+
+                {!fake && (
+                    <ButtonConteiner>
+                        <MenuItem onClick={() => history.push('/login')}>
+                            <Button className={classes.menuButton}>Login</Button>
+                        </MenuItem>
+                        <MenuItem onClick={() => history.push('/register')}>
+                            <Button className={classes.menuButton}>Register</Button>
+                        </MenuItem>
+                    </ButtonConteiner>
+                )}
+                {fake && (
+                    <ButtonConteiner>
+                        <MenuItem>
+                            <Typography>Usuario</Typography>
+                        </MenuItem>
+                        <MenuItem className={classes.Buttons}>
+                            <Button className={classes.menuButton}>Logout</Button>
+                        </MenuItem>
+                    </ButtonConteiner>
+                )}
             </Toolbar>
         </AppBar>
     );
