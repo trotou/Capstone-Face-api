@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import * as faceapi from 'face-api.js';
 import FormDialog from '../components/ModalAddVideo';
+import { useEmotions } from '../providers/Emotions';
 // import ImageUp from './image';
 
 const FaceApiVideo = () => {
@@ -10,15 +11,7 @@ const FaceApiVideo = () => {
     const videoRef = useRef(); //SRC DO VIDEO
     const canvasRef = useRef();
     const [videoFilePath, setVideoPath] = useState(null);
-    const [emotions, setEmotions] = useState({
-        sad: [],
-        angry: [],
-        neutral: [],
-        fearful: [],
-        disgusted: [],
-        happy: [],
-        suprised: []
-    });
+    const { emotions, setEmotions } = useEmotions();
     const [play, setPlay] = useState(true);
 
     const [inputValue, setInputValue] = useState('');
@@ -77,9 +70,25 @@ const FaceApiVideo = () => {
                 .withFaceLandmarks()
                 .withFaceExpressions();
             if (detections[0] !== undefined && leftVideo.ended !== true) {
+                const newEmotions = { ...emotions };
+                for (const x in detections[0].expressions) {
+                    switch (x) {
+                        case 'sad':
+                        case 'angry':
+                        case 'disgusted':
+                        case 'fearful':
+                        case 'happy':
+                        case 'neutral':
+                        case 'surprised':
+                            newEmotions[x].push(detections[0].expressions[x]);
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+                setEmotions(newEmotions);
                 // await canvasRef.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
-                console.log(detections[0].expressions);
-                // setEmotions(result);
             }
             if (leftVideo.ended) {
                 clearInterval(interval);

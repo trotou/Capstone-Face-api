@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, BrowserRouter as Router } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 // import Route from './route';
 import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/LoginPage';
@@ -9,18 +9,18 @@ import NotFoundPage from '../pages/NotFoundPage';
 const Routes = () => {
     return (
         <Switch>
-            <Router exact path="/">
+            <Route exact path="/">
                 <HomePage />
-            </Router>
-            <Router path="/login">
+            </Route>
+            <Route path="/login">
                 <LoginPage />
-            </Router>
-            <Router path="/register">
+            </Route>
+            <Route path="/register">
                 <RegisterPage />
-            </Router>
-            <Router>
+            </Route>
+            <Route>
                 <NotFoundPage />
-            </Router>
+            </Route>
         </Switch>
     );
 };
