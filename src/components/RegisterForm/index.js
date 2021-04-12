@@ -1,39 +1,21 @@
-import { Container, Btn, Input } from './styles';
-
 import { useHistory } from 'react-router-dom';
-
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+
+import { Container, Btn, Input } from './styles';
 import { useServices } from '../../providers/Services';
+import { userRegisterSchema } from '../../Helpers/Constants/schemas';
 
 const RegisterForm = () => {
     const history = useHistory();
     const { registerForm } = useServices();
-
-    const requiredFild = 'Campo obrigatório';
-
-    const schema = yup.object().shape({
-        email: yup.string().email('Email inválido').required(requiredFild),
-
-        password: yup
-            .string()
-            .min(8, 'Mínimo de 8 dígitos')
-
-            .matches(
-                /^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-                'Senha Incorreta'
-            )
-            .required(requiredFild),
-        name: yup.string().required(requiredFild)
-    });
 
     const {
         register,
         handleSubmit,
         formState: { errors }
     } = useForm({
-        resolver: yupResolver(schema)
+        resolver: yupResolver(userRegisterSchema)
     });
 
     const handleForm = (data) => {
