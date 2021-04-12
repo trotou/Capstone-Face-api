@@ -23,7 +23,7 @@ const Carrosel = () => {
             setImages(images);
         };
         fetchData();
-    }, []);
+    }, [getImages, getVideos]);
 
     console.log(videoList);
 
