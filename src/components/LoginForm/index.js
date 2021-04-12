@@ -32,8 +32,9 @@ const LoginForm = () => {
 
             <h1>Login</h1>
 
-            <form onSubmit={handleSubmit(handleForm)}>
+            <form onSubmit={handleSubmit(handleForm)} data-testid="formTestId">
                 <Input
+                    data-testid="emailLoginTestId"
                     name="email"
                     type="email"
                     inputProps={register('email')}
@@ -45,6 +46,7 @@ const LoginForm = () => {
                 />
 
                 <Input
+                    data-testid="passwordTestId"
                     name="password"
                     type="password"
                     inputProps={register('password')}

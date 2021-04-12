@@ -33,8 +33,9 @@ const RegisterForm = () => {
 
             <h1>Register</h1>
 
-            <form onSubmit={handleSubmit(handleForm)}>
+            <form onSubmit={handleSubmit(handleForm)} data-testid="formRegisterTestId">
                 <Input
+                    data-testid="emailTestId"
                     name="email"
                     type="email"
                     label="Email"
@@ -45,6 +46,7 @@ const RegisterForm = () => {
                     helperText={errors.email?.message}
                 />
                 <Input
+                    data-testid="passwordRegisterTestId"
                     name="password"
                     label="Senha"
                     type="password"
@@ -55,6 +57,7 @@ const RegisterForm = () => {
                     helperText={errors.password?.message}
                 />
                 <Input
+                    data-testid="userNameRegisterTestId"
                     name="name"
                     label="Nome"
                     type="text"
