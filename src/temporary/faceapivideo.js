@@ -124,8 +124,8 @@ const FaceApiVideo = () => {
                                 autoPlay
                                 muted
                                 src={videoFilePath}
-                                height={videoHeight}
-                                width={videoWidth}
+                                // height={videoHeight}
+                                // width={videoWidth}
                                 onPlay={handleVideoOnPlay}
                                 id="player"
                             />
@@ -147,7 +147,7 @@ const FaceApiVideo = () => {
 
             {showVideoOrImage && (
                 <ImageContainer>
-                    <img alt="" id="myImg" width="200px" height="200px" />
+                    <img alt="" id="myImg" width="280px" height="280px" />
                     <SelectFile
                         id="myFileUpload"
                         type="file"

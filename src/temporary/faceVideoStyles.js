@@ -34,6 +34,20 @@ export const Container = styled.div`
 
         cursor: pointer;
     }
+
+    @media (max-width: 720px) {
+        video {
+            width: 300px;
+            height: 220px;
+        }
+    }
+
+    @media (min-width: 721px) {
+        video {
+            width: 700px;
+            height: 450px;
+        }
+    }
 `;
 
 export const VideoContainer = styled.div`
@@ -74,6 +88,12 @@ export const Button = styled.button`
 `;
 
 export const SelectFile = styled.input`
+    @media (max-width: 540px) {
+        width: 300px;
+    }
+
+    margin: 0 auto;
+
     background-color: #3d3d3d;
     border-radius: 5px;
     color: #fff;

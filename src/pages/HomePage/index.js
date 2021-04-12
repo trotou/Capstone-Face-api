@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import FaceApiVideo from '../../temporary/faceapivideo';
 import Graphs from '../../components/Graphs';
 // import FaceApiVideo from '../../temporary/faceapivideo';
-import Carrosel from '../../components/Carousel';
+import CarroselDemo from '../../components/CarouselDemo';
 
 const HomePage = () => {
     const data = [
@@ -101,7 +101,7 @@ const HomePage = () => {
         >
             <Container>
                 <FaceApiVideo />
-                <Carrosel />
+                <CarroselDemo />
             </Container>
             <Graphs data={data} />
         </motion.div>
