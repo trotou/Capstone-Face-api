@@ -33,7 +33,7 @@ export default function FormDialog() {
     return (
         <div>
             <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                Add video
+                Save video stats
             </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Video Title</DialogTitle>
