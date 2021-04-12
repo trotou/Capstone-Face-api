@@ -1,14 +1,11 @@
 import { Container, Btn, Input } from './styles';
-
-import { useHistory } from 'react-router-dom';
-
+import History from '../History';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useServices } from '../../providers/Services';
 
 const RegisterForm = () => {
-    const history = useHistory();
     const { registerForm } = useServices();
 
     const requiredFild = 'Campo obrigatório';
@@ -38,7 +35,7 @@ const RegisterForm = () => {
 
     const handleForm = (data) => {
         registerForm(data);
-        history.push('/login');
+        History.push('/login');
     };
 
     return (
@@ -54,8 +51,9 @@ const RegisterForm = () => {
 
             <h1>Register</h1>
 
-            <form onSubmit={handleSubmit(handleForm)}>
+            <form onSubmit={handleSubmit(handleForm)} data-testid="formRegisterTestId">
                 <Input
+                    data-testid="emailTestId"
                     name="email"
                     type="email"
                     label="Email"
@@ -66,6 +64,7 @@ const RegisterForm = () => {
                     helperText={errors.email?.message}
                 />
                 <Input
+                    data-testid="passwordRegisterTestId"
                     name="password"
                     label="Senha"
                     type="password"
@@ -76,6 +75,7 @@ const RegisterForm = () => {
                     helperText={errors.password?.message}
                 />
                 <Input
+                    data-testid="userNameRegisterTestId"
                     name="name"
                     label="Nome"
                     type="text"
@@ -89,7 +89,9 @@ const RegisterForm = () => {
             </form>
 
             <p>Already have an account?</p>
-            <button className="btn__login">Login</button>
+            <button className="btn__login" onClick={() => History.push('/login')}>
+                Login
+            </button>
         </Container>
     );
 };

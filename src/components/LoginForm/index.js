@@ -1,5 +1,5 @@
 import { Container, Btn, Input } from './styles';
-
+import History from '../History';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -28,6 +28,7 @@ const LoginForm = () => {
     const handleForm = (data) => {
         console.log(data);
         login(data);
+        History.push('/');
     };
 
     return (
@@ -43,8 +44,9 @@ const LoginForm = () => {
 
             <h1>Login</h1>
 
-            <form onSubmit={handleSubmit(handleForm)}>
+            <form onSubmit={handleSubmit(handleForm)} data-testid="formTestId">
                 <Input
+                    data-testid="emailLoginTestId"
                     name="email"
                     type="email"
                     inputProps={register('email')}
@@ -56,6 +58,7 @@ const LoginForm = () => {
                 />
 
                 <Input
+                    data-testid="passwordTestId"
                     name="password"
                     type="password"
                     inputProps={register('password')}
@@ -70,7 +73,9 @@ const LoginForm = () => {
 
                 <div>
                     <p>Don’t have an account yet?</p>
-                    <button className="btn__register">Register!</button>
+                    <button className="btn__register" onClick={() => History.push('/register')}>
+                        Register!
+                    </button>
                 </div>
             </form>
         </Container>
