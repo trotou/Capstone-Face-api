@@ -42,7 +42,7 @@ const data = [
     }
 ];
 
-const Graphs = () => (
+const LineGraph = () => (
     <div style={{ width: '50vw', height: '50vh' }}>
         <ResponsiveAreaBump
             data={data}
@@ -70,4 +70,4 @@ const Graphs = () => (
     </div>
 );
 
-export default Graphs;
+export default LineGraph;
