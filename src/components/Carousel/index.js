@@ -30,7 +30,7 @@ const Carrosel = () => {
     return (
         <CarouselWrapper>
             <div style={{ width: '100%' }}>
-                <h3 /* style={{ textAlign: 'left' }}*/>Videos</h3>
+                <h2 style={{ color: '#fff' }}>Videos</h2>
                 <Carousel breakPoints={breakPoints}>
                     {videoList &&
                         videoList.map((item, i) => (
@@ -44,7 +44,7 @@ const Carrosel = () => {
                 </Carousel>
             </div>
             <div style={{ width: '100%' }}>
-                <h3 /* style={{ textAlign: 'left' }}*/>Images</h3>
+                <h2 style={{ color: '#fff' }}>Images</h2>
                 <Carousel breakPoints={breakPoints}>
                     {imageList &&
                         imageList.map((item) => <CarouselDiv key={item + 1}>{item}</CarouselDiv>)}

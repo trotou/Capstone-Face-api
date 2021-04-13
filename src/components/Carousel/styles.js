@@ -26,4 +26,27 @@ export const CarouselWrapper = styled.div`
     justify-content: center;
 
     font-family: sans-serif;
+
+    .button-Change {
+        width: auto;
+        height: 1.2rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        //margin: 3% 0%;
+
+        padding: 2%;
+
+        border: none;
+        border-radius: 10px;
+
+        text-align: center;
+
+        background: #373737;
+        color: #fff;
+
+        cursor: pointer;
+    }
 `;

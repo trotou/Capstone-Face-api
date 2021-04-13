@@ -7,8 +7,12 @@ import { useServices } from '../../providers/Services';
 import { userLoginSchema } from '../../Helpers/Constants/schemas';
 import Logo from '../../Helpers/Assets/logo.svg';
 
+import { useUserAuth } from '../../providers/UserAuth';
+
 // ------------------------------------------------
 const LoginForm = () => {
+    const { auth, setAuth } = useUserAuth();
+
     const history = useHistory();
     const { login } = useServices();
     const {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AppBar, Toolbar, MenuItem, Button, Typography } from '@material-ui/core/';
 
@@ -6,12 +6,26 @@ import { ButtonContainer } from './styles';
 import { TopBarStyles } from '../../Helpers/makeStyles';
 import Logo from '../../Helpers/Assets/logo.svg';
 
+import { useUserAuth } from '../../providers/UserAuth';
+
 // -------------------------------------------
 
 const TopBar = () => {
+    const [token, setToken] = useState(JSON.parse(localStorage.getItem('token')) || '');
+
+    const { auth, setAuth } = useUserAuth();
+
     const history = useHistory();
     const classes = TopBarStyles();
-    const [fake, setFake] = useState(false);
+
+    useEffect(() => {
+        setToken(JSON.parse(localStorage.getItem('token')) || '');
+    }, [auth]);
+
+    const handleLogout = () => {
+        localStorage.clear();
+        setAuth(!auth);
+    };
 
     return (
         <AppBar position="static" className={classes.header}>
@@ -22,7 +36,7 @@ const TopBar = () => {
                     </div>
                 </MenuItem>
 
-                {!fake && (
+                {!token && (
                     <ButtonContainer>
                         <MenuItem onClick={() => history.push('/login')}>
                             <Button className={classes.menuButton}>Login</Button>
@@ -32,13 +46,15 @@ const TopBar = () => {
                         </MenuItem>
                     </ButtonContainer>
                 )}
-                {fake && (
+                {token && (
                     <ButtonContainer>
                         <MenuItem>
                             <Typography>Usuario</Typography>
                         </MenuItem>
                         <MenuItem className={classes.Buttons}>
-                            <Button className={classes.menuButton}>Logout</Button>
+                            <Button className={classes.menuButton} onClick={() => handleLogout()}>
+                                Logout
+                            </Button>
                         </MenuItem>
                     </ButtonContainer>
                 )}

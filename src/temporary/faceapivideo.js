@@ -3,6 +3,7 @@ import * as faceapi from 'face-api.js';
 import FormDialog from '../components/ModalAddVideo';
 import { Container, SelectFile, VideoContainer, ImageContainer, Button } from './faceVideoStyles';
 import { useEmotions } from '../providers/Emotions';
+import { useServices } from '../providers/Services/index';
 // import ImageUp from './image';
 
 const FaceApiVideo = () => {
