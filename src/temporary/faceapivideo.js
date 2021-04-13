@@ -106,7 +106,7 @@ const FaceApiVideo = () => {
                         case 'happy':
                         case 'neutral':
                         case 'surprised':
-                            newEmotions[x].push(detections[0].expressions[x]);
+                            newEmotions[x].push((detections[0].expressions[x] * 100).toFixed(2));
                             break;
 
                         default:
@@ -127,7 +127,7 @@ const FaceApiVideo = () => {
                 // }
                 clearInterval(interval);
             }
-        }, 200);
+        }, 100);
     };
 
     const start = async () => {
