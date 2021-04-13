@@ -15,6 +15,7 @@ const HomePage = () => {
 
     useEffect(() => {
         setToken(JSON.parse(localStorage.getItem('token')) || '');
+        console.log('HomePage', auth);
     }, []);
 
     useEffect(() => {
@@ -30,8 +31,8 @@ const HomePage = () => {
         >
             <Container>
                 <FaceApiVideo />
-                {token && <Carrosel />}
                 <LineGraph />
+                {token && <Carrosel />}
             </Container>
         </motion.div>
     );
