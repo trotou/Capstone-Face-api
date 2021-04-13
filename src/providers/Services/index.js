@@ -37,7 +37,7 @@ export const ServicesProvider = ({ children }) => {
         }
     };
 
-    const userId = () => jwt_decode(token);
+    const userId = () => jwt_decode(token).sub;
 
     const getUser = async () => {
         try {
