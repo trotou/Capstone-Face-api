@@ -13,11 +13,24 @@ const FaceApiVideo = () => {
     const canvasRef = useRef();
     const [videoFilePath, setVideoPath] = useState(null);
     const { emotions, setEmotions } = useEmotions();
-    const { videoPlay, setVideoPlay } = useVideoPlay();
-    console.log(videoPlay);
+    // const { videoPlay, setVideoPlay } = useVideoPlay();
+    const [videoPlay, setVideoPlay] = useState(true);
 
     const [inputValue, setInputValue] = useState('');
     const [url, setUrl] = useState('');
+    const newEmotions = {
+        angry: [0],
+        disgusted: [0],
+        fearful: [0],
+        happy: [0],
+        neutral: [0],
+        sad: [0],
+        surprised: [0]
+    };
+
+    // const newEmotions = {
+    //     ...emotions
+    // };
 
     const handleSubmit = (event) => {
         setVideoPlay(true);
@@ -41,6 +54,17 @@ const FaceApiVideo = () => {
         loadModels();
     }, []);
 
+    useEffect(() => {
+        // console.log('Video Play: ', videoPlay);
+        // console.log('Emotions', newEmotions);
+
+        if (!videoPlay) {
+            // console.log('entrou');
+            // console.log('setouEmotions', newEmotions);
+            // setEmotions(newEmotions);
+        }
+    }, [videoPlay]);
+
     const handleVideoUpload = (event) => {
         setVideoPath(URL.createObjectURL(event.target.files[0]));
     };
@@ -57,16 +81,7 @@ const FaceApiVideo = () => {
     };
 
     const handleVideoOnPlay = () => {
-        const newEmotions = {
-            angry: [0],
-            disgusted: [0],
-            fearful: [0],
-            happy: [0],
-            neutral: [0],
-            sad: [0],
-            surprised: [0]
-        };
-        console.log('UNO', emotions.angry.length, newEmotions.angry.length);
+        // console.log('UNO', emotions.angry.length, newEmotions.angry.length);
         startVideo();
         const interval = setInterval(async () => {
             //A CADA INTERVALO, CALCULA OS DADOS DA API
@@ -102,17 +117,15 @@ const FaceApiVideo = () => {
             }
             if (videoPlay && leftVideo.ended) {
                 setVideoPlay(false);
-                setTimeout(() => {
-                    console.log(emotions.angry.length);
-                    console.log('EMOTIONS: ', emotions);
-                    console.log('NEWEMOTIONS: ', newEmotions);
-                    if (!videoPlay) {
-                        console.log('entrou');
-                        setEmotions(newEmotions);
-                        console.log('setouEmotions', newEmotions);
-                    }
-                    clearInterval(interval);
-                }, 5000);
+                // console.log('EMOTIONS: ', emotions);
+                // console.log('NEWEMOTIONS: ', newEmotions);
+                setEmotions(newEmotions);
+                // if (!videoPlay) {
+                //     console.log('entrou');
+                //     setEmotions(newEmotions);
+                //     console.log('setouEmotions', newEmotions);
+                // }
+                clearInterval(interval);
             }
         }, 200);
     };
@@ -132,7 +145,7 @@ const FaceApiVideo = () => {
 
     return (
         <div>
-            <span>{!initializing && videoPlay === true ? 'Analyzing' : ''}</span>
+            <span>{!initializing && videoPlay ? 'Analyzing' : ''}</span>
             {videoPlay && (
                 <div>
                     <video
