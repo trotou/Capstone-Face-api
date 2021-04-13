@@ -39,6 +39,15 @@ export const ServicesProvider = ({ children }) => {
 
     const userId = () => jwt_decode(token);
 
+    const getUser = async () => {
+        try {
+            const response = await API.get(`/users/${userId()}`, bearer(token));
+            return response.data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const videoRegister = async (data) => {
         try {
             await API.post('/videos/', data, bearer(token));
@@ -124,6 +133,7 @@ export const ServicesProvider = ({ children }) => {
                 videoRegister,
                 imageRegister,
                 getImages,
+                getUser,
                 getUserImages,
                 getVideos,
                 getUserVideos,
