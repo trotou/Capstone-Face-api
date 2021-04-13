@@ -25,7 +25,7 @@ const Player = ({ onplay, videoRef }) => {
                     </button>
                 </form>
             </div>
-            <ReactPlayer url={url}/>
+            <ReactPlayer url={url} />
         </div>
     );
 };

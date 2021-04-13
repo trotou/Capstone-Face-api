@@ -1,4 +1,5 @@
 import { ResponsiveAreaBump } from '@nivo/bump';
+import { Container } from './styles';
 import { useEmotions } from '../../providers/Emotions';
 import { useEffect } from 'react';
 
@@ -52,20 +53,8 @@ const LineGraph = () => {
     ];
 
     return (
-        <div
-            style={{
-                width: '300px',
-                height: '400px',
-                overflowX: 'scroll',
-                overflowY: 'hidden'
-            }}
-        >
-            <div
-                style={{
-                    width: '100vw',
-                    height: '100%'
-                }}
-            >
+        <Container>
+            <div style={{ width: '250%', height: '50vh', overflow: 'hidden' }}>
                 <ResponsiveAreaBump
                     data={data}
                     margin={{ top: 40, right: 100, bottom: 40, left: 100 }}
@@ -98,7 +87,7 @@ const LineGraph = () => {
                     }}
                 />
             </div>
-        </div>
+        </Container>
     );
 };
 
