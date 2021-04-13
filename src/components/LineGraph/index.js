@@ -1,60 +1,70 @@
 import { ResponsiveAreaBump } from '@nivo/bump';
 import { Container } from './styles';
 import { useEmotions } from '../../providers/Emotions';
-import { useEffect } from 'react';
-
-const generateFakeData = () => {
-    let answer = [];
-    for (let i = 1; i <= 2; i++) {
-        answer.push({ x: i, y: Math.floor(Math.random() * 99) });
-    }
-
-    return answer;
-};
+import { useEffect, useState } from 'react';
 
 const LineGraph = () => {
+    const [treatedEmotionsData, setTreatedEmotionsData] = useState({
+        angry: [],
+        disgusted: [],
+        fearful: [],
+        happy: [],
+        neutral: [],
+        sad: [],
+        surprised: []
+    });
+    const [showGraph, setShowGraph] = useState(false);
     const { emotions } = useEmotions();
 
     useEffect(() => {
-        console.log(emotions.angry);
+        let infoHolder = treatedEmotionsData;
+        for (const emotionData in emotions) {
+            emotions[emotionData].map((value, index) => {
+                infoHolder[emotionData].push({ x: index, y: parseFloat(value) });
+            });
+        }
+        setTreatedEmotionsData(infoHolder);
+        if (treatedEmotionsData.angry.length > 0) {
+            setShowGraph(true);
+        }
     }, [emotions]);
 
+    console.log(treatedEmotionsData);
+
     const data = [
-        // X === POSIÇÃO HORIZONTAL (index dos dadosDaApi)
-        // Y === POSIÇÃO VERTICAL (dados da Api no dito Index)
         {
             id: 'angry',
-            data: [...generateFakeData()]
+            data: [...treatedEmotionsData.angry]
         },
         {
             id: 'disgusted',
-            data: [...generateFakeData()]
+            data: [...treatedEmotionsData.disgusted]
         },
         {
             id: 'fearful',
-            data: [...generateFakeData()]
+            data: [...treatedEmotionsData.fearful]
         },
         {
             id: 'happy',
-            data: [...generateFakeData()]
+            data: [...treatedEmotionsData.happy]
         },
         {
             id: 'neutral',
-            data: [...generateFakeData()]
+            data: [...treatedEmotionsData.neutral]
         },
         {
             id: 'sad',
-            data: [...generateFakeData()]
+            data: [...treatedEmotionsData.sad]
         },
         {
             id: 'surprised',
-            data: [...generateFakeData()]
+            data: [...treatedEmotionsData.surprised]
         }
     ];
 
     return (
         <Container>
-            <div style={{ width: '250%', height: '50vh', overflow: 'hidden' }}>
+            <div style={{ width: `${data[0].data.length * 25}px`, height: '50vh', overflow: 'hidden' }}>
                 <ResponsiveAreaBump
                     data={data}
                     margin={{ top: 40, right: 100, bottom: 40, left: 100 }}
