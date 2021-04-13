@@ -1,4 +1,5 @@
 import { ResponsiveAreaBump } from '@nivo/bump';
+import { Container } from './styles';
 import { useEmotions } from '../../providers/Emotions';
 import { useEffect, useState } from 'react';
 
@@ -62,55 +63,41 @@ const LineGraph = () => {
     ];
 
     return (
-        <div
-            style={{
-                width: '300px',
-                height: '400px',
-                overflowX: 'scroll',
-                overflowY: 'hidden'
-            }}
-        >
-            <div
-                style={{
-                    width: `${data[0].data.length * 25}px`,
-                    height: '100%'
-                }}
-            >
-                {showGraph && (
-                    <ResponsiveAreaBump
-                        data={data}
-                        margin={{ top: 40, right: 100, bottom: 40, left: 100 }}
-                        spacing={8}
-                        colors={[
-                            '#C60000',
-                            '#7EBA00',
-                            '#FFF448',
-                            '#2780B9',
-                            '#CCCCCC',
-                            '#13365A',
-                            '#FF00FF'
-                        ]}
-                        startLabel="id"
-                        axisTop={{
-                            tickSize: 5,
-                            tickPadding: 5,
-                            tickRotation: 0,
-                            legend: '',
-                            legendPosition: 'middle',
-                            legendOffset: -36
-                        }}
-                        axisBottom={{
-                            tickSize: 5,
-                            tickPadding: 5,
-                            tickRotation: 0,
-                            legend: '',
-                            legendPosition: 'middle',
-                            legendOffset: 32
-                        }}
-                    />
-                )}
+        <Container>
+            <div style={{ width: `${data[0].data.length * 25}px`, height: '50vh', overflow: 'hidden' }}>
+                <ResponsiveAreaBump
+                    data={data}
+                    margin={{ top: 40, right: 100, bottom: 40, left: 100 }}
+                    spacing={8}
+                    colors={[
+                        '#C60000',
+                        '#7EBA00',
+                        '#FFF448',
+                        '#2780B9',
+                        '#CCCCCC',
+                        '#13365A',
+                        '#FF00FF'
+                    ]}
+                    startLabel="id"
+                    axisTop={{
+                        tickSize: 5,
+                        tickPadding: 5,
+                        tickRotation: 0,
+                        legend: '',
+                        legendPosition: 'middle',
+                        legendOffset: -36
+                    }}
+                    axisBottom={{
+                        tickSize: 5,
+                        tickPadding: 5,
+                        tickRotation: 0,
+                        legend: '',
+                        legendPosition: 'middle',
+                        legendOffset: 32
+                    }}
+                />
             </div>
-        </div>
+        </Container>
     );
 };
 
