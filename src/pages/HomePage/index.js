@@ -5,7 +5,6 @@ import { Container } from './styles';
 import { motion } from 'framer-motion';
 import FaceApiVideo from '../../temporary/faceapivideo';
 import LineGraph from '../../components/LineGraph';
-// import FaceApiVideo from '../../temporary/faceapivideo';
 import Carrosel from '../../components/Carousel';
 
 import { useUserAuth } from '../../providers/UserAuth';

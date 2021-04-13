@@ -4,6 +4,7 @@ import FormDialog from '../components/ModalAddVideo';
 import { Container, SelectFile, VideoContainer, ImageContainer, Button } from './faceVideoStyles';
 import { useEmotions } from '../providers/Emotions';
 import { useServices } from '../providers/Services/index';
+import { useVideoPlay } from '../providers/VideoPlay';
 // import ImageUp from './image';
 
 const FaceApiVideo = () => {
@@ -16,13 +17,27 @@ const FaceApiVideo = () => {
     const canvasRef = useRef();
     const [videoFilePath, setVideoPath] = useState(null);
     const { emotions, setEmotions } = useEmotions();
-    const [play, setPlay] = useState(true);
+    // const { videoPlay, setVideoPlay } = useVideoPlay();
+    const [videoPlay, setVideoPlay] = useState(true);
 
     const [inputValue, setInputValue] = useState('');
     const [url, setUrl] = useState('');
+    const newEmotions = {
+        angry: [0],
+        disgusted: [0],
+        fearful: [0],
+        happy: [0],
+        neutral: [0],
+        sad: [0],
+        surprised: [0]
+    };
+
+    // const newEmotions = {
+    //     ...emotions
+    // };
 
     const handleSubmit = (event) => {
-        setPlay(true);
+        setVideoPlay(true);
         event.preventDefault();
         setUrl(inputValue);
     };
@@ -43,6 +58,17 @@ const FaceApiVideo = () => {
         loadModels();
     }, []);
 
+    useEffect(() => {
+        // console.log('Video Play: ', videoPlay);
+        // console.log('Emotions', newEmotions);
+
+        if (!videoPlay) {
+            // console.log('entrou');
+            // console.log('setouEmotions', newEmotions);
+            // setEmotions(newEmotions);
+        }
+    }, [videoPlay]);
+
     const handleVideoUpload = (event) => {
         setVideoPath(URL.createObjectURL(event.target.files[0]));
     };
@@ -59,6 +85,7 @@ const FaceApiVideo = () => {
     };
 
     const handleVideoOnPlay = () => {
+        // console.log('UNO', emotions.angry.length, newEmotions.angry.length);
         startVideo();
         const interval = setInterval(async () => {
             //A CADA INTERVALO, CALCULA OS DADOS DA API
@@ -74,7 +101,6 @@ const FaceApiVideo = () => {
                 .withFaceLandmarks()
                 .withFaceExpressions();
             if (detections[0] !== undefined && leftVideo.ended !== true) {
-                const newEmotions = { ...emotions };
                 for (const x in detections[0].expressions) {
                     switch (x) {
                         case 'sad':
@@ -91,12 +117,19 @@ const FaceApiVideo = () => {
                             break;
                     }
                 }
-                setEmotions(newEmotions);
                 // await canvasRef.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
             }
-            if (leftVideo.ended) {
+            if (videoPlay && leftVideo.ended) {
+                setVideoPlay(false);
+                // console.log('EMOTIONS: ', emotions);
+                // console.log('NEWEMOTIONS: ', newEmotions);
+                setEmotions(newEmotions);
+                // if (!videoPlay) {
+                //     console.log('entrou');
+                //     setEmotions(newEmotions);
+                //     console.log('setouEmotions', newEmotions);
+                // }
                 clearInterval(interval);
-                setPlay(false);
             }
         }, 200);
     };
@@ -124,9 +157,9 @@ const FaceApiVideo = () => {
             </Button>
 
             {!showVideoOrImage && (
-                <VideoContainer>
-                    <span>{!initializing && play === true ? 'Analyzing' : ''}</span>
-                    {play && (
+                <div>
+                    <span>{!initializing && videoPlay ? 'Analyzing' : ''}</span>
+                    {videoPlay && (
                         <div>
                             <video
                                 poster="images/videologo.png"
@@ -134,25 +167,25 @@ const FaceApiVideo = () => {
                                 autoPlay
                                 muted
                                 src={videoFilePath}
-                                // height={videoHeight}
-                                // width={videoWidth}
+                                height={videoHeight}
+                                width={videoWidth}
                                 onPlay={handleVideoOnPlay}
                                 id="player"
                             />
                             <form onSubmit={(e) => handleSubmit(e)}>
-                                <SelectFile type="file" onChange={handleVideoUpload} />
+                                <input type="file" onChange={handleVideoUpload} />
                             </form>
                         </div>
                     )}
-                    {!play && (
+                    {!videoPlay && (
                         <>
                             <FormDialog />
-                            <Button onClick={() => window.location.reload()}>
+                            <button onClick={() => window.location.reload()}>
                                 Try other video
-                            </Button>
+                            </button>
                         </>
                     )}
-                </VideoContainer>
+                </div>
             )}
 
             {showVideoOrImage && (
