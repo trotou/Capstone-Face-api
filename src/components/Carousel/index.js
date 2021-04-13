@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Carousel from 'react-elastic-carousel';
-import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
+// import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 import { useServices } from '../../providers/Services';
 import { CarouselDiv, CarouselWrapper } from './styles';
 
@@ -12,27 +12,44 @@ const breakPoints = [
 ];
 
 const Carrosel = () => {
-    const { getUserVideos, getUserImages, getUser, deleteVideos } = useServices();
+    const {
+        getUserVideos,
+        getUserImages,
+        getUser,
+        deleteVideos,
+        deleteImages,
+        userId,
+        changes,
+        setChanges
+    } = useServices();
     const [videoList, setVideoList] = useState([]);
     const [imageList, setImages] = useState([]);
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [changes]);
 
     const fetchData = async () => {
         const user = await getUser();
         console.log(user);
-        const videos = await getUserVideos(user.id);
+        const videos = await getUserVideos(userId());
 
         console.log(videos);
-        const images = await getUserImages(user.id);
+        const images = await getUserImages(userId());
         console.log(images);
         setVideoList(videos);
         setImages(images);
     };
 
-    console.log(videoList);
+    const handleDeleteVid = (id) => {
+        deleteVideos(id);
+        setChanges(!changes);
+    };
+
+    const handleDeleteImg = (id) => {
+        deleteImages(id);
+        setChanges(!changes);
+    };
 
     return (
         <CarouselWrapper>
@@ -42,10 +59,10 @@ const Carrosel = () => {
                     {videoList &&
                         videoList.map((item, i) => (
                             <CarouselDiv key={i}>
-                                userId: {item.userId}
+                                title: {item.title}
                                 <br></br>
                                 date: {item.date}
-                                <button onClick={() => deleteVideos(item.id)}>Delete</button>
+                                <button onClick={() => handleDeleteVid(item.id)}>Delete</button>
                             </CarouselDiv>
                         ))}
                 </Carousel>
@@ -56,8 +73,9 @@ const Carrosel = () => {
                     {imageList &&
                         imageList.map((item, i) => (
                             <CarouselDiv key={i}>
-                                {item.userId}
+                                title: {item.title}
                                 <br /> date: {item.date}
+                                <button onClick={() => handleDeleteImg(item.id)}>Delete</button>
                             </CarouselDiv>
                         ))}
                 </Carousel>
