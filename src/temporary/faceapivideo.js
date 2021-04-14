@@ -160,7 +160,7 @@ const FaceApiVideo = () => {
                 <div>
                     <span>{!initializing && videoPlay ? 'Analyzing' : ''}</span>
                     {videoPlay && (
-                        <div>
+                        <VideoContainer>
                             <video
                                 poster="images/videologo.png"
                                 ref={videoRef}
@@ -175,7 +175,7 @@ const FaceApiVideo = () => {
                             <form onSubmit={(e) => handleSubmit(e)}>
                                 <input type="file" onChange={handleVideoUpload} />
                             </form>
-                        </div>
+                        </VideoContainer>
                     )}
                     {!videoPlay && (
                         <>

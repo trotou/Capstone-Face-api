@@ -55,6 +55,12 @@ export const VideoContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    padding: 1%;
+
+    border-radius: 15px;
+
+    background: #202020;
 `;
 
 export const ImageContainer = styled.div`
@@ -62,6 +68,12 @@ export const ImageContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    padding: 1%;
+
+    border-radius: 15px;
+
+    background: #202020;
 `;
 
 export const Button = styled.button`
