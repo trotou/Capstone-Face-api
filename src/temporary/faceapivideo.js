@@ -114,6 +114,7 @@ const FaceApiVideo = () => {
         const img = await faceapi.bufferToImage(imgFile);
         const myImg = document.getElementById('myImg');
         myImg.src = img.src;
+        setEmotions(detections[0])
         setData64(img.src);
     };
 
