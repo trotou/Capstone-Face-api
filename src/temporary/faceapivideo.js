@@ -8,6 +8,8 @@ import FormDialogImg from '../components/ModalAddImg';
 import VideoThumbnail from 'react-video-thumbnail';
 import { DefaultButtonAnimation, ChangeVideoAndImage } from '../components/AnimationComponents/';
 import PieGraph from '../components/PieGraph';
+import PieGraphVideo from '../components/PieGraphVideo';
+import LineGraph from '../components/LineGraph';
 
 // -------------------------------------------------
 const FaceApiVideo = () => {
@@ -172,6 +174,8 @@ const FaceApiVideo = () => {
                                 <button onClick={() => window.location.reload()}>
                                     Try other video
                                 </button>
+                                <PieGraphVideo />
+                                <LineGraph />
                             </>
                         )}
                     </div>
