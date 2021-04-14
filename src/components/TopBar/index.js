@@ -6,25 +6,34 @@ import { ButtonContainer } from './styles';
 import { TopBarStyles } from '../../Helpers/makeStyles';
 import Logo from '../../Helpers/Assets/logo.svg';
 
+import { useServices } from '../../providers/Services';
 import { useUserAuth } from '../../providers/UserAuth';
 
 // -------------------------------------------
 
 const TopBar = () => {
-    const [token, setToken] = useState(JSON.parse(localStorage.getItem('token')) || '');
-
+    const { getUser } = useServices();
     const { auth, setAuth } = useUserAuth();
+
+    const [userName, setUserName] = useState('');
+    const [token, setToken] = useState(JSON.parse(localStorage.getItem('token')) || '');
 
     const history = useHistory();
     const classes = TopBarStyles();
 
-    useEffect(() => {
+    const handleUserData = async () => {
+        const user = await getUser();
+        if (!user) return;
+        setUserName(user.name);
         setToken(JSON.parse(localStorage.getItem('token')) || '');
-        console.log('TopBar', auth);
+    };
+
+    useEffect(() => {
+        handleUserData();
     }, []);
 
     useEffect(() => {
-        setToken(JSON.parse(localStorage.getItem('token')) || '');
+        handleUserData();
     }, [auth]);
 
     const handleLogout = () => {
@@ -54,7 +63,7 @@ const TopBar = () => {
                 {token && (
                     <ButtonContainer>
                         <MenuItem>
-                            <Typography>Usuario</Typography>
+                            <Typography>{userName}</Typography>
                         </MenuItem>
                         <MenuItem className={classes.Buttons}>
                             <Button className={classes.menuButton} onClick={() => handleLogout()}>

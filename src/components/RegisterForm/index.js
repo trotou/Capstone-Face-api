@@ -69,9 +69,15 @@ const RegisterForm = () => {
                 />
                 <Btn type="submit">Register</Btn>
             </form>
-            <p>
-                Already have an account? <Link to="/login">Login</Link>
-            </p>
+            <div>
+                <p>
+                    Already have an account?
+                    <br />
+                    <Link className="link-form" to="/login">
+                        Login
+                    </Link>
+                </p>
+            </div>
         </Container>
     );
 };

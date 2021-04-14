@@ -6,11 +6,16 @@ import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import NotFoundPage from '../pages/NotFoundPage';
 
+import TopBar from '../components/TopBar';
+import Footer from '../components/Footer';
+
 const Routes = () => {
     return (
         <Switch>
             <Route exact path="/">
+                <TopBar />
                 <HomePage />
+                <Footer />
             </Route>
             <Route path="/login">
                 <LoginPage />

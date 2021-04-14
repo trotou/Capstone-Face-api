@@ -24,9 +24,7 @@ const LoginForm = () => {
     });
 
     const handleForm = (data) => {
-        login(data);
-        setAuth(auth);
-        history.push('/');
+        login(data, auth, setAuth, history);
     };
 
     return (
@@ -64,9 +62,15 @@ const LoginForm = () => {
 
                 <Btn type="submit">Login</Btn>
             </form>
-            <p>
-                Don’t have an account yet? <Link to="/register">Register</Link>
-            </p>
+            <div>
+                <p>
+                    Don’t have an account yet?
+                    <br />
+                    <Link className="link-form" to="/register">
+                        Register
+                    </Link>
+                </p>
+            </div>
         </Container>
     );
 };
