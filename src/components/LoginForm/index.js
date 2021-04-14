@@ -25,6 +25,7 @@ const LoginForm = () => {
 
     const handleForm = (data) => {
         login(data);
+        setAuth(auth);
         history.push('/');
     };
 

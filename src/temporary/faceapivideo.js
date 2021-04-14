@@ -5,6 +5,7 @@ import { Container, SelectFile, VideoContainer, ImageContainer, Button } from '.
 import { useEmotions } from '../providers/Emotions';
 import { useServices } from '../providers/Services/index';
 import { useVideoPlay } from '../providers/VideoPlay';
+import FormDialogImg from '../components/ModalAddImg';
 // import ImageUp from './image';
 
 const FaceApiVideo = () => {
@@ -198,6 +199,7 @@ const FaceApiVideo = () => {
                         accept=".jpg, .jpeg, .png"
                     />
                     <Button onClick={start}>Analyze</Button>
+                    <FormDialogImg />
                 </ImageContainer>
             )}
 

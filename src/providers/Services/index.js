@@ -1,5 +1,5 @@
 // react
-import React from 'react';
+import React, { useState } from 'react';
 
 // jwt decode
 import jwt_decode from 'jwt-decode';
@@ -12,6 +12,7 @@ const ServicesContext = React.createContext();
 
 export const ServicesProvider = ({ children }) => {
     const [token, setToken] = React.useState(() => JSON.parse(localStorage.getItem('token')) || '');
+    const [changes, setChanges] = useState(false);
 
     const registerForm = async (data) => {
         try {
@@ -37,7 +38,7 @@ export const ServicesProvider = ({ children }) => {
         }
     };
 
-    const userId = () => jwt_decode(token);
+    const userId = () => jwt_decode(token).sub;
 
     const getUser = async () => {
         try {
@@ -138,7 +139,9 @@ export const ServicesProvider = ({ children }) => {
                 getVideos,
                 getUserVideos,
                 deleteVideos,
-                deleteImages
+                deleteImages,
+                changes,
+                setChanges
             }}
         >
             {children}

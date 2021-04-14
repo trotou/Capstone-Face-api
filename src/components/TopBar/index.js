@@ -20,6 +20,11 @@ const TopBar = () => {
 
     useEffect(() => {
         setToken(JSON.parse(localStorage.getItem('token')) || '');
+        console.log('TopBar', auth);
+    }, []);
+
+    useEffect(() => {
+        setToken(JSON.parse(localStorage.getItem('token')) || '');
     }, [auth]);
 
     const handleLogout = () => {
