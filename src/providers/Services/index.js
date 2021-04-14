@@ -16,6 +16,11 @@ export const ServicesProvider = ({ children }) => {
     const [changes, setChanges] = React.useState(false);
     const [data64, setData64] = React.useState('');
 
+    React.useEffect(() => {
+        if (token) setAuth(true);
+        // eslint-disable-next-line
+    }, []);
+
     const registerForm = async (data) => {
         try {
             const response = await API.post('/register/', data);
@@ -24,13 +29,14 @@ export const ServicesProvider = ({ children }) => {
             localStorage.setItem('token', JSON.stringify(token));
             setToken(token);
         } catch (error) {
-            console.log(error);
+            console.log('Não registrou: ', error);
         }
     };
 
     const login = async (data) => {
         try {
             const response = await API.post('/login/', data);
+            console.log(response);
 
             const token = response.data.accessToken;
             localStorage.setItem('token', JSON.stringify(token));
@@ -38,7 +44,7 @@ export const ServicesProvider = ({ children }) => {
 
             setAuth(true);
         } catch (error) {
-            console.log(error);
+            console.log('Não logou: ', error);
         }
     };
 
@@ -55,7 +61,7 @@ export const ServicesProvider = ({ children }) => {
             const response = await API.get(`/users/${userId()}`, bearer(token));
             return response.data;
         } catch (error) {
-            console.log(error);
+            console.log('Não trouxe usuário: ', error);
         }
     };
 
@@ -63,7 +69,7 @@ export const ServicesProvider = ({ children }) => {
         try {
             await API.post('/videos/', data, bearer(token));
         } catch (error) {
-            console.log(error);
+            console.log('Não registrou vídeo: ', error);
         }
     };
 
@@ -71,7 +77,7 @@ export const ServicesProvider = ({ children }) => {
         try {
             await API.post('/images/', data, bearer(token));
         } catch (error) {
-            console.log(error);
+            console.log('Não registrou imagem: ', error);
         }
     };
 
@@ -81,7 +87,7 @@ export const ServicesProvider = ({ children }) => {
 
             return response.data;
         } catch (error) {
-            console.log(error);
+            console.log('Não trouxe imagens: ', error);
         }
     };
 
@@ -91,7 +97,7 @@ export const ServicesProvider = ({ children }) => {
 
             return response.data;
         } catch (error) {
-            console.log(error);
+            console.log('Não trouxe imagens: ', error);
         }
     };
 
@@ -101,7 +107,7 @@ export const ServicesProvider = ({ children }) => {
 
             return response.data;
         } catch (error) {
-            console.log(error);
+            console.log('Não trouxe vídeos: ', error);
         }
     };
 
@@ -111,7 +117,7 @@ export const ServicesProvider = ({ children }) => {
 
             return response.data;
         } catch (error) {
-            console.log(error);
+            console.log('Não trouxe vídeos: ', error);
         }
     };
 
@@ -121,7 +127,7 @@ export const ServicesProvider = ({ children }) => {
 
             return 'Deleted';
         } catch (error) {
-            console.log(error);
+            console.log('Não deletou os vídeos: ', error);
         }
     };
 
@@ -131,7 +137,7 @@ export const ServicesProvider = ({ children }) => {
 
             return 'Deleted';
         } catch (error) {
-            console.log(error);
+            console.log('Não deletou imagem: ', error);
         }
     };
 
