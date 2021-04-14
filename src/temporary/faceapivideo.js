@@ -7,10 +7,12 @@ import { useServices } from '../providers/Services';
 import FormDialogImg from '../components/ModalAddImg';
 import VideoThumbnail from 'react-video-thumbnail';
 import { DefaultButtonAnimation, ChangeVideoAndImage } from '../components/AnimationComponents/';
+import PieGraph from '../components/PieGraph';
 
 // -------------------------------------------------
 const FaceApiVideo = () => {
     const [showVideoOrImage, setShowVideoOrImage] = useState(false);
+    const [pie, setPie] = useState(false);
 
     const videoHeight = 200;
     const videoWidth = 320;
@@ -114,8 +116,13 @@ const FaceApiVideo = () => {
         const img = await faceapi.bufferToImage(imgFile);
         const myImg = document.getElementById('myImg');
         myImg.src = img.src;
-        const detections = await faceapi.detectAllFaces().withFaceLandmarks().withFaceExpressions();
+        const detections = await faceapi
+            .detectAllFaces(myImg)
+            .withFaceLandmarks()
+            .withFaceExpressions();
         console.log(detections[0].expressions);
+        setEmotions(detections[0].expressions);
+        setPie(true);
         setData64(img.src);
     };
 
@@ -170,19 +177,23 @@ const FaceApiVideo = () => {
                     </div>
                 </ChangeVideoAndImage>
             ) : (
-                <ChangeVideoAndImage>
-                    <ImageContainer>
-                        <img alt="" id="myImg" width="280px" height="280px" />
-                        <SelectFile
-                            id="myFileUpload"
-                            type="file"
-                            onChange={(e) => setUrl(e.target.value)}
-                            accept=".jpg, .jpeg, .png"
-                        />
-                        <Button onClick={start}>Analyze</Button>
-                        <FormDialogImg />
-                    </ImageContainer>
-                </ChangeVideoAndImage>
+                <>
+                    <ChangeVideoAndImage>
+                        <ImageContainer>
+                            <img alt="" id="myImg" width="280px" height="280px" />
+                            <SelectFile
+                                id="myFileUpload"
+                                type="file"
+                                onChange={(e) => setUrl(e.target.value)}
+                                accept=".jpg, .jpeg, .png"
+                                onClick={() => setEmotions('')}
+                            />
+                            <Button onClick={start}>Analyze</Button>
+                            <FormDialogImg />
+                        </ImageContainer>
+                    </ChangeVideoAndImage>
+                    {pie && <PieGraph />}
+                </>
             )}
             <canvas ref={canvasRef} />
         </Container>

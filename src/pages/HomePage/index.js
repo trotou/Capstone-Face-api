@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import FaceApiVideo from '../../temporary/faceapivideo';
-import LineGraph from '../../components/LineGraph';
+// import LineGraph from '../../components/LineGraph';
 import Carrosel from '../../components/Carousel';
 import TopBar from '../../components/TopBar';
 import Footer from '../../components/Footer';
@@ -20,7 +20,7 @@ const HomePage = () => {
             <TopBar />
             <Container>
                 <FaceApiVideo />
-                <LineGraph />
+                {/* <LineGraph /> */}
                 {auth && <Carrosel />}
             </Container>
             <Footer />

@@ -12,18 +12,20 @@ const PieGraph = () => {
             infoHolder.push({
                 id: emotionData,
                 label: emotionData,
-                value: (
-                    emotions[emotionData].reduce((accumulator, currentValue) => {
-                        return accumulator + parseFloat(currentValue);
-                    }, 0) / emotions[emotionData].length
-                ).toFixed(2)
+                value: emotions[emotionData]
+                // value: (
+                //     emotions[emotionData].reduce((accumulator, currentValue) => {
+                //         return accumulator + parseFloat(currentValue);
+                //     }, 0) / emotions[emotionData].length
+                // ).toFixed(2)
             });
+            console.log(emotionData);
         }
         setTreatedEmotionsData(infoHolder);
     }, [emotions]);
 
     return (
-        <div style={{ width: '300px', height: '300px' }}>
+        <div style={{ width: '400px', height: '400px' }}>
             <ResponsivePie
                 data={treatedEmotionsData}
                 margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
