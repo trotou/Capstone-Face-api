@@ -13,7 +13,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 export default function FormDialogImg() {
     const [open, setOpen] = React.useState(false);
-    const { imageRegister, userId, changes, setChanges } = useServices();
+    const { imageRegister, userId, changes, setChanges, data64 } = useServices();
     const { emotions } = useEmotions();
 
     const handleClickOpen = () => {
@@ -40,7 +40,8 @@ export default function FormDialogImg() {
             title: data.title,
             emotions: emotions,
             date: data.date,
-            userId: userId()
+            userId: userId(),
+            base: data64
         });
         setOpen(false);
         setChanges(!changes);

@@ -13,6 +13,7 @@ const ServicesContext = React.createContext();
 export const ServicesProvider = ({ children }) => {
     const [token, setToken] = React.useState(() => JSON.parse(localStorage.getItem('token')) || '');
     const [changes, setChanges] = useState(false);
+    const [data64, setData64] = useState('');    
 
     const registerForm = async (data) => {
         try {
@@ -141,7 +142,9 @@ export const ServicesProvider = ({ children }) => {
                 deleteVideos,
                 deleteImages,
                 changes,
-                setChanges
+                setChanges,
+                data64,
+                setData64
             }}
         >
             {children}

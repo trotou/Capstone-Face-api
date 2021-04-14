@@ -6,7 +6,7 @@ import { useEmotions } from '../providers/Emotions';
 import { useServices } from '../providers/Services/index';
 import { useVideoPlay } from '../providers/VideoPlay';
 import FormDialogImg from '../components/ModalAddImg';
-// import ImageUp from './image';
+import VideoThumbnail from 'react-video-thumbnail';
 
 const FaceApiVideo = () => {
     const [showVideoOrImage, setShowVideoOrImage] = useState(false);
@@ -17,6 +17,7 @@ const FaceApiVideo = () => {
     const videoRef = useRef(); //SRC DO VIDEO
     const canvasRef = useRef();
     const [videoFilePath, setVideoPath] = useState(null);
+    const { setData64 } = useServices();
     const { emotions, setEmotions } = useEmotions();
     // const { videoPlay, setVideoPlay } = useVideoPlay();
     const [videoPlay, setVideoPlay] = useState(true);
@@ -32,10 +33,6 @@ const FaceApiVideo = () => {
         sad: [0],
         surprised: [0]
     };
-
-    // const newEmotions = {
-    //     ...emotions
-    // };
 
     const handleSubmit = (event) => {
         setVideoPlay(true);
@@ -60,12 +57,7 @@ const FaceApiVideo = () => {
     }, []);
 
     useEffect(() => {
-        // console.log('Video Play: ', videoPlay);
-        // console.log('Emotions', newEmotions);
-
         if (!videoPlay) {
-            // console.log('entrou');
-            // console.log('setouEmotions', newEmotions);
             // setEmotions(newEmotions);
         }
     }, [videoPlay]);
@@ -86,16 +78,12 @@ const FaceApiVideo = () => {
     };
 
     const handleVideoOnPlay = () => {
-        // console.log('UNO', emotions.angry.length, newEmotions.angry.length);
         startVideo();
         const interval = setInterval(async () => {
             //A CADA INTERVALO, CALCULA OS DADOS DA API
             if (initializing) {
                 setInitializing(false);
             }
-            // canvasRef.current.innerHTML = faceapi.createCanvasFromMedia(videoRef.current);
-            // const displaySize = { width: videoWidth, height: videoHeight };
-            // faceapi.matchDimensions(canvasRef.current, displaySize);
 
             const detections = await faceapi
                 .detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions())
@@ -118,12 +106,9 @@ const FaceApiVideo = () => {
                             break;
                     }
                 }
-                // await canvasRef.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
             }
             if (videoPlay && leftVideo.ended) {
                 setVideoPlay(false);
-                // console.log('EMOTIONS: ', emotions);
-                // console.log('NEWEMOTIONS: ', newEmotions);
                 setEmotions(newEmotions);
                 // if (!videoPlay) {
                 //     console.log('entrou');
@@ -145,7 +130,7 @@ const FaceApiVideo = () => {
             .detectAllFaces(myImg)
             .withFaceLandmarks()
             .withFaceExpressions();
-        console.log(detections[0].expressions);
+        setData64(img.src);
     };
 
     return (
@@ -178,9 +163,15 @@ const FaceApiVideo = () => {
                             </form>
                         </div>
                     )}
+                    <VideoThumbnail
+                        renderThumbnail={false}
+                        videoUrl={videoFilePath}
+                        thumbnailHandler={(thumbnail) => setData64(thumbnail)}
+                    />
                     {!videoPlay && (
                         <>
                             <FormDialog />
+
                             <button onClick={() => window.location.reload()}>
                                 Try other video
                             </button>

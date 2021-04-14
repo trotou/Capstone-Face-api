@@ -4,7 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-// import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { useServices } from '../../providers/Services';
 import { useEmotions } from '../../providers/Emotions';
@@ -14,7 +13,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 export default function FormDialog() {
     const [open, setOpen] = React.useState(false);
-    const { videoRegister, userId, changes, setChanges } = useServices();
+    const { videoRegister, userId, changes, setChanges, data64 } = useServices();
     const { emotions } = useEmotions();
 
     const handleClickOpen = () => {
@@ -37,16 +36,16 @@ export default function FormDialog() {
     });
 
     const handleForm = (data) => {
-        console.log(data.title);
-        console.log(data.date);
         videoRegister({
             title: data.title,
             emotions: emotions,
             date: data.date,
-            userId: userId()
+            userId: userId(),
+            base: data64
         });
+        setChanges(!changes);
         setOpen(false);
-        setChanges(!changes)
+        console.log('foi o video');
     };
 
     return (
@@ -80,7 +79,7 @@ export default function FormDialog() {
                     <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={handleSubmit(handleForm)} color="primary">
+                    <Button type="submit" onClick={handleSubmit(handleForm)} color="primary">
                         Done
                     </Button>
                 </DialogActions>
