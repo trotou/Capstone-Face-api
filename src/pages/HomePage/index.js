@@ -15,7 +15,6 @@ const HomePage = () => {
 
     useEffect(() => {
         setToken(JSON.parse(localStorage.getItem('token')) || '');
-        console.log('HomePage', auth);
     }, []);
 
     useEffect(() => {

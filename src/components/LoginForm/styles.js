@@ -70,4 +70,12 @@ export const Container = styled.div`
         font-size: 1.2rem;
         color: #e5e4e4;
     }
+
+    .link-form {
+        color: #e5e4e4;
+
+        text-decoration: none;
+
+        cursor: pointer;
+    }
 `;

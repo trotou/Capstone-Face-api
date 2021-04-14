@@ -26,13 +26,14 @@ export const ServicesProvider = ({ children }) => {
         }
     };
 
-    const login = async (data) => {
+    const login = async (data, auth, setAuth, history) => {
         try {
             const response = await API.post('/login/', data);
-
             const token = response.data.accessToken;
             localStorage.setItem('token', JSON.stringify(token));
             setToken(token);
+            setAuth(auth);
+            history.push('/');
         } catch (error) {
             console.log(error);
         }
