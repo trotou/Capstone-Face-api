@@ -35,6 +35,10 @@ export const TopBarStyles = makeStyles({
     },
     logo: {
         width: '3rem',
-        height: '3rem'
+        height: '3rem',
+
+        '&hover': {
+            background: '#fff'
+        }
     }
 });

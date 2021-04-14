@@ -1,20 +1,16 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useHistory, Link } from 'react-router-dom';
-
+import { useHistory, Link, Redirect } from 'react-router-dom';
 import { Container, Btn, Input } from './styles';
 import { useServices } from '../../providers/Services';
 import { userLoginSchema } from '../../Helpers/Constants/schemas';
+import { DefaultButtonAnimation } from '../AnimationComponents/';
 import Logo from '../../Helpers/Assets/logo.svg';
-
-import { useUserAuth } from '../../providers/UserAuth';
 
 // ------------------------------------------------
 const LoginForm = () => {
-    const { auth, setAuth } = useUserAuth();
-
     const history = useHistory();
-    const { login } = useServices();
+    const { login, auth } = useServices();
     const {
         register,
         handleSubmit,
@@ -24,13 +20,22 @@ const LoginForm = () => {
     });
 
     const handleForm = (data) => {
-        login(data, auth, setAuth, history);
+        login(data);
+        history.push('/');
     };
 
-    return (
+    const goToHome = () => {
+        history.push('/');
+    };
+
+    return !auth ? (
         <Container>
             <div className="div_svg">
-                <img src={Logo} alt="Logo" />
+                <DefaultButtonAnimation>
+                    <Link to="/">
+                        <img src={Logo} alt="Logo" onClick={goToHome} />
+                    </Link>
+                </DefaultButtonAnimation>
             </div>
 
             <h1>Login</h1>
@@ -72,6 +77,8 @@ const LoginForm = () => {
                 </p>
             </div>
         </Container>
+    ) : (
+        <Redirect to="/" />
     );
 };
 
