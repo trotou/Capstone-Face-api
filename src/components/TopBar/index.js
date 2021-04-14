@@ -5,6 +5,7 @@ import { AppBar, Toolbar, MenuItem, Button, Typography } from '@material-ui/core
 import { ButtonContainer } from './styles';
 import { TopBarStyles } from '../../Helpers/makeStyles';
 import Logo from '../../Helpers/Assets/logo.svg';
+import { DefaultButtonAnimation } from '../AnimationComponents/';
 
 import { useServices } from '../../providers/Services';
 import { useUserAuth } from '../../providers/UserAuth';
@@ -44,20 +45,27 @@ const TopBar = () => {
     return (
         <AppBar position="static" className={classes.header}>
             <Toolbar className={classes.toolbar}>
-                <MenuItem onClick={() => history.push('/')}>
-                    <div className={classes.logo}>
-                        <img src={Logo} alt="Logo" />
-                    </div>
-                </MenuItem>
+                <DefaultButtonAnimation>
+                    <MenuItem onClick={() => history.push('/')}>
+                        <div className={classes.logo}>
+                            <img src={Logo} alt="Logo" />
+                        </div>
+                    </MenuItem>
+                </DefaultButtonAnimation>
 
                 {!token && (
                     <ButtonContainer>
-                        <MenuItem onClick={() => history.push('/login')}>
-                            <Button className={classes.menuButton}>Login</Button>
-                        </MenuItem>
-                        <MenuItem onClick={() => history.push('/register')}>
-                            <Button className={classes.menuButton}>Register</Button>
-                        </MenuItem>
+                        <DefaultButtonAnimation>
+                            <MenuItem onClick={() => history.push('/login')}>
+                                <Button className={classes.menuButton}>Login</Button>
+                            </MenuItem>
+                        </DefaultButtonAnimation>
+
+                        <DefaultButtonAnimation>
+                            <MenuItem onClick={() => history.push('/register')}>
+                                <Button className={classes.menuButton}>Register</Button>
+                            </MenuItem>
+                        </DefaultButtonAnimation>
                     </ButtonContainer>
                 )}
                 {token && (

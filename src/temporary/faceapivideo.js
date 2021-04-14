@@ -6,6 +6,8 @@ import { useEmotions } from '../providers/Emotions';
 import { useServices } from '../providers/Services/index';
 import { useVideoPlay } from '../providers/VideoPlay';
 import FormDialogImg from '../components/ModalAddImg';
+
+import { DefaultButtonAnimation, ChangeVideoAndImage } from '../components/AnimationComponents/';
 // import ImageUp from './image';
 
 const FaceApiVideo = () => {
@@ -150,59 +152,65 @@ const FaceApiVideo = () => {
 
     return (
         <Container>
-            <Button
-                className="button-Change"
-                onClick={() => setShowVideoOrImage(!showVideoOrImage)}
-            >
-                {showVideoOrImage ? 'Analyze Video' : 'Analyze Imagem'}
-            </Button>
+            <div className="div-button">
+                <DefaultButtonAnimation>
+                    <Button
+                        className="button-Change"
+                        onClick={() => setShowVideoOrImage(!showVideoOrImage)}
+                    >
+                        {showVideoOrImage ? 'Analyze Video' : 'Analyze Imagem'}
+                    </Button>
+                </DefaultButtonAnimation>
+            </div>
 
             {!showVideoOrImage && (
-                <div>
-                    <span>{!initializing && videoPlay ? 'Analyzing' : ''}</span>
-                    {videoPlay && (
-                        <VideoContainer>
-                            <video
-                                poster="images/videologo.png"
-                                ref={videoRef}
-                                autoPlay
-                                muted
-                                src={videoFilePath}
-                                height={videoHeight}
-                                width={videoWidth}
-                                onPlay={handleVideoOnPlay}
-                                id="player"
-                            />
-                            <form onSubmit={(e) => handleSubmit(e)}>
-                                <input type="file" onChange={handleVideoUpload} />
-                            </form>
-                        </VideoContainer>
-                    )}
-                    {!videoPlay && (
-                        <>
-                            <FormDialog />
-                            <button onClick={() => window.location.reload()}>
-                                Try other video
-                            </button>
-                        </>
-                    )}
-                </div>
+                <ChangeVideoAndImage>
+                    <div>
+                        <span>{!initializing && videoPlay ? 'Analyzing' : ''}</span>
+                        {videoPlay && (
+                            <VideoContainer>
+                                <video
+                                    poster="images/videologo.png"
+                                    ref={videoRef}
+                                    autoPlay
+                                    muted
+                                    src={videoFilePath}
+                                    height={videoHeight}
+                                    width={videoWidth}
+                                    onPlay={handleVideoOnPlay}
+                                    id="player"
+                                />
+                                <form onSubmit={(e) => handleSubmit(e)}>
+                                    <input type="file" onChange={handleVideoUpload} />
+                                </form>
+                            </VideoContainer>
+                        )}
+                        {!videoPlay && (
+                            <>
+                                <FormDialog />
+                                <button onClick={() => window.location.reload()}>
+                                    Try other video
+                                </button>
+                            </>
+                        )}
+                    </div>
+                </ChangeVideoAndImage>
             )}
-
             {showVideoOrImage && (
-                <ImageContainer>
-                    <img alt="" id="myImg" width="280px" height="280px" />
-                    <SelectFile
-                        id="myFileUpload"
-                        type="file"
-                        onChange={(e) => setUrl(e.target.value)}
-                        accept=".jpg, .jpeg, .png"
-                    />
-                    <Button onClick={start}>Analyze</Button>
-                    <FormDialogImg />
-                </ImageContainer>
+                <ChangeVideoAndImage>
+                    <ImageContainer>
+                        <img alt="" id="myImg" width="280px" height="280px" />
+                        <SelectFile
+                            id="myFileUpload"
+                            type="file"
+                            onChange={(e) => setUrl(e.target.value)}
+                            accept=".jpg, .jpeg, .png"
+                        />
+                        <Button onClick={start}>Analyze</Button>
+                        <FormDialogImg />
+                    </ImageContainer>
+                </ChangeVideoAndImage>
             )}
-
             <canvas ref={canvasRef} />
         </Container>
     );

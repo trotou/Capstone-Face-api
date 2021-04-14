@@ -5,6 +5,8 @@ import { useHistory, Link } from 'react-router-dom';
 import { Container, Btn, Input } from './styles';
 import { useServices } from '../../providers/Services';
 import { userLoginSchema } from '../../Helpers/Constants/schemas';
+
+import { DefaultButtonAnimation } from '../AnimationComponents/';
 import Logo from '../../Helpers/Assets/logo.svg';
 
 import { useUserAuth } from '../../providers/UserAuth';
@@ -30,7 +32,11 @@ const LoginForm = () => {
     return (
         <Container>
             <div className="div_svg">
-                <img src={Logo} alt="Logo" />
+                <DefaultButtonAnimation>
+                    <Link to="/">
+                        <img src={Logo} alt="Logo" />
+                    </Link>
+                </DefaultButtonAnimation>
             </div>
 
             <h1>Login</h1>

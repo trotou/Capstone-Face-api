@@ -1,10 +1,17 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+    @media (max-width: 650px) {
+        height: 75vh;
+        margin: 0 auto;
+        margin-bottom: 10%;
+    }
+
     width: 80%;
-    height: auto;
+    height: 60vh;
 
     margin: 0 auto;
+    margin-bottom: 5%;
 
     display: flex;
     flex-direction: column;
@@ -12,8 +19,19 @@ export const Container = styled.div`
 
     color: #fff;
 
+    .div-button {
+        width: 80%;
+        height: 5rem;
+
+        margin: 5% 0%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .button-Change {
-        width: auto;
+        width: 10rem;
         height: 2rem;
 
         display: flex;
@@ -64,11 +82,14 @@ export const VideoContainer = styled.div`
 `;
 
 export const ImageContainer = styled.div`
+    width: 90%;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
+    margin: 0 auto;
     padding: 1%;
 
     border-radius: 15px;
