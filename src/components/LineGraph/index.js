@@ -1,7 +1,7 @@
+import { useEffect, useState } from 'react';
 import { ResponsiveAreaBump } from '@nivo/bump';
 import { Container } from './styles';
 import { useEmotions } from '../../providers/Emotions';
-import { useEffect, useState } from 'react';
 
 const LineGraph = () => {
     const [treatedEmotionsData, setTreatedEmotionsData] = useState({
@@ -64,7 +64,13 @@ const LineGraph = () => {
 
     return (
         <Container>
-            <div style={{ width: `${data[0].data.length * 25}px`, height: '50vh', overflow: 'hidden' }}>
+            <div
+                style={{
+                    width: `${data[0].data.length * 25}px`,
+                    height: '50vh',
+                    overflow: 'hidden'
+                }}
+            >
                 <ResponsiveAreaBump
                     data={data}
                     margin={{ top: 40, right: 100, bottom: 40, left: 100 }}

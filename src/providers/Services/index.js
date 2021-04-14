@@ -1,5 +1,5 @@
 // react
-import React, { useState } from 'react';
+import React from 'react';
 
 // jwt decode
 import jwt_decode from 'jwt-decode';
@@ -12,7 +12,8 @@ const ServicesContext = React.createContext();
 
 export const ServicesProvider = ({ children }) => {
     const [token, setToken] = React.useState(() => JSON.parse(localStorage.getItem('token')) || '');
-    const [changes, setChanges] = useState(false);
+    const [auth, setAuth] = React.useState(false);
+    const [changes, setChanges] = React.useState(false);
 
     const registerForm = async (data) => {
         try {
@@ -26,17 +27,24 @@ export const ServicesProvider = ({ children }) => {
         }
     };
 
-    const login = async (data, auth, setAuth, history) => {
+    const login = async (data) => {
         try {
             const response = await API.post('/login/', data);
+
             const token = response.data.accessToken;
             localStorage.setItem('token', JSON.stringify(token));
             setToken(token);
-            setAuth(auth);
-            history.push('/');
+
+            setAuth(true);
         } catch (error) {
             console.log(error);
         }
+    };
+
+    const logout = () => {
+        localStorage.clear();
+        setToken('');
+        setAuth(false);
     };
 
     const userId = () => jwt_decode(token).sub;
@@ -141,6 +149,8 @@ export const ServicesProvider = ({ children }) => {
                 getUserVideos,
                 deleteVideos,
                 deleteImages,
+                auth,
+                logout,
                 changes,
                 setChanges
             }}

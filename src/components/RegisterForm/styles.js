@@ -61,6 +61,10 @@ export const Container = styled.div`
         width: 7rem;
         height: 5rem;
         margin-top: 30px;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 
     .btn__login {

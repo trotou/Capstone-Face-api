@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Carousel from 'react-elastic-carousel';
-// import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 import { useServices } from '../../providers/Services';
 import { CarouselDiv, CarouselWrapper } from './styles';
 
@@ -32,11 +31,13 @@ const Carrosel = () => {
     const fetchData = async () => {
         const user = await getUser();
         console.log(user);
-        const videos = await getUserVideos(userId());
 
+        const videos = await getUserVideos(userId());
         console.log(videos);
+
         const images = await getUserImages(userId());
         console.log(images);
+
         setVideoList(videos);
         setImages(images);
     };

@@ -1,21 +1,30 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-// import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { useServices } from '../../providers/Services';
-import { useEmotions } from '../../providers/Emotions';
-import * as yup from 'yup';
+import {
+    Button,
+    TextField,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle
+} from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { userVideoAddSchema } from '../../Helpers/Constants/schemas';
+import { useServices } from '../../providers/Services';
+import { useEmotions } from '../../providers/Emotions';
 
-export default function FormDialog() {
+// ----------------------------------------------------
+const FormDialog = () => {
     const [open, setOpen] = React.useState(false);
     const { videoRegister, userId, changes, setChanges } = useServices();
     const { emotions } = useEmotions();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors }
+    } = useForm({
+        resolver: yupResolver(userVideoAddSchema)
+    });
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -24,17 +33,6 @@ export default function FormDialog() {
     const handleClose = () => {
         setOpen(false);
     };
-    const userVideoAddSchema = yup.object().shape({
-        title: yup.string().required('campo obrigatório'),
-        date: yup.date().required('campo obrigatório')
-    });
-    const {
-        register,
-        handleSubmit,
-        formState: { errors }
-    } = useForm({
-        resolver: yupResolver(userVideoAddSchema)
-    });
 
     const handleForm = (data) => {
         console.log(data.title);
@@ -45,8 +43,8 @@ export default function FormDialog() {
             date: data.date,
             userId: userId()
         });
-        setOpen(false);
-        setChanges(!changes)
+        handleClose();
+        setChanges(!changes);
     };
 
     return (
@@ -87,4 +85,6 @@ export default function FormDialog() {
             </Dialog>
         </div>
     );
-}
+};
+
+export default FormDialog;

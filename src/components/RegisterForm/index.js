@@ -1,7 +1,6 @@
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory, Link, Redirect } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-
 import { Container, Btn, Input } from './styles';
 import { useServices } from '../../providers/Services';
 import { userRegisterSchema } from '../../Helpers/Constants/schemas';
@@ -10,8 +9,7 @@ import Logo from '../../Helpers/Assets/logo.svg';
 // -------------------------------------------
 const RegisterForm = () => {
     const history = useHistory();
-    const { registerForm } = useServices();
-
+    const { registerForm, auth } = useServices();
     const {
         register,
         handleSubmit,
@@ -25,9 +23,13 @@ const RegisterForm = () => {
         history.push('/login');
     };
 
-    return (
+    const goToHome = () => {
+        history.push('/');
+    };
+
+    return !auth ? (
         <Container>
-            <div className="div_svg">
+            <div className="div_svg" onClick={goToHome}>
                 <img src={Logo} alt="Logo" />
             </div>
 
@@ -79,6 +81,8 @@ const RegisterForm = () => {
                 </p>
             </div>
         </Container>
+    ) : (
+        <Redirect to="/" />
     );
 };
 

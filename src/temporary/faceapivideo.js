@@ -1,12 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
 import * as faceapi from 'face-api.js';
 import FormDialog from '../components/ModalAddVideo';
-import { Container, SelectFile, VideoContainer, ImageContainer, Button } from './faceVideoStyles';
+import { Container, SelectFile, ImageContainer, Button } from './faceVideoStyles';
 import { useEmotions } from '../providers/Emotions';
-import { useServices } from '../providers/Services/index';
-import { useVideoPlay } from '../providers/VideoPlay';
 import FormDialogImg from '../components/ModalAddImg';
-// import ImageUp from './image';
 
 const FaceApiVideo = () => {
     const [showVideoOrImage, setShowVideoOrImage] = useState(false);
@@ -17,11 +14,9 @@ const FaceApiVideo = () => {
     const videoRef = useRef(); //SRC DO VIDEO
     const canvasRef = useRef();
     const [videoFilePath, setVideoPath] = useState(null);
-    const { emotions, setEmotions } = useEmotions();
-    // const { videoPlay, setVideoPlay } = useVideoPlay();
+    const { setEmotions } = useEmotions();
     const [videoPlay, setVideoPlay] = useState(true);
-
-    const [inputValue, setInputValue] = useState('');
+    // const [inputValue, setInputValue] = useState('');
     const [url, setUrl] = useState('');
     const newEmotions = {
         angry: [0],
@@ -33,14 +28,10 @@ const FaceApiVideo = () => {
         surprised: [0]
     };
 
-    // const newEmotions = {
-    //     ...emotions
-    // };
-
     const handleSubmit = (event) => {
         setVideoPlay(true);
         event.preventDefault();
-        setUrl(inputValue);
+        // setUrl(inputValue);
     };
 
     useEffect(() => {
@@ -59,17 +50,6 @@ const FaceApiVideo = () => {
         loadModels();
     }, []);
 
-    useEffect(() => {
-        // console.log('Video Play: ', videoPlay);
-        // console.log('Emotions', newEmotions);
-
-        if (!videoPlay) {
-            // console.log('entrou');
-            // console.log('setouEmotions', newEmotions);
-            // setEmotions(newEmotions);
-        }
-    }, [videoPlay]);
-
     const handleVideoUpload = (event) => {
         setVideoPath(URL.createObjectURL(event.target.files[0]));
     };
@@ -86,21 +66,19 @@ const FaceApiVideo = () => {
     };
 
     const handleVideoOnPlay = () => {
-        // console.log('UNO', emotions.angry.length, newEmotions.angry.length);
         startVideo();
+
         const interval = setInterval(async () => {
             //A CADA INTERVALO, CALCULA OS DADOS DA API
             if (initializing) {
                 setInitializing(false);
             }
-            // canvasRef.current.innerHTML = faceapi.createCanvasFromMedia(videoRef.current);
-            // const displaySize = { width: videoWidth, height: videoHeight };
-            // faceapi.matchDimensions(canvasRef.current, displaySize);
 
             const detections = await faceapi
                 .detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions())
                 .withFaceLandmarks()
                 .withFaceExpressions();
+
             if (detections[0] !== undefined && leftVideo.ended !== true) {
                 for (const x in detections[0].expressions) {
                     switch (x) {
@@ -118,34 +96,28 @@ const FaceApiVideo = () => {
                             break;
                     }
                 }
-                // await canvasRef.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
             }
+
             if (videoPlay && leftVideo.ended) {
                 setVideoPlay(false);
-                // console.log('EMOTIONS: ', emotions);
-                // console.log('NEWEMOTIONS: ', newEmotions);
                 setEmotions(newEmotions);
-                // if (!videoPlay) {
-                //     console.log('entrou');
-                //     setEmotions(newEmotions);
-                //     console.log('setouEmotions', newEmotions);
-                // }
                 clearInterval(interval);
             }
         }, 100);
     };
 
     const start = async () => {
-        // setUrl(value);
         const imgFile = document.getElementById('myFileUpload').files[0];
         const img = await faceapi.bufferToImage(imgFile);
         const myImg = document.getElementById('myImg');
         myImg.src = img.src;
-        const detections = await faceapi
-            .detectAllFaces(myImg)
-            .withFaceLandmarks()
-            .withFaceExpressions();
-        console.log(detections[0].expressions);
+
+        // const detections = await faceapi
+        //     .detectAllFaces(myImg)
+        //     .withFaceLandmarks()
+        //     .withFaceExpressions();
+
+        // console.log(detections[0].expressions);
     };
 
     return (
