@@ -30,8 +30,8 @@ const HomePage = () => {
         >
             <Container>
                 <FaceApiVideo />
-                {token && <Carrosel />}
                 <LineGraph />
+                {token && <Carrosel />}
             </Container>
         </motion.div>
     );
