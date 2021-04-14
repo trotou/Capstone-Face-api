@@ -19,8 +19,10 @@ const Carrosel = () => {
         deleteImages,
         userId,
         changes,
-        setChanges
+        setChanges,
+        data64
     } = useServices();
+
     const [videoList, setVideoList] = useState([]);
     const [imageList, setImages] = useState([]);
 
@@ -64,6 +66,7 @@ const Carrosel = () => {
                                 <br></br>
                                 date: {item.date}
                                 <button onClick={() => handleDeleteVid(item.id)}>Delete</button>
+                                <img alt="" src={item.base} width="200px" height="200px" />
                             </CarouselDiv>
                         ))}
                 </Carousel>
@@ -77,6 +80,7 @@ const Carrosel = () => {
                                 title: {item.title}
                                 <br /> date: {item.date}
                                 <button onClick={() => handleDeleteImg(item.id)}>Delete</button>
+                                <img alt="" src={item.base} width="200px" height="200px" />
                             </CarouselDiv>
                         ))}
                 </Carousel>

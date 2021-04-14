@@ -3,7 +3,9 @@ import * as faceapi from 'face-api.js';
 import FormDialog from '../components/ModalAddVideo';
 import { Container, SelectFile, ImageContainer, Button } from './faceVideoStyles';
 import { useEmotions } from '../providers/Emotions';
+import { useServices } from '../providers/Services';
 import FormDialogImg from '../components/ModalAddImg';
+import VideoThumbnail from 'react-video-thumbnail';
 
 const FaceApiVideo = () => {
     const [showVideoOrImage, setShowVideoOrImage] = useState(false);
@@ -14,9 +16,9 @@ const FaceApiVideo = () => {
     const videoRef = useRef(); //SRC DO VIDEO
     const canvasRef = useRef();
     const [videoFilePath, setVideoPath] = useState(null);
+    const { setData64 } = useServices();
     const { setEmotions } = useEmotions();
     const [videoPlay, setVideoPlay] = useState(true);
-    // const [inputValue, setInputValue] = useState('');
     const [url, setUrl] = useState('');
     const newEmotions = {
         angry: [0],
@@ -31,7 +33,6 @@ const FaceApiVideo = () => {
     const handleSubmit = (event) => {
         setVideoPlay(true);
         event.preventDefault();
-        // setUrl(inputValue);
     };
 
     useEffect(() => {
@@ -111,13 +112,11 @@ const FaceApiVideo = () => {
         const img = await faceapi.bufferToImage(imgFile);
         const myImg = document.getElementById('myImg');
         myImg.src = img.src;
-
         // const detections = await faceapi
         //     .detectAllFaces(myImg)
         //     .withFaceLandmarks()
         //     .withFaceExpressions();
-
-        // console.log(detections[0].expressions);
+        setData64(img.src);
     };
 
     return (
@@ -150,9 +149,15 @@ const FaceApiVideo = () => {
                             </form>
                         </div>
                     )}
+                    <VideoThumbnail
+                        renderThumbnail={false}
+                        videoUrl={videoFilePath}
+                        thumbnailHandler={(thumbnail) => setData64(thumbnail)}
+                    />
                     {!videoPlay && (
                         <>
                             <FormDialog />
+
                             <button onClick={() => window.location.reload()}>
                                 Try other video
                             </button>

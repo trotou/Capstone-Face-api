@@ -16,7 +16,7 @@ import { useEmotions } from '../../providers/Emotions';
 // ----------------------------------------------------
 const FormDialog = () => {
     const [open, setOpen] = React.useState(false);
-    const { videoRegister, userId, changes, setChanges } = useServices();
+    const { videoRegister, userId, changes, setChanges, data64 } = useServices();
     const { emotions } = useEmotions();
     const {
         register,
@@ -35,13 +35,12 @@ const FormDialog = () => {
     };
 
     const handleForm = (data) => {
-        console.log(data.title);
-        console.log(data.date);
         videoRegister({
             title: data.title,
             emotions: emotions,
             date: data.date,
-            userId: userId()
+            userId: userId(),
+            base: data64
         });
         handleClose();
         setChanges(!changes);
@@ -78,7 +77,7 @@ const FormDialog = () => {
                     <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={handleSubmit(handleForm)} color="primary">
+                    <Button type="submit" onClick={handleSubmit(handleForm)} color="primary">
                         Done
                     </Button>
                 </DialogActions>
