@@ -1,5 +1,4 @@
 import { Container, YellowCircle } from './styles';
-import { LogoAnimation } from '../AnimationComponents/';
 
 const Footer = () => {
     return (

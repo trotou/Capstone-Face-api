@@ -21,6 +21,7 @@ const LoginForm = () => {
 
     const handleForm = (data) => {
         login(data);
+
         history.push('/');
     };
 
