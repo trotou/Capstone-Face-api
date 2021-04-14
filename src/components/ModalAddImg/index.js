@@ -4,7 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-// import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { useServices } from '../../providers/Services';
 import { useEmotions } from '../../providers/Emotions';
@@ -12,9 +11,9 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-export default function FormDialog() {
+export default function FormDialogImg() {
     const [open, setOpen] = React.useState(false);
-    const { videoRegister, userId, changes, setChanges } = useServices();
+    const { imageRegister, userId, changes, setChanges } = useServices();
     const { emotions } = useEmotions();
 
     const handleClickOpen = () => {
@@ -24,7 +23,7 @@ export default function FormDialog() {
     const handleClose = () => {
         setOpen(false);
     };
-    const userVideoAddSchema = yup.object().shape({
+    const userImgAddSchema = yup.object().shape({
         title: yup.string().required('campo obrigatório'),
         date: yup.date().required('campo obrigatório')
     });
@@ -33,29 +32,27 @@ export default function FormDialog() {
         handleSubmit,
         formState: { errors }
     } = useForm({
-        resolver: yupResolver(userVideoAddSchema)
+        resolver: yupResolver(userImgAddSchema)
     });
 
     const handleForm = (data) => {
-        console.log(data.title);
-        console.log(data.date);
-        videoRegister({
+        imageRegister({
             title: data.title,
             emotions: emotions,
             date: data.date,
             userId: userId()
         });
         setOpen(false);
-        setChanges(!changes)
+        setChanges(!changes);
     };
 
     return (
         <div>
             <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                Save video stats
+                Save img stats
             </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Video Title</DialogTitle>
+                <DialogTitle id="form-dialog-title">Image Title</DialogTitle>
                 <DialogContent>
                     <TextField
                         margin="dense"
