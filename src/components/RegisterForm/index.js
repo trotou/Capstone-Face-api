@@ -1,17 +1,16 @@
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory, Link, Redirect } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-
 import { Container, Btn, Input } from './styles';
 import { useServices } from '../../providers/Services';
 import { userRegisterSchema } from '../../Helpers/Constants/schemas';
+import { DefaultButtonAnimation } from '../AnimationComponents/';
 import Logo from '../../Helpers/Assets/logo.svg';
 
 // -------------------------------------------
 const RegisterForm = () => {
     const history = useHistory();
-    const { registerForm } = useServices();
-
+    const { registerForm, auth } = useServices();
     const {
         register,
         handleSubmit,
@@ -25,10 +24,18 @@ const RegisterForm = () => {
         history.push('/login');
     };
 
-    return (
+    const goToHome = () => {
+        history.push('/');
+    };
+
+    return !auth ? (
         <Container>
             <div className="div_svg">
-                <img src={Logo} alt="Logo" />
+                <DefaultButtonAnimation>
+                    <Link to="/">
+                        <img src={Logo} alt="Logo" onClick={goToHome} />
+                    </Link>
+                </DefaultButtonAnimation>
             </div>
 
             <h1>Register</h1>
@@ -69,10 +76,18 @@ const RegisterForm = () => {
                 />
                 <Btn type="submit">Register</Btn>
             </form>
-            <p>
-                Already have an account? <Link to="/login">Login</Link>
-            </p>
+            <div>
+                <p>
+                    Already have an account?
+                    <br />
+                    <Link className="link-form" to="/login">
+                        Login
+                    </Link>
+                </p>
+            </div>
         </Container>
+    ) : (
+        <Redirect to="/" />
     );
 };
 

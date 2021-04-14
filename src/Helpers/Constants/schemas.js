@@ -15,3 +15,13 @@ export const userLoginSchema = yup.object().shape({
 
     password: yup.string().required(requiredField)
 });
+
+export const userVideoAddSchema = yup.object().shape({
+    title: yup.string().required('campo obrigatório'),
+    date: yup.date().required('campo obrigatório')
+});
+
+export const userImgAddSchema = yup.object().shape({
+    title: yup.string().required('campo obrigatório'),
+    date: yup.date().required('campo obrigatório')
+});

@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 // --------------------------------------------
 export const TopBarStyles = makeStyles({
     header: {
-        width: '100vw',
+        width: '100%',
 
         display: 'flex',
         justifyContent: 'center',
@@ -35,6 +35,10 @@ export const TopBarStyles = makeStyles({
     },
     logo: {
         width: '3rem',
-        height: '3rem'
+        height: '3rem',
+
+        '&hover': {
+            background: '#fff'
+        }
     }
 });

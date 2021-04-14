@@ -61,6 +61,11 @@ export const Container = styled.div`
         width: 7rem;
         height: 5rem;
         margin-top: 30px;
+
+        &:hover {
+            cursor: pointer;
+            color: #fff;
+        }
     }
 
     .btn__register {
@@ -69,5 +74,13 @@ export const Container = styled.div`
         margin-bottom: 10px;
         font-size: 1.2rem;
         color: #e5e4e4;
+    }
+
+    .link-form {
+        color: #e5e4e4;
+
+        text-decoration: none;
+
+        cursor: pointer;
     }
 `;

@@ -1,33 +1,23 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-// import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { useServices } from '../../providers/Services';
-import { useEmotions } from '../../providers/Emotions';
-import * as yup from 'yup';
+import {
+    Button,
+    TextField,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle
+} from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { userVideoAddSchema } from '../../Helpers/Constants/schemas';
+import { useServices } from '../../providers/Services';
+import { useEmotions } from '../../providers/Emotions';
 
-export default function FormDialog() {
+// ----------------------------------------------------
+const FormDialog = () => {
     const [open, setOpen] = React.useState(false);
-    const { videoRegister, userId, changes, setChanges } = useServices();
+    const { videoRegister, userId, changes, setChanges, data64 } = useServices();
     const { emotions } = useEmotions();
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-    const userVideoAddSchema = yup.object().shape({
-        title: yup.string().required('campo obrigatório'),
-        date: yup.date().required('campo obrigatório')
-    });
     const {
         register,
         handleSubmit,
@@ -36,17 +26,24 @@ export default function FormDialog() {
         resolver: yupResolver(userVideoAddSchema)
     });
 
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     const handleForm = (data) => {
-        console.log(data.title);
-        console.log(data.date);
         videoRegister({
             title: data.title,
             emotions: emotions,
             date: data.date,
-            userId: userId()
+            userId: userId(),
+            base: data64
         });
-        setOpen(false);
-        setChanges(!changes)
+        handleClose();
+        setChanges(!changes);
     };
 
     return (
@@ -80,11 +77,13 @@ export default function FormDialog() {
                     <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={handleSubmit(handleForm)} color="primary">
+                    <Button type="submit" onClick={handleSubmit(handleForm)} color="primary">
                         Done
                     </Button>
                 </DialogActions>
             </Dialog>
         </div>
     );
-}
+};
+
+export default FormDialog;
