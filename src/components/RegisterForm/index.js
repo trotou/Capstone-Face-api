@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { Container, Btn, Input } from './styles';
 import { useServices } from '../../providers/Services';
 import { userRegisterSchema } from '../../Helpers/Constants/schemas';
+import { DefaultButtonAnimation } from '../AnimationComponents/';
 import Logo from '../../Helpers/Assets/logo.svg';
 
 // -------------------------------------------
@@ -29,8 +30,12 @@ const RegisterForm = () => {
 
     return !auth ? (
         <Container>
-            <div className="div_svg" onClick={goToHome}>
-                <img src={Logo} alt="Logo" />
+            <div className="div_svg">
+                <DefaultButtonAnimation>
+                    <Link to="/">
+                        <img src={Logo} alt="Logo" onClick={goToHome} />
+                    </Link>
+                </DefaultButtonAnimation>
             </div>
 
             <h1>Register</h1>

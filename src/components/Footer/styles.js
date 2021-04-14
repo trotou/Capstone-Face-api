@@ -33,11 +33,15 @@ export const Container = styled.div`
 
         margin: 2% 2%;
 
+        border-radius: 15px;
+
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
+
+        background: #202020;
     }
 
     .container-description__in {
@@ -69,7 +73,7 @@ export const YellowCircle = styled.div`
     width: 4rem;
     height: 4rem;
 
-    margin: 0% 3%;
+    margin: 5% 3%;
 
     border-radius: 75%;
 

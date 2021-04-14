@@ -64,6 +64,7 @@ export const Container = styled.div`
 
         &:hover {
             cursor: pointer;
+            color: #fff;
         }
     }
 
