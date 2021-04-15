@@ -20,6 +20,8 @@ const PieGraph = () => {
             });
         }
         setTreatedEmotionsData(infoHolder);
+
+        //eslint-disable-next-line
     }, [emotions]);
 
     return (

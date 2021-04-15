@@ -1,6 +1,9 @@
+import React from 'react';
 import { useHistory, Link, Redirect } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import { Snackbar, IconButton } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import { Container, Btn, Input } from './styles';
 import { useServices } from '../../providers/Services';
 import { userRegisterSchema } from '../../Helpers/Constants/schemas';
@@ -10,6 +13,7 @@ import Logo from '../../Helpers/Assets/logo.svg';
 // -------------------------------------------
 const RegisterForm = () => {
     const history = useHistory();
+    const [registerError, setRegisterError] = React.useState(false);
     const { registerForm, auth } = useServices();
     const {
         register,
@@ -19,13 +23,20 @@ const RegisterForm = () => {
         resolver: yupResolver(userRegisterSchema)
     });
 
-    const handleForm = (data) => {
-        registerForm(data);
-        history.push('/login');
+    const handleForm = async (data) => {
+        const isCreated = await registerForm(data);
+        console.log(isCreated);
+
+        // criar feedback visual de sucesso ou erro
+        isCreated ? history.push('/login') : setRegisterError(true);
     };
 
     const goToHome = () => {
         history.push('/');
+    };
+
+    const handleClose = () => {
+        setRegisterError(false);
     };
 
     return !auth ? (
@@ -85,6 +96,26 @@ const RegisterForm = () => {
                     </Link>
                 </p>
             </div>
+            <Snackbar
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left'
+                }}
+                open={registerError}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                message="Register failed"
+                action={
+                    <IconButton
+                        size="small"
+                        aria-label="close"
+                        color="inherit"
+                        onClick={handleClose}
+                    >
+                        <CloseIcon fontSize="small" />
+                    </IconButton>
+                }
+            />
         </Container>
     ) : (
         <Redirect to="/" />

@@ -1,10 +1,10 @@
 import { useState, useRef } from 'react';
-import FormDialog from '../components/ModalAddVideo';
-import FormDialogImg from '../components/ModalAddImg';
-import { useServices } from '../providers/Services';
-import Video from '../components/Video';
-import Image from '../components/Image';
-import { DefaultButtonAnimation, ChangeVideoAndImage } from '../components/AnimationComponents/';
+import FormDialog from '../ModalAddVideo';
+import FormDialogImg from '../ModalAddImg';
+import { useServices } from '../../providers/Services';
+import Video from '../Video';
+import Image from '../Image';
+import { DefaultButtonAnimation, ChangeVideoAndImage } from '../AnimationComponents';
 import { Container, Button } from './faceVideoStyles';
 
 // -------------------------------------------------

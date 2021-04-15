@@ -18,7 +18,7 @@ const Carrosel = () => {
         getUser,
         deleteVideos,
         deleteImages,
-        userId,
+        auth,
         changes,
         setChanges
     } = useServices();
@@ -32,15 +32,17 @@ const Carrosel = () => {
     }, [changes]);
 
     const fetchData = async () => {
-        const user = await getUser();
-        console.log(user);
+        if (auth) {
+            const user = await getUser();
+            console.log(user);
 
-        const videos = await getUserVideos(user.id);
+            const videos = await getUserVideos(user.id);
 
-        const images = await getUserImages(user.id);
+            const images = await getUserImages(user.id);
 
-        setVideoList(videos);
-        setImages(images);
+            setVideoList(videos);
+            setImages(images);
+        }
     };
 
     const handleDeleteVid = (id) => {

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import FaceApiVideo from '../../temporary/faceapivideo';
+import FaceApiVideo from '../../components/FaceApi/faceapivideo';
 import LineGraph from '../../components/LineGraph';
 import Carrosel from '../../components/Carousel';
 import TopBar from '../../components/TopBar';
