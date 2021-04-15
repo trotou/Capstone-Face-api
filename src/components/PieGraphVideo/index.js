@@ -2,7 +2,7 @@ import { ResponsivePie } from '@nivo/pie';
 import { useEmotions } from '../../providers/Emotions';
 import { useState, useEffect } from 'react';
 
-const PieGraph = () => {
+const PieGraphVideo = () => {
     const { emotions } = useEmotions();
     const [treatedEmotionsData, setTreatedEmotionsData] = useState([]);
 
@@ -12,18 +12,15 @@ const PieGraph = () => {
             infoHolder.push({
                 id: emotionData,
                 label: emotionData,
-                value: emotions[emotionData]
-                // value: (
-                //     emotions[emotionData].reduce((accumulator, currentValue) => {
-                //         return accumulator + parseFloat(currentValue);
-                //     }, 0) / emotions[emotionData].length
-                // ).toFixed(2)
+                value: (
+                    emotions[emotionData].reduce((accumulator, currentValue) => {
+                        return accumulator + parseFloat(currentValue);
+                    }, 0) / emotions[emotionData].length
+                ).toFixed(2)
             });
             console.log(emotionData);
         }
         setTreatedEmotionsData(infoHolder);
-
-        //eslint-disable-next-line
     }, [emotions]);
 
     return (
@@ -55,4 +52,4 @@ const PieGraph = () => {
     );
 };
 
-export default PieGraph;
+export default PieGraphVideo;

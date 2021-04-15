@@ -17,6 +17,7 @@ const TopBar = () => {
 
     useEffect(() => {
         handleUserData();
+        // eslint-disable-next-line
     }, [auth]);
 
     const handleUserData = async () => {
