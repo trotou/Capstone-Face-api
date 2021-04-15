@@ -3,7 +3,7 @@ import * as faceapi from 'face-api.js';
 import VideoThumbnail from 'react-video-thumbnail';
 import { useEmotions } from '../../providers/Emotions';
 import { useServices } from '../../providers/Services';
-import { VideoContainer } from './styles';
+import * as V from './styles';
 
 // -------------------------------------
 const videoHeight = 200;
@@ -18,7 +18,7 @@ const newEmotions = {
     surprised: [0]
 };
 // -------------------------------------
-const Video = ({ setInitializing, setVideoPlay }) => {
+const Video = ({ initializing, setInitializing, setVideoPlay }) => {
     const videoRef = React.useRef(); //SRC DO VIDEO
     const [videoFilePath, setVideoPath] = React.useState(null);
     const { setEmotions } = useEmotions();
@@ -98,7 +98,7 @@ const Video = ({ setInitializing, setVideoPlay }) => {
 
     return (
         <>
-            <VideoContainer>
+            <V.VideoContainer>
                 <video
                     poster="images/videologo.png"
                     ref={videoRef}
@@ -110,17 +110,25 @@ const Video = ({ setInitializing, setVideoPlay }) => {
                     onPlay={handleVideoOnPlay}
                     id="player"
                 />
-                <form onSubmit={(e) => handleSubmit(e)}>
-                    <input type="file" onChange={handleVideoUpload} />
-                </form>
-            </VideoContainer>
-            <div style={{ display: 'hidden' }}>
-                <VideoThumbnail
-                    renderThumbnail={false}
-                    videoUrl={videoFilePath}
-                    thumbnailHandler={(thumbnail) => setData64(thumbnail)}
-                />
-            </div>
+                <div style={{ display: 'none' }}>
+                    <VideoThumbnail
+                        renderThumbnail={false}
+                        videoUrl={videoFilePath}
+                        thumbnailHandler={(thumbnail) => setData64(thumbnail)}
+                    />
+                </div>
+                {!initializing && (
+                    <form onSubmit={(e) => handleSubmit(e)}>
+                        <V.Button for="video-upload">Choose video</V.Button>
+                        <input
+                            id="video-upload"
+                            style={{ display: 'none' }}
+                            type="file"
+                            onChange={handleVideoUpload}
+                        />
+                    </form>
+                )}
+            </V.VideoContainer>
         </>
     );
 };

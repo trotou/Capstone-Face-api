@@ -36,11 +36,15 @@ const FaceApiVideo = () => {
                 <ChangeVideoAndImage>
                     <div>
                         {videoPlay ? (
-                            <Video setInitializing={setInitializing} setVideoPlay={setVideoPlay} />
+                            <Video
+                                initializing={initializing}
+                                setInitializing={setInitializing}
+                                setVideoPlay={setVideoPlay}
+                            />
                         ) : (
                             <>
                                 {auth && <FormDialog />}
-                                <button onClick={() => setVideoPlay(true)}>Try other video</button>
+                                <Button onClick={() => setVideoPlay(true)}>Try other video</Button>
                             </>
                         )}
                     </div>
