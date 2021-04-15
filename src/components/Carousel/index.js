@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Carousel from 'react-elastic-carousel';
 import { useServices } from '../../providers/Services';
 import { CarouselDiv, CarouselWrapper } from './styles';
@@ -18,41 +18,37 @@ const Carrosel = () => {
         getUser,
         deleteVideos,
         deleteImages,
-        auth,
-        changes,
-        setChanges
+        videosList,
+        imagesList,
+        auth
     } = useServices();
+    const [user, setUser] = React.useState({});
 
-    const [videoList, setVideoList] = useState([]);
-    const [imageList, setImages] = useState([]);
-
-    useEffect(() => {
+    React.useEffect(() => {
         fetchData();
         // eslint-disable-next-line
-    }, [changes]);
+    }, []);
 
     const fetchData = async () => {
         if (auth) {
             const user = await getUser();
             console.log(user);
+            setUser(user);
 
-            const videos = await getUserVideos(user.id);
+            await getUserVideos(user.id);
 
-            const images = await getUserImages(user.id);
-
-            setVideoList(videos);
-            setImages(images);
+            await getUserImages(user.id);
         }
     };
 
-    const handleDeleteVid = (id) => {
-        deleteVideos(id);
-        setChanges(!changes);
+    const handleDeleteVid = async (id) => {
+        await deleteVideos(id);
+        await getUserVideos(user.id);
     };
 
-    const handleDeleteImg = (id) => {
-        deleteImages(id);
-        setChanges(!changes);
+    const handleDeleteImg = async (id) => {
+        await deleteImages(id);
+        await getUserImages(user.id);
     };
 
     return (
@@ -60,8 +56,8 @@ const Carrosel = () => {
             <div style={{ width: '100%' }}>
                 <h2 style={{ color: '#fff' }}>Videos</h2>
                 <Carousel breakPoints={breakPoints}>
-                    {videoList &&
-                        videoList.map((item, i) => (
+                    {videosList[0] &&
+                        videosList.map((item, i) => (
                             <CarouselDiv key={i}>
                                 title: {item.title}
                                 <br></br>
@@ -75,8 +71,8 @@ const Carrosel = () => {
             <div style={{ width: '100%' }}>
                 <h2 style={{ color: '#fff' }}>Images</h2>
                 <Carousel breakPoints={breakPoints}>
-                    {imageList &&
-                        imageList.map((item, i) => (
+                    {imagesList[0] &&
+                        imagesList.map((item, i) => (
                             <CarouselDiv key={i}>
                                 title: {item.title}
                                 <br /> date: {item.date}

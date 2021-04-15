@@ -15,7 +15,8 @@ export const ServicesProvider = ({ children }) => {
         () => JSON.parse(sessionStorage.getItem('token')) || ''
     );
     const [auth, setAuth] = React.useState(false);
-    const [changes, setChanges] = React.useState(false);
+    const [videosList, setVideosList] = React.useState([]);
+    const [imagesList, setImagesList] = React.useState([]);
     const [data64, setData64] = React.useState('');
 
     React.useEffect(() => {
@@ -111,9 +112,12 @@ export const ServicesProvider = ({ children }) => {
         try {
             const response = await API.get(`/images/?userId=${userId}`, bearer(token));
 
+            setImagesList(response.data);
+
             return response.data;
         } catch (error) {
             console.log('Não trouxe imagens: ', error);
+            setImagesList([]);
         }
     };
 
@@ -131,9 +135,12 @@ export const ServicesProvider = ({ children }) => {
         try {
             const response = await API.get(`/videos/?userId=${userId}`, bearer(token));
 
+            setVideosList(response.data);
+
             return response.data;
         } catch (error) {
             console.log('Não trouxe vídeos: ', error);
+            setVideosList([]);
         }
     };
 
@@ -176,12 +183,12 @@ export const ServicesProvider = ({ children }) => {
                 getUserVideos,
                 deleteVideos,
                 deleteImages,
-                auth,
                 logout,
-                changes,
-                setChanges,
-                data64,
-                setData64
+                setData64,
+                videosList,
+                imagesList,
+                auth,
+                data64
             }}
         >
             {children}

@@ -16,7 +16,7 @@ import { useEmotions } from '../../providers/Emotions';
 // ----------------------------------------------------
 const FormDialog = () => {
     const [open, setOpen] = React.useState(false);
-    const { videoRegister, userId, changes, setChanges, data64 } = useServices();
+    const { videoRegister, userId, getUserVideos, data64 } = useServices();
     const { emotions } = useEmotions();
     const {
         register,
@@ -34,8 +34,8 @@ const FormDialog = () => {
         setOpen(false);
     };
 
-    const handleForm = (data) => {
-        videoRegister({
+    const handleForm = async (data) => {
+        await videoRegister({
             title: data.title,
             emotions: emotions,
             date: data.date,
@@ -43,7 +43,7 @@ const FormDialog = () => {
             base: data64
         });
         handleClose();
-        setChanges(!changes);
+        await getUserVideos(userId());
     };
 
     return (
