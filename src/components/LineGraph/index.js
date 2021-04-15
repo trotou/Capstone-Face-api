@@ -4,6 +4,8 @@ import { Container } from './styles';
 import { useEmotions } from '../../providers/Emotions';
 
 const LineGraph = () => {
+    const { emotions } = useEmotions();
+    const [showGraph, setShowGraph] = useState(false);
     const [treatedEmotionsData, setTreatedEmotionsData] = useState({
         angry: [],
         disgusted: [],
@@ -13,13 +15,11 @@ const LineGraph = () => {
         sad: [],
         surprised: []
     });
-    const [showGraph, setShowGraph] = useState(false);
-    const { emotions } = useEmotions();
 
     useEffect(() => {
         let infoHolder = treatedEmotionsData;
         for (const emotionData in emotions) {
-            emotions[emotionData].map((value, index) => {
+            emotions[emotionData].forEach((value, index) => {
                 infoHolder[emotionData].push({ x: index, y: parseFloat(value) });
             });
         }
@@ -27,9 +27,8 @@ const LineGraph = () => {
         if (treatedEmotionsData.angry.length > 0) {
             setShowGraph(true);
         }
+        // eslint-disable-next-line
     }, [emotions]);
-
-    console.log(treatedEmotionsData);
 
     const data = [
         {

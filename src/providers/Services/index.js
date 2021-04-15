@@ -36,7 +36,6 @@ export const ServicesProvider = ({ children }) => {
     const login = async (data) => {
         try {
             const response = await API.post('/login/', data);
-            console.log(response);
 
             const token = response.data.accessToken;
             localStorage.setItem('token', JSON.stringify(token));
@@ -62,6 +61,8 @@ export const ServicesProvider = ({ children }) => {
             return response.data;
         } catch (error) {
             console.log('Não trouxe usuário: ', error);
+
+            logout();
         }
     };
 

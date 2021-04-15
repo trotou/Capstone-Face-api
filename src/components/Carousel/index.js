@@ -10,6 +10,7 @@ const breakPoints = [
     { width: 1200, itemsToShow: 4 }
 ];
 
+// --------------------------------------
 const Carrosel = () => {
     const {
         getUserVideos,
@@ -19,8 +20,7 @@ const Carrosel = () => {
         deleteImages,
         userId,
         changes,
-        setChanges,
-        data64
+        setChanges
     } = useServices();
 
     const [videoList, setVideoList] = useState([]);
@@ -28,17 +28,16 @@ const Carrosel = () => {
 
     useEffect(() => {
         fetchData();
+        // eslint-disable-next-line
     }, [changes]);
 
     const fetchData = async () => {
         const user = await getUser();
         console.log(user);
 
-        const videos = await getUserVideos(userId());
-        console.log(videos);
+        const videos = await getUserVideos(user.id);
 
-        const images = await getUserImages(userId());
-        console.log(images);
+        const images = await getUserImages(user.id);
 
         setVideoList(videos);
         setImages(images);
