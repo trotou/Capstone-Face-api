@@ -1,6 +1,9 @@
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useHistory, Link, Redirect } from 'react-router-dom';
+import { Snackbar, IconButton } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import { Container, Btn, Input } from './styles';
 import { useServices } from '../../providers/Services';
 import { userLoginSchema } from '../../Helpers/Constants/schemas';
@@ -9,6 +12,7 @@ import Logo from '../../Helpers/Assets/logo.svg';
 
 // ------------------------------------------------
 const LoginForm = () => {
+    const [errorLogin, setErrorLogin] = React.useState(false);
     const history = useHistory();
     const { login, auth } = useServices();
     const {
@@ -19,14 +23,20 @@ const LoginForm = () => {
         resolver: yupResolver(userLoginSchema)
     });
 
-    const handleForm = (data) => {
-        login(data);
+    const handleForm = async (data) => {
+        const isLogged = await login(data);
+        console.log(isLogged);
 
-        history.push('/');
+        // criar feedback visual de sucesso ou erro
+        isLogged ? history.push('/') : setErrorLogin(true);
     };
 
     const goToHome = () => {
         history.push('/');
+    };
+
+    const handleClose = () => {
+        setErrorLogin(false);
     };
 
     return !auth ? (
@@ -77,6 +87,26 @@ const LoginForm = () => {
                     </Link>
                 </p>
             </div>
+            <Snackbar
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center'
+                }}
+                open={errorLogin}
+                autoHideDuration={3000}
+                onClose={handleClose}
+                message="Login failed"
+                action={
+                    <IconButton
+                        size="small"
+                        aria-label="close"
+                        color="inherit"
+                        onClick={handleClose}
+                    >
+                        <CloseIcon fontSize="small" />
+                    </IconButton>
+                }
+            />
         </Container>
     ) : (
         <Redirect to="/" />
