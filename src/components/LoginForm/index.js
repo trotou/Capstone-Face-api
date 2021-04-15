@@ -1,15 +1,18 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useHistory, Link, Redirect } from 'react-router-dom';
-import { Container, Btn, Input } from './styles';
+import { Container, Btn } from './styles';
 import { useServices } from '../../providers/Services';
 import { userLoginSchema } from '../../Helpers/Constants/schemas';
+import { TextField } from '@material-ui/core/';
+import { InputStyles } from '../../Helpers/makeStyles';
 import { DefaultButtonAnimation } from '../AnimationComponents/';
 import Logo from '../../Helpers/Assets/logo.svg';
 
 // ------------------------------------------------
 const LoginForm = () => {
     const history = useHistory();
+    const classes = InputStyles();
     const { login, auth } = useServices();
     const {
         register,
@@ -42,7 +45,8 @@ const LoginForm = () => {
             <h1>Login</h1>
 
             <form onSubmit={handleSubmit(handleForm)} data-testid="formTestId">
-                <Input
+                <TextField
+                    className={classes.input}
                     data-testid="emailLoginTestId"
                     name="email"
                     type="email"
@@ -54,7 +58,8 @@ const LoginForm = () => {
                     helperText={errors.email?.message}
                 />
 
-                <Input
+                <TextField
+                    className={classes.input}
                     data-testid="passwordTestId"
                     name="password"
                     type="password"
