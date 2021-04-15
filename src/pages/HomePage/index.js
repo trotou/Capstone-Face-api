@@ -20,7 +20,7 @@ const HomePage = () => {
             <TopBar />
             <Container>
                 <FaceApiVideo />
-                <LineGraph />
+                {/* <LineGraph /> */}
                 {auth && <Carrosel />}
             </Container>
             <Footer />
