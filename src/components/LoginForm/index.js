@@ -5,7 +5,6 @@ import { useHistory, Link, Redirect } from 'react-router-dom';
 import { Container, Btn } from './styles';
 import { Snackbar, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { Container, Btn } from './styles';
 import { useServices } from '../../providers/Services';
 import { userLoginSchema } from '../../Helpers/Constants/schemas';
 import { TextField } from '@material-ui/core/';
