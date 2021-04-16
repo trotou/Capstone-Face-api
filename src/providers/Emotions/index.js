@@ -5,10 +5,18 @@ const EmotionsContext = React.createContext();
 
 // ------------------------------------
 export const EmotionsProvider = ({ children }) => {
-    const [emotions, setEmotions] = React.useState({});
+    const [emotionsVideo, setEmotionsVideo] = React.useState({});
+    const [emotionsImage, setEmotionsImage] = React.useState({});
 
     return (
-        <EmotionsContext.Provider value={{ emotions, setEmotions }}>
+        <EmotionsContext.Provider
+            value={{
+                emotionsVideo,
+                setEmotionsVideo,
+                emotionsImage,
+                setEmotionsImage
+            }}
+        >
             {children}
         </EmotionsContext.Provider>
     );

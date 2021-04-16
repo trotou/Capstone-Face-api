@@ -1,30 +1,24 @@
 import { ResponsivePie } from '@nivo/pie';
-import { useEmotions } from '../../providers/Emotions';
 import { useState, useEffect } from 'react';
 
-const PieGraph = () => {
-    const { emotions } = useEmotions();
+//-------------------------------------------
+const PieGraph = ({ emotionsImage }) => {
     const [treatedEmotionsData, setTreatedEmotionsData] = useState([]);
 
     useEffect(() => {
         let infoHolder = treatedEmotionsData;
-        for (const emotionData in emotions) {
+        for (const emotionData in emotionsImage) {
             infoHolder.push({
                 id: emotionData,
                 label: emotionData,
-                value: emotions[emotionData]
-                // value: (
-                //     emotions[emotionData].reduce((accumulator, currentValue) => {
-                //         return accumulator + parseFloat(currentValue);
-                //     }, 0) / emotions[emotionData].length
-                // ).toFixed(2)
+                value: emotionsImage[emotionData]
             });
             console.log(emotionData);
         }
         setTreatedEmotionsData(infoHolder);
 
         //eslint-disable-next-line
-    }, [emotions]);
+    }, [emotionsImage]);
 
     return (
         <div style={{ width: '400px', height: '400px' }}>

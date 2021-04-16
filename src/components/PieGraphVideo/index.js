@@ -3,25 +3,25 @@ import { useEmotions } from '../../providers/Emotions';
 import { useState, useEffect } from 'react';
 
 const PieGraphVideo = () => {
-    const { emotions } = useEmotions();
+    const { emotionsVideo } = useEmotions();
     const [treatedEmotionsData, setTreatedEmotionsData] = useState([]);
 
     useEffect(() => {
         let infoHolder = treatedEmotionsData;
-        for (const emotionData in emotions) {
+        for (const emotionData in emotionsVideo) {
             infoHolder.push({
                 id: emotionData,
                 label: emotionData,
                 value: (
-                    emotions[emotionData].reduce((accumulator, currentValue) => {
+                    emotionsVideo[emotionData].reduce((accumulator, currentValue) => {
                         return accumulator + parseFloat(currentValue);
-                    }, 0) / emotions[emotionData].length
+                    }, 0) / emotionsVideo[emotionData].length
                 ).toFixed(2)
             });
             console.log(emotionData);
         }
         setTreatedEmotionsData(infoHolder);
-    }, [emotions]);
+    }, [emotionsVideo]);
 
     return (
         <div style={{ width: '400px', height: '400px' }}>

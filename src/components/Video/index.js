@@ -21,7 +21,7 @@ const newEmotions = {
 const Video = ({ initializing, setInitializing, setVideoPlay }) => {
     const videoRef = React.useRef(); //SRC DO VIDEO
     const [videoFilePath, setVideoPath] = React.useState(null);
-    const { setEmotions } = useEmotions();
+    const { setEmotionsVideo, setEmotionsImage } = useEmotions();
     const { setData64 } = useServices();
 
     React.useEffect(() => {
@@ -45,6 +45,7 @@ const Video = ({ initializing, setInitializing, setVideoPlay }) => {
     };
 
     const handleVideoUpload = (event) => {
+        setEmotionsVideo({});
         setVideoPath(URL.createObjectURL(event.target.files[0]));
     };
 
@@ -90,7 +91,8 @@ const Video = ({ initializing, setInitializing, setVideoPlay }) => {
             if (leftVideo.ended) {
                 setVideoPlay(false);
                 setInitializing(false);
-                setEmotions(newEmotions);
+                setEmotionsVideo(newEmotions);
+                setEmotionsImage({});
                 clearInterval(interval);
             }
         }, 100);

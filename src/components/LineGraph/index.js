@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { ResponsiveAreaBump } from '@nivo/bump';
 import { Container } from './styles';
-import { useEmotions } from '../../providers/Emotions';
 
-const LineGraph = () => {
-    const { emotions } = useEmotions();
+// -----------------------------------------
+const LineGraph = ({ emotionsVideo }) => {
     const [showGraph, setShowGraph] = useState(false);
     const [treatedEmotionsData, setTreatedEmotionsData] = useState({
         angry: [],
@@ -18,8 +17,8 @@ const LineGraph = () => {
 
     useEffect(() => {
         let infoHolder = treatedEmotionsData;
-        for (const emotionData in emotions) {
-            emotions[emotionData].forEach((value, index) => {
+        for (const emotionData in emotionsVideo) {
+            emotionsVideo[emotionData].forEach((value, index) => {
                 infoHolder[emotionData].push({ x: index, y: parseFloat(value) });
             });
         }
@@ -28,7 +27,7 @@ const LineGraph = () => {
             setShowGraph(true);
         }
         // eslint-disable-next-line
-    }, [emotions]);
+    }, [emotionsVideo]);
 
     const data = [
         {
