@@ -41,12 +41,9 @@ export const TopBarStyles = makeStyles({
     },
 
     menuButton: {
-        marginLeft: '5px',
-        background: '#c4c4c4',
-        color: '#000',
-        '&:hover': {
-            background: '#c4c4c4'
-        }
+        margin: '0% 3%',
+        background: 'none',
+        color: '#fff'
     },
     logo: {
         width: '3rem',
