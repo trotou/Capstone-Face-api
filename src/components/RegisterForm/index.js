@@ -3,6 +3,7 @@ import { useHistory, Link, Redirect } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { TextField } from '@material-ui/core';
+import { Container, Btn } from './styles';
 import { InputStyles } from '../../Helpers/makeStyles';
 import { Snackbar, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';

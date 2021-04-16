@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-" react-elastic-carousel@^0.11.4":
+" react-elastic-carousel@^0.11.4", react-elastic-carousel@^0.11.4:
   name react-elastic-carousel
   version "0.11.5"
   resolved "https://registry.yarnpkg.com/react-elastic-carousel/-/react-elastic-carousel-0.11.5.tgz#4be027ea047c4f7678273caa844e83d91f3784dc"

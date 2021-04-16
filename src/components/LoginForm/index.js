@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useHistory, Link, Redirect } from 'react-router-dom';
 import { Snackbar, IconButton } from '@material-ui/core';
+import { Container, Btn } from './styles';
 import CloseIcon from '@material-ui/icons/Close';
 import { useServices } from '../../providers/Services';
 import { userLoginSchema } from '../../Helpers/Constants/schemas';
