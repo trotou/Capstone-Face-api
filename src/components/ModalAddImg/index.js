@@ -16,6 +16,7 @@ import { useEmotions } from '../../providers/Emotions';
 // ------------------------------------------------
 const FormDialogImg = () => {
     const [open, setOpen] = React.useState(false);
+    const [saving, setSaving] = React.useState(false);
     const { imageRegister, userId, getUserImages, data64 } = useServices();
     const { emotions } = useEmotions();
     const {
@@ -28,6 +29,7 @@ const FormDialogImg = () => {
 
     const handleClickOpen = () => {
         setOpen(true);
+        setSaving(false);
     };
 
     const handleClose = () => {
@@ -35,6 +37,7 @@ const FormDialogImg = () => {
     };
 
     const handleForm = async (data) => {
+        setSaving(true);
         await imageRegister({
             title: data.title,
             emotions: emotions,
@@ -51,7 +54,12 @@ const FormDialogImg = () => {
             <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                 Save img stats
             </Button>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <Dialog
+                style={saving && { cursor: 'wait' }}
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="form-dialog-title"
+            >
                 <DialogTitle id="form-dialog-title">Image Title</DialogTitle>
                 <DialogContent>
                     <TextField
@@ -74,10 +82,10 @@ const FormDialogImg = () => {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
+                    <Button disabled={saving} onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={handleSubmit(handleForm)} color="primary">
+                    <Button disabled={saving} onClick={handleSubmit(handleForm)} color="primary">
                         Done
                     </Button>
                 </DialogActions>

@@ -16,6 +16,7 @@ import { useEmotions } from '../../providers/Emotions';
 // ----------------------------------------------------
 const FormDialog = () => {
     const [open, setOpen] = React.useState(false);
+    const [saving, setSaving] = React.useState(false);
     const { videoRegister, userId, getUserVideos, data64 } = useServices();
     const { emotions } = useEmotions();
     const {
@@ -28,6 +29,7 @@ const FormDialog = () => {
 
     const handleClickOpen = () => {
         setOpen(true);
+        setSaving(false);
     };
 
     const handleClose = () => {
@@ -35,6 +37,8 @@ const FormDialog = () => {
     };
 
     const handleForm = async (data) => {
+        console.log('submit');
+        setSaving(true);
         await videoRegister({
             title: data.title,
             emotions: emotions,
@@ -51,7 +55,12 @@ const FormDialog = () => {
             <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                 Save video stats
             </Button>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <Dialog
+                style={saving && { cursor: 'wait' }}
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="form-dialog-title"
+            >
                 <DialogTitle id="form-dialog-title">Video Title</DialogTitle>
                 <DialogContent>
                     <TextField
@@ -74,10 +83,15 @@ const FormDialog = () => {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
+                    <Button disabled={saving} onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button type="submit" onClick={handleSubmit(handleForm)} color="primary">
+                    <Button
+                        disabled={saving}
+                        type="submit"
+                        onClick={handleSubmit(handleForm)}
+                        color="primary"
+                    >
                         Done
                     </Button>
                 </DialogActions>

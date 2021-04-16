@@ -7,7 +7,6 @@ import { Container, Btn } from './styles';
 import { InputStyles } from '../../Helpers/makeStyles';
 import { Snackbar, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { Container, Btn } from './styles';
 import { useServices } from '../../providers/Services';
 import { userRegisterSchema } from '../../Helpers/Constants/schemas';
 import { DefaultButtonAnimation } from '../AnimationComponents/';
