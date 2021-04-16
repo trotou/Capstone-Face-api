@@ -11,7 +11,7 @@ export const ExampleWrapper = styled.div`
 export const YellowCircle = styled.div`
     width: 100px;
     height: 92px;
-    background-color: yellow;
+    background-color: #683bb7;
     border-radius: 45%;
 `;
 
