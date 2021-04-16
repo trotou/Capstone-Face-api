@@ -77,5 +77,5 @@ export const YellowCircle = styled.div`
 
     border-radius: 75%;
 
-    background: #ffb432;
+    background: #683bb7;
 `;
