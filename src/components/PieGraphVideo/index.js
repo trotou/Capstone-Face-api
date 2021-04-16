@@ -21,6 +21,7 @@ const PieGraphVideo = () => {
             console.log(emotionData);
         }
         setTreatedEmotionsData(infoHolder);
+        //eslint-disable-next-line
     }, [emotionsVideo]);
 
     return (

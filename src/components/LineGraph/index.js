@@ -4,7 +4,6 @@ import { Container } from './styles';
 
 // -----------------------------------------
 const LineGraph = ({ emotionsVideo }) => {
-    const [showGraph, setShowGraph] = useState(false);
     const [treatedEmotionsData, setTreatedEmotionsData] = useState({
         angry: [],
         disgusted: [],
@@ -16,6 +15,7 @@ const LineGraph = ({ emotionsVideo }) => {
     });
 
     useEffect(() => {
+        console.log('Recebeu as emoções: ', emotionsVideo);
         let infoHolder = treatedEmotionsData;
         for (const emotionData in emotionsVideo) {
             emotionsVideo[emotionData].forEach((value, index) => {
@@ -23,9 +23,6 @@ const LineGraph = ({ emotionsVideo }) => {
             });
         }
         setTreatedEmotionsData(infoHolder);
-        if (treatedEmotionsData.angry.length > 0) {
-            setShowGraph(true);
-        }
         // eslint-disable-next-line
     }, [emotionsVideo]);
 
