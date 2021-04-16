@@ -2,7 +2,7 @@ import React from 'react';
 import * as faceapi from 'face-api.js';
 import { useServices } from '../../providers/Services';
 import { useEmotions } from '../../providers/Emotions';
-import { ImageContainer, SelectFile } from './styles';
+import * as I from './styles';
 
 // -------------------------------
 
@@ -46,10 +46,16 @@ const Image = () => {
     };
 
     return (
-        <ImageContainer>
+        <I.ImageContainer>
             <img alt="" id="myImg" width="280px" height="280px" />
-            <SelectFile id="myFileUpload" type="file" onChange={start} accept=".jpg, .jpeg, .png" />
-        </ImageContainer>
+            <I.Button for="myFileUpload">Choose image</I.Button>
+            <I.SelectFile
+                id="myFileUpload"
+                type="file"
+                onChange={start}
+                accept=".jpg, .jpeg, .png"
+            />
+        </I.ImageContainer>
     );
 };
 

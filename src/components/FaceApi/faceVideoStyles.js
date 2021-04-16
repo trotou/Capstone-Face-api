@@ -2,13 +2,15 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
     @media (max-width: 650px) {
-        height: 75vh;
+        min-height: 75vh;
+        height: 100%;
         margin: 0 auto;
         margin-bottom: 10%;
     }
 
     width: 80%;
-    height: 60vh;
+    min-height: 60vh;
+    height: 100%;
 
     margin: 0 auto;
     margin-bottom: 5%;

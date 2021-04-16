@@ -16,7 +16,7 @@ import { useEmotions } from '../../providers/Emotions';
 // ------------------------------------------------
 const FormDialogImg = () => {
     const [open, setOpen] = React.useState(false);
-    const { imageRegister, userId, changes, setChanges, data64 } = useServices();
+    const { imageRegister, userId, getUserImages, data64 } = useServices();
     const { emotions } = useEmotions();
     const {
         register,
@@ -34,8 +34,8 @@ const FormDialogImg = () => {
         setOpen(false);
     };
 
-    const handleForm = (data) => {
-        imageRegister({
+    const handleForm = async (data) => {
+        await imageRegister({
             title: data.title,
             emotions: emotions,
             date: data.date,
@@ -43,7 +43,7 @@ const FormDialogImg = () => {
             base: data64
         });
         handleClose();
-        setChanges(!changes);
+        await getUserImages(userId());
     };
 
     return (
