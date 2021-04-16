@@ -1,11 +1,12 @@
 import React from 'react';
 import Carousel from 'react-elastic-carousel';
-import { useServices } from '../../providers/Services';
-import { CarouselWrapper } from './styles';
 import ThumbCarousel from '../ThumbCarousel';
 import { useEmotions } from '../../providers/Emotions';
+import { useServices } from '../../providers/Services';
+import { CarouselWrapper } from './styles';
 import './style.css';
 
+// --------------------------------------
 const breakPoints = [
     { width: 1, itemsToShow: 1 },
     { width: 550, itemsToShow: 2, itemsToScroll: 2 },
@@ -15,7 +16,7 @@ const breakPoints = [
 
 // --------------------------------------
 const Carrosel = () => {
-    const { setEmotions } = useEmotions();
+    const { setEmotionsVideo, setEmotionsImage } = useEmotions();
     const {
         getUserVideos,
         getUserImages,
@@ -39,9 +40,11 @@ const Carrosel = () => {
             console.log(user);
             setUser(user);
 
-            await getUserVideos(user.id);
+            if (user) {
+                await getUserVideos(user.id);
 
-            await getUserImages(user.id);
+                await getUserImages(user.id);
+            }
         }
     };
 
@@ -56,11 +59,15 @@ const Carrosel = () => {
     };
 
     const handleLoadVid = (emotions) => {
-        setEmotions(emotions);
+        console.log(emotions);
+        setEmotionsImage({});
+        setEmotionsVideo(emotions);
     };
 
     const handleLoadImg = (emotions) => {
-        setEmotions(emotions);
+        console.log(emotions);
+        setEmotionsVideo({});
+        setEmotionsImage(emotions);
     };
 
     return (
@@ -72,13 +79,9 @@ const Carrosel = () => {
                         videosList.map((item, i) => (
                             <ThumbCarousel
                                 key={i}
-                                title={item.title}
-                                date={item.date}
+                                item={item}
                                 handleDelete={handleDeleteVid}
                                 handleLoad={handleLoadVid}
-                                emotions={item.emotions}
-                                id={item.id}
-                                base={item.base}
                             />
                         ))}
                 </Carousel>
@@ -90,13 +93,9 @@ const Carrosel = () => {
                         imagesList.map((item, i) => (
                             <ThumbCarousel
                                 key={i}
-                                title={item.title}
-                                date={item.date}
+                                item={item}
                                 handleDelete={handleDeleteImg}
                                 handleLoad={handleLoadImg}
-                                emotions={item.emotions}
-                                id={item.id}
-                                base={item.base}
                             />
                         ))}
                 </Carousel>

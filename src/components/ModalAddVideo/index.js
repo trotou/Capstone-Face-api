@@ -18,7 +18,7 @@ const FormDialog = () => {
     const [open, setOpen] = React.useState(false);
     const [saving, setSaving] = React.useState(false);
     const { videoRegister, userId, getUserVideos, data64 } = useServices();
-    const { emotions } = useEmotions();
+    const { emotionsVideo } = useEmotions();
     const {
         register,
         handleSubmit,
@@ -41,7 +41,7 @@ const FormDialog = () => {
         setSaving(true);
         await videoRegister({
             title: data.title,
-            emotions: emotions,
+            emotions: emotionsVideo,
             date: data.date,
             userId: userId(),
             base: data64

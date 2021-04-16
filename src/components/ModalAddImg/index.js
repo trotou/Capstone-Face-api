@@ -18,7 +18,7 @@ const FormDialogImg = () => {
     const [open, setOpen] = React.useState(false);
     const [saving, setSaving] = React.useState(false);
     const { imageRegister, userId, getUserImages, data64 } = useServices();
-    const { emotions } = useEmotions();
+    const { emotionsImage } = useEmotions();
     const {
         register,
         handleSubmit,
@@ -40,7 +40,7 @@ const FormDialogImg = () => {
         setSaving(true);
         await imageRegister({
             title: data.title,
-            emotions: emotions,
+            emotions: emotionsImage,
             date: data.date,
             userId: userId(),
             base: data64

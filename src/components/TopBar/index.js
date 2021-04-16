@@ -23,7 +23,7 @@ const TopBar = () => {
     const handleUserData = async () => {
         if (auth) {
             const user = await getUser();
-            setUserName(user.name);
+            if (user) setUserName(user.name);
         }
     };
 

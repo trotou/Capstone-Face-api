@@ -8,11 +8,12 @@ import * as I from './styles';
 
 // -------------------------------
 const Image = () => {
-    const { setEmotions } = useEmotions();
+    const { setEmotionsImage, setEmotionsVideo } = useEmotions();
     const { setData64 } = useServices();
 
     const start = async () => {
         const newEmotions = {};
+        setEmotionsImage({});
         const imgFile = document.getElementById('myFileUpload').files[0];
         const img = await faceapi.bufferToImage(imgFile);
         const myImg = document.getElementById('myImg');
@@ -41,7 +42,9 @@ const Image = () => {
             }
         }
 
-        setEmotions(newEmotions);
+        console.log(newEmotions);
+        setEmotionsImage(newEmotions);
+        setEmotionsVideo({});
         setData64(img.src);
     };
 
