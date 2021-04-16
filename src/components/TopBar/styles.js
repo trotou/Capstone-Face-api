@@ -1,8 +1,34 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+    @media (max-width: 720px) {
+        .desktop {
+            display: none;
+        }
+    }
+
+    @media (min-width: 721px) {
+        .mobile {
+            display: none;
+        }
+    }
+
+    /* #react-burger-menu-btn {
+        width: 80%;
+        height: 80%;
+    } */
+`;
+
 export const ButtonContainer = styled.div`
+    @media (max-width: 720px) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
 `;
@@ -14,6 +40,8 @@ export const MenuBurger = {
         color: '#000'
     },
     bmBurgerBars: {
+        width: '3rem',
+        height: '0.5rem',
         background: '#373737'
     },
     bmBurgerBarsHover: {
