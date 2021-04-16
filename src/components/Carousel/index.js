@@ -1,7 +1,10 @@
 import React from 'react';
 import Carousel from 'react-elastic-carousel';
 import { useServices } from '../../providers/Services';
-import { CarouselDiv, CarouselWrapper } from './styles';
+import { CarouselWrapper } from './styles';
+import ThumbCarousel from '../ThumbCarousel';
+import { useEmotions } from '../../providers/Emotions';
+import './style.css';
 
 const breakPoints = [
     { width: 1, itemsToShow: 1 },
@@ -12,6 +15,7 @@ const breakPoints = [
 
 // --------------------------------------
 const Carrosel = () => {
+    const { setEmotions } = useEmotions();
     const {
         getUserVideos,
         getUserImages,
@@ -51,6 +55,14 @@ const Carrosel = () => {
         await getUserImages(user.id);
     };
 
+    const handleLoadVid = (emotions) => {
+        setEmotions(emotions);
+    };
+
+    const handleLoadImg = (emotions) => {
+        setEmotions(emotions);
+    };
+
     return (
         <CarouselWrapper>
             <div style={{ width: '100%' }}>
@@ -58,13 +70,16 @@ const Carrosel = () => {
                 <Carousel breakPoints={breakPoints}>
                     {videosList[0] &&
                         videosList.map((item, i) => (
-                            <CarouselDiv key={i}>
-                                title: {item.title}
-                                <br></br>
-                                date: {item.date}
-                                <button onClick={() => handleDeleteVid(item.id)}>Delete</button>
-                                <img alt="" src={item.base} width="200px" height="200px" />
-                            </CarouselDiv>
+                            <ThumbCarousel
+                                key={i}
+                                title={item.title}
+                                date={item.date}
+                                handleDelete={handleDeleteVid}
+                                handleLoad={handleLoadVid}
+                                emotions={item.emotions}
+                                id={item.id}
+                                base={item.base}
+                            />
                         ))}
                 </Carousel>
             </div>
@@ -73,12 +88,16 @@ const Carrosel = () => {
                 <Carousel breakPoints={breakPoints}>
                     {imagesList[0] &&
                         imagesList.map((item, i) => (
-                            <CarouselDiv key={i}>
-                                title: {item.title}
-                                <br /> date: {item.date}
-                                <button onClick={() => handleDeleteImg(item.id)}>Delete</button>
-                                <img alt="" src={item.base} width="200px" height="200px" />
-                            </CarouselDiv>
+                            <ThumbCarousel
+                                key={i}
+                                title={item.title}
+                                date={item.date}
+                                handleDelete={handleDeleteImg}
+                                handleLoad={handleLoadImg}
+                                emotions={item.emotions}
+                                id={item.id}
+                                base={item.base}
+                            />
                         ))}
                 </Carousel>
             </div>
