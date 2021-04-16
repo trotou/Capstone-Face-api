@@ -2,9 +2,11 @@ import React from 'react';
 import { useHistory, Link, Redirect } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import { TextField } from '@material-ui/core';
+import { Container, Btn } from './styles';
+import { InputStyles } from '../../Helpers/makeStyles';
 import { Snackbar, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { Container, Btn, Input } from './styles';
 import { useServices } from '../../providers/Services';
 import { userRegisterSchema } from '../../Helpers/Constants/schemas';
 import { DefaultButtonAnimation } from '../AnimationComponents/';
@@ -13,6 +15,7 @@ import Logo from '../../Helpers/Assets/logo.svg';
 // -------------------------------------------
 const RegisterForm = () => {
     const history = useHistory();
+    const classes = InputStyles();
     const [registerError, setRegisterError] = React.useState(false);
     const { registerForm, auth } = useServices();
     const {
@@ -52,7 +55,8 @@ const RegisterForm = () => {
             <h1>Register</h1>
 
             <form onSubmit={handleSubmit(handleForm)} data-testid="formRegisterTestId">
-                <Input
+                <TextField
+                    className={classes.input}
                     data-testid="emailTestId"
                     name="email"
                     type="email"
@@ -63,7 +67,8 @@ const RegisterForm = () => {
                     error={!!errors.email}
                     helperText={errors.email?.message}
                 />
-                <Input
+                <TextField
+                    className={classes.input}
                     data-testid="passwordRegisterTestId"
                     name="password"
                     label="Senha"
@@ -74,7 +79,8 @@ const RegisterForm = () => {
                     error={!!errors.password}
                     helperText={errors.password?.message}
                 />
-                <Input
+                <TextField
+                    className={classes.input}
                     data-testid="userNameRegisterTestId"
                     name="name"
                     label="Nome"

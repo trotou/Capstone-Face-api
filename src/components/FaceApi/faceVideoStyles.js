@@ -45,7 +45,7 @@ export const Container = styled.div`
         padding: 2%;
 
         border: none;
-        border-radius: 10px;
+        border-radius: 3px;
 
         text-align: center;
 
@@ -78,7 +78,7 @@ export const VideoContainer = styled.div`
 
     padding: 1%;
 
-    border-radius: 15px;
+    border-radius: 10px;
 
     background: #202020;
 `;

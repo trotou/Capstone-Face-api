@@ -1,6 +1,21 @@
 import { makeStyles } from '@material-ui/core';
 
 // --------------------------------------------
+
+export const InputStyles = makeStyles({
+    input: {
+        width: '80%',
+
+        borderRadius: '5px 5px 0px 0px',
+
+        boxShadow: '0 3px 5px 2px rgba(0, 0, 0, 0.3)',
+        boxSizing: 'content-box',
+
+        background: '#fff',
+        color: '#000'
+    }
+});
+
 export const TopBarStyles = makeStyles({
     header: {
         width: '100%',
