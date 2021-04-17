@@ -32,7 +32,7 @@ const TopBar = () => {
     };
 
     return (
-        <AppBar position="static" className={classes.header}>
+        <AppBar position="static" color="transparent" className={classes.header}>
             <Toolbar className={classes.toolbar}>
                 <DefaultButtonAnimation>
                     <MenuItem onClick={() => history.push('/')}>

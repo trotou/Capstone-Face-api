@@ -6,7 +6,7 @@ export const VideoContainer = styled.div`
     justify-content: center;
     align-items: center;
 
-    padding: 1%;
+    padding: 0.5rem;
 
     border-radius: 15px;
 

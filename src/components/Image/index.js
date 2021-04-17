@@ -50,7 +50,7 @@ const Image = () => {
 
     return (
         <I.ImageContainer>
-            <img alt="" id="myImg" width="280px" height="280px" />
+            <img alt="" id="myImg" />
             <I.Button for="myFileUpload">Choose image</I.Button>
             <I.SelectFile
                 id="myFileUpload"
