@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { BrowserRouter } from 'react-router-dom';
 
 import LoginForm from '../../components/LoginForm';
 
@@ -30,7 +31,11 @@ jest.mock('../../providers/Services', () => {
 
 describe('When submits the form', () => {
     test('Should call handleSubmit', () => {
-        render(<LoginForm />);
+        render(
+            <BrowserRouter>
+                <LoginForm />
+            </BrowserRouter>
+        );
 
         const emailInput = screen.getByTestId('emailLoginTestId');
         const passwordInput = screen.getByTestId('passwordTestId');

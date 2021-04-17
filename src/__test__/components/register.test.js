@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { BrowserRouter } from 'react-router-dom';
 
 import RegisterForm from '../../components/RegisterForm';
 
@@ -31,7 +32,11 @@ jest.mock('../../providers/Services', () => {
 
 describe('When submits the form', () => {
     test('Should call handleSubmit', () => {
-        render(<RegisterForm />);
+        render(
+            <BrowserRouter>
+                <RegisterForm />
+            </BrowserRouter>
+        );
 
         const userInput = screen.getByTestId('userNameRegisterTestId');
         const passwordInput = screen.getByTestId('passwordRegisterTestId');
