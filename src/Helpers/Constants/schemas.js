@@ -17,11 +17,11 @@ export const userLoginSchema = yup.object().shape({
 });
 
 export const userVideoAddSchema = yup.object().shape({
-    title: yup.string().required('campo obrigatório'),
+    title: yup.string().max(24, 'Max of 24 characters').required('campo obrigatório'),
     date: yup.date().required('campo obrigatório')
 });
 
 export const userImgAddSchema = yup.object().shape({
-    title: yup.string().required('campo obrigatório'),
+    title: yup.string().max(24, 'Max of 24 characters').required('campo obrigatório'),
     date: yup.date().required('campo obrigatório')
 });
