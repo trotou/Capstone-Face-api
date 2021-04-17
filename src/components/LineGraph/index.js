@@ -67,7 +67,8 @@ const LineGraph = ({ emotionsVideo }) => {
                 <ResponsiveAreaBump
                     data={graphData}
                     margin={{ top: 40, right: 100, bottom: 40, left: 100 }}
-                    spacing={8}
+                    spacing={16}
+                    motionConfig="slow"
                     colors={[
                         '#C60000',
                         '#7EBA00',
@@ -78,14 +79,7 @@ const LineGraph = ({ emotionsVideo }) => {
                         '#FF00FF'
                     ]}
                     startLabel="id"
-                    axisTop={{
-                        tickSize: 5,
-                        tickPadding: 5,
-                        tickRotation: 0,
-                        legend: '',
-                        legendPosition: 'middle',
-                        legendOffset: -36
-                    }}
+                    axisTop={null}
                     axisBottom={{
                         tickSize: 5,
                         tickPadding: 5,

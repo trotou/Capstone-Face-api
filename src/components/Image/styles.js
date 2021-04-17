@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ImageContainer = styled.div`
-    width: 90%;
+    width: 100%;
 
     display: flex;
     flex-direction: column;
@@ -9,11 +9,25 @@ export const ImageContainer = styled.div`
     align-items: center;
 
     margin: 0 auto;
-    padding: 1%;
+    padding: 0.5rem;
 
     border-radius: 15px;
 
     background: #202020;
+
+    img {
+        width: 100%;
+        min-width: 300px;
+        max-width: 600px;
+        height: 100%;
+        min-height: 300px;
+        max-height: 500px;
+
+        @media (max-width: 600px) {
+            max-width: 300px;
+            max-height: 300px;
+        }
+    }
 `;
 
 export const Button = styled.label`

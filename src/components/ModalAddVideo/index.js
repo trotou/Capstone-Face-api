@@ -82,7 +82,12 @@ const FormDialog = () => {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button disabled={saving} onClick={handleClose} color="primary">
+                    <Button
+                        disabled={saving}
+                        onClick={handleClose}
+                        color="primary"
+                        variant="contained"
+                    >
                         Cancel
                     </Button>
                     <Button
@@ -90,6 +95,7 @@ const FormDialog = () => {
                         type="submit"
                         onClick={handleSubmit(handleForm)}
                         color="primary"
+                        variant="contained"
                     >
                         Done
                     </Button>

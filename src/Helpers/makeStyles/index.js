@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 
 // --------------------------------------------
 
@@ -54,6 +55,14 @@ export const TopBarStyles = makeStyles({
 
         '&hover': {
             background: '#fff'
+        }
+    }
+});
+
+export const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#c4c4c4'
         }
     }
 });

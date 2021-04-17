@@ -12,6 +12,6 @@ export const Container = styled.div`
 
     background: #202020;
 
-    overflow-x: auto;
+    overflow-x: scroll;
     overflow-y: hidden;
 `;
