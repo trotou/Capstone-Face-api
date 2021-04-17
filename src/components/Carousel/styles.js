@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const CarouselWrapper = styled.div`
     width: 80%;
     height: auto;
+    min-width: 300px;
 
     margin: 0 auto;
     margin-bottom: 3%;

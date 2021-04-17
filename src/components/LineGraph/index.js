@@ -2,72 +2,70 @@ import { useEffect, useState } from 'react';
 import { ResponsiveAreaBump } from '@nivo/bump';
 import { Container } from './styles';
 
+// ---------------------------------------------------
+const dataModel = [
+    {
+        id: 'angry',
+        data: []
+    },
+    {
+        id: 'disgusted',
+        data: []
+    },
+    {
+        id: 'fearful',
+        data: []
+    },
+    {
+        id: 'happy',
+        data: []
+    },
+    {
+        id: 'neutral',
+        data: []
+    },
+    {
+        id: 'sad',
+        data: []
+    },
+    {
+        id: 'surprised',
+        data: []
+    }
+];
 // -----------------------------------------
 const LineGraph = ({ emotionsVideo }) => {
-    const [treatedEmotionsData, setTreatedEmotionsData] = useState({
-        angry: [],
-        disgusted: [],
-        fearful: [],
-        happy: [],
-        neutral: [],
-        sad: [],
-        surprised: []
-    });
+    const [graphData, setGraphData] = useState(dataModel);
 
     useEffect(() => {
-        console.log('Recebeu as emoções: ', emotionsVideo);
-        let infoHolder = treatedEmotionsData;
-        for (const emotionData in emotionsVideo) {
-            emotionsVideo[emotionData].forEach((value, index) => {
-                infoHolder[emotionData].push({ x: index, y: parseFloat(value) });
-            });
+        const newData = [];
+        for (const emotion in emotionsVideo) {
+            const newEmotion = {};
+            newEmotion.id = emotion;
+
+            newEmotion.data = emotionsVideo[emotion].map((value, index) => ({
+                x: index,
+                y: parseFloat(value)
+            }));
+
+            newData.push(newEmotion);
         }
-        setTreatedEmotionsData(infoHolder);
+        setGraphData(newData);
+
         // eslint-disable-next-line
     }, [emotionsVideo]);
-
-    const data = [
-        {
-            id: 'angry',
-            data: [...treatedEmotionsData.angry]
-        },
-        {
-            id: 'disgusted',
-            data: [...treatedEmotionsData.disgusted]
-        },
-        {
-            id: 'fearful',
-            data: [...treatedEmotionsData.fearful]
-        },
-        {
-            id: 'happy',
-            data: [...treatedEmotionsData.happy]
-        },
-        {
-            id: 'neutral',
-            data: [...treatedEmotionsData.neutral]
-        },
-        {
-            id: 'sad',
-            data: [...treatedEmotionsData.sad]
-        },
-        {
-            id: 'surprised',
-            data: [...treatedEmotionsData.surprised]
-        }
-    ];
 
     return (
         <Container>
             <div
                 style={{
-                    width: `${data[0].data.length * 25}px`,
+                    width: `${graphData[0].data.length * 25}px`,
                     height: '50vh',
                     overflow: 'hidden'
                 }}
             >
                 <ResponsiveAreaBump
-                    data={data}
+                    data={graphData}
                     margin={{ top: 40, right: 100, bottom: 40, left: 100 }}
                     spacing={8}
                     colors={[
