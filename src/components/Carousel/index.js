@@ -59,13 +59,11 @@ const Carrosel = () => {
     };
 
     const handleLoadVid = (emotions) => {
-        console.log(emotions);
         setEmotionsImage({});
         setEmotionsVideo(emotions);
     };
 
     const handleLoadImg = (emotions) => {
-        console.log(emotions);
         setEmotionsVideo({});
         setEmotionsImage(emotions);
     };

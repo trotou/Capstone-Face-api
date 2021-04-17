@@ -37,7 +37,6 @@ const FormDialog = () => {
     };
 
     const handleForm = async (data) => {
-        console.log('submit');
         setSaving(true);
         await videoRegister({
             title: data.title,

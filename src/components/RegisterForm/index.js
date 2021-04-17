@@ -28,7 +28,6 @@ const RegisterForm = () => {
 
     const handleForm = async (data) => {
         const isCreated = await registerForm(data);
-        console.log(isCreated);
 
         // criar feedback visual de sucesso ou erro
         isCreated ? history.push('/login') : setRegisterError(true);
@@ -105,7 +104,7 @@ const RegisterForm = () => {
             <Snackbar
                 anchorOrigin={{
                     vertical: 'bottom',
-                    horizontal: 'left'
+                    horizontal: 'center'
                 }}
                 open={registerError}
                 autoHideDuration={6000}

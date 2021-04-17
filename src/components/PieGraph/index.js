@@ -6,14 +6,13 @@ const PieGraph = ({ emotionsImage }) => {
     const [treatedEmotionsData, setTreatedEmotionsData] = useState([]);
 
     useEffect(() => {
-        let infoHolder = treatedEmotionsData;
-        for (const emotionData in emotionsImage) {
+        let infoHolder = [];
+        for (const emotion in emotionsImage) {
             infoHolder.push({
-                id: emotionData,
-                label: emotionData,
-                value: emotionsImage[emotionData]
+                id: emotion,
+                label: emotion,
+                value: emotionsImage[emotion]
             });
-            console.log(emotionData);
         }
         setTreatedEmotionsData(infoHolder);
 

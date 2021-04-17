@@ -28,7 +28,6 @@ const LoginForm = () => {
 
     const handleForm = async (data) => {
         const isLogged = await login(data);
-        console.log(isLogged);
 
         // criar feedback visual de sucesso ou erro
         isLogged ? history.push('/') : setErrorLogin(true);

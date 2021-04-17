@@ -8,15 +8,6 @@ import * as V from './styles';
 // -------------------------------------
 const videoHeight = 200;
 const videoWidth = 320;
-const newEmotions = {
-    angry: [0],
-    disgusted: [0],
-    fearful: [0],
-    happy: [0],
-    neutral: [0],
-    sad: [0],
-    surprised: [0]
-};
 // -------------------------------------
 const Video = ({ initializing, setInitializing, setVideoPlay }) => {
     const videoRef = React.useRef(); //SRC DO VIDEO
@@ -45,7 +36,7 @@ const Video = ({ initializing, setInitializing, setVideoPlay }) => {
     };
 
     const handleVideoUpload = (event) => {
-        setEmotionsVideo({});
+        // setEmotionsVideo({});
         setVideoPath(URL.createObjectURL(event.target.files[0]));
     };
 
@@ -60,6 +51,16 @@ const Video = ({ initializing, setInitializing, setVideoPlay }) => {
     };
 
     const handleVideoOnPlay = () => {
+        const newEmotions = {
+            angry: [0],
+            disgusted: [0],
+            fearful: [0],
+            happy: [0],
+            neutral: [0],
+            sad: [0],
+            surprised: [0]
+        };
+
         const leftVideo = document.getElementById('player');
         startVideo(leftVideo);
         //A CADA INTERVALO, CALCULA OS DADOS DA API
