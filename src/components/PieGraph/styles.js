@@ -11,7 +11,7 @@ export const Container = styled.div`
     border-radius: 10px;
 
     background: #202020;
+    text-align: center;
 
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: hidden;
 `;
