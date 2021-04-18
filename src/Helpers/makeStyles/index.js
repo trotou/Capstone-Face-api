@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
+import { createMuiTheme } from '@material-ui/core';
 
 // --------------------------------------------
 

@@ -38,18 +38,6 @@ const Footer = () => {
                 <div className="container-description">
                     <YellowCircle></YellowCircle>
                     <div className="container-description__in">
-                        <h3>Iterative Testing</h3>
-                        <p>
-                            How do i facilitate consistent research throughout the entire product
-                            cycle? How do I apply a streamlined testing process to my whole product
-                            line?
-                        </p>
-                    </div>
-                </div>
-
-                <div className="container-description">
-                    <YellowCircle></YellowCircle>
-                    <div className="container-description__in">
                         <h3>Sensory Testing</h3>
                         <p>How do consumers react to fragrances or flavors?</p>
                     </div>
