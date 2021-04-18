@@ -11,17 +11,29 @@ import { bearer } from '../../services';
 const ServicesContext = React.createContext();
 
 export const ServicesProvider = ({ children }) => {
-    const [token, setToken] = React.useState(() => JSON.parse(localStorage.getItem('token')) || '');
+    const [token, setToken] = React.useState(
+        () => JSON.parse(sessionStorage.getItem('token')) || ''
+    );
+    const [auth, setAuth] = React.useState(false);
+    const [videosList, setVideosList] = React.useState([]);
+    const [imagesList, setImagesList] = React.useState([]);
+    const [data64, setData64] = React.useState('');
+
+    React.useEffect(() => {
+        token ? setAuth(true) : logout();
+
+        // eslint-disable-next-line
+    }, []);
 
     const registerForm = async (data) => {
         try {
-            const response = await API.post('/register/', data);
+            await API.post('/register/', data);
 
-            const token = response.data.accessToken;
-            localStorage.setItem('token', JSON.stringify(token));
-            setToken(token);
+            return true;
         } catch (error) {
-            console.log(error);
+            console.log('Não registrou: ', error);
+
+            return false;
         }
     };
 
@@ -30,11 +42,22 @@ export const ServicesProvider = ({ children }) => {
             const response = await API.post('/login/', data);
 
             const token = response.data.accessToken;
-            localStorage.setItem('token', JSON.stringify(token));
+            sessionStorage.setItem('token', JSON.stringify(token));
             setToken(token);
+            setAuth(true);
+
+            return true;
         } catch (error) {
-            console.log(error);
+            console.log('Não logou: ', error);
+
+            return false;
         }
+    };
+
+    const logout = () => {
+        sessionStorage.clear();
+        setToken('');
+        setAuth(false);
     };
 
     const userId = () => jwt_decode(token).sub;
@@ -42,25 +65,36 @@ export const ServicesProvider = ({ children }) => {
     const getUser = async () => {
         try {
             const response = await API.get(`/users/${userId()}`, bearer(token));
+
             return response.data;
         } catch (error) {
-            console.log(error);
+            console.log('Não trouxe usuário: ', error);
+
+            logout();
         }
     };
 
     const videoRegister = async (data) => {
         try {
             await API.post('/videos/', data, bearer(token));
+
+            return true;
         } catch (error) {
-            console.log(error);
+            console.log('Não registrou vídeo: ', error);
+
+            return false;
         }
     };
 
     const imageRegister = async (data) => {
         try {
             await API.post('/images/', data, bearer(token));
+
+            return true;
         } catch (error) {
-            console.log(error);
+            console.log('Não registrou imagem: ', error);
+
+            return false;
         }
     };
 
@@ -70,7 +104,7 @@ export const ServicesProvider = ({ children }) => {
 
             return response.data;
         } catch (error) {
-            console.log(error);
+            console.log('Não trouxe imagens: ', error);
         }
     };
 
@@ -78,9 +112,12 @@ export const ServicesProvider = ({ children }) => {
         try {
             const response = await API.get(`/images/?userId=${userId}`, bearer(token));
 
+            setImagesList(response.data);
+
             return response.data;
         } catch (error) {
-            console.log(error);
+            console.log('Não trouxe imagens: ', error);
+            setImagesList([]);
         }
     };
 
@@ -90,7 +127,7 @@ export const ServicesProvider = ({ children }) => {
 
             return response.data;
         } catch (error) {
-            console.log(error);
+            console.log('Não trouxe vídeos: ', error);
         }
     };
 
@@ -98,9 +135,12 @@ export const ServicesProvider = ({ children }) => {
         try {
             const response = await API.get(`/videos/?userId=${userId}`, bearer(token));
 
+            setVideosList(response.data);
+
             return response.data;
         } catch (error) {
-            console.log(error);
+            console.log('Não trouxe vídeos: ', error);
+            setVideosList([]);
         }
     };
 
@@ -108,9 +148,11 @@ export const ServicesProvider = ({ children }) => {
         try {
             await API.delete(`/videos/${id}`, bearer(token));
 
-            return 'Deleted';
+            return true;
         } catch (error) {
-            console.log(error);
+            console.log('Não deletou os vídeos: ', error);
+
+            return false;
         }
     };
 
@@ -118,9 +160,11 @@ export const ServicesProvider = ({ children }) => {
         try {
             await API.delete(`/images/${id}`, bearer(token));
 
-            return 'Deleted';
+            return true;
         } catch (error) {
-            console.log(error);
+            console.log('Não deletou imagem: ', error);
+
+            return false;
         }
     };
 
@@ -138,7 +182,13 @@ export const ServicesProvider = ({ children }) => {
                 getVideos,
                 getUserVideos,
                 deleteVideos,
-                deleteImages
+                deleteImages,
+                logout,
+                setData64,
+                videosList,
+                imagesList,
+                auth,
+                data64
             }}
         >
             {children}

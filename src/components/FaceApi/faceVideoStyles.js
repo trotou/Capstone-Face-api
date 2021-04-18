@@ -1,10 +1,19 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+    @media (max-width: 650px) {
+        min-height: 75vh;
+        height: 100%;
+        margin: 0 auto;
+        margin-bottom: 10%;
+    }
+
     width: 80%;
-    height: auto;
+    min-height: 60vh;
+    height: 100%;
 
     margin: 0 auto;
+    margin-bottom: 5%;
 
     display: flex;
     flex-direction: column;
@@ -12,8 +21,19 @@ export const Container = styled.div`
 
     color: #fff;
 
+    .div-button {
+        width: 80%;
+        height: 5rem;
+
+        margin: 5% 0%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .button-Change {
-        width: auto;
+        width: 10rem;
         height: 2rem;
 
         display: flex;
@@ -25,7 +45,7 @@ export const Container = styled.div`
         padding: 2%;
 
         border: none;
-        border-radius: 10px;
+        border-radius: 3px;
 
         text-align: center;
 
@@ -55,13 +75,28 @@ export const VideoContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    padding: 1%;
+
+    border-radius: 10px;
+
+    background: #202020;
 `;
 
 export const ImageContainer = styled.div`
+    width: 90%;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    margin: 0 auto;
+    padding: 1%;
+
+    border-radius: 15px;
+
+    background: #202020;
 `;
 
 export const Button = styled.button`

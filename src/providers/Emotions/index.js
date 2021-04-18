@@ -5,24 +5,18 @@ const EmotionsContext = React.createContext();
 
 // ------------------------------------
 export const EmotionsProvider = ({ children }) => {
-    // const [emotions, setEmotions] = React.useState({
-    //     angry: [0],
-    //     disgusted: [0],
-    //     fearful: [0],
-    //     happy: [0],
-    //     neutral: [0],
-    //     sad: [0],
-    //     surprised: [0]
-    // });
-    const [emotions, setEmotions] = React.useState({});
-
-    React.useEffect(() => {
-        console.log('USOU O EMOTIONS');
-        console.log('Valor atualizado: ', emotions);
-    }, [emotions]);
+    const [emotionsVideo, setEmotionsVideo] = React.useState({});
+    const [emotionsImage, setEmotionsImage] = React.useState({});
 
     return (
-        <EmotionsContext.Provider value={{ emotions, setEmotions }}>
+        <EmotionsContext.Provider
+            value={{
+                emotionsVideo,
+                setEmotionsVideo,
+                emotionsImage,
+                setEmotionsImage
+            }}
+        >
             {children}
         </EmotionsContext.Provider>
     );

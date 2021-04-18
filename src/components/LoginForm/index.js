@@ -1,20 +1,23 @@
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useHistory, Link } from 'react-router-dom';
-
-import { Container, Btn, Input } from './styles';
+import { useHistory, Link, Redirect } from 'react-router-dom';
+import { Container, Btn } from './styles';
+import { Snackbar, IconButton } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import { useServices } from '../../providers/Services';
 import { userLoginSchema } from '../../Helpers/Constants/schemas';
+import { TextField } from '@material-ui/core/';
+import { InputStyles } from '../../Helpers/makeStyles';
+import { DefaultButtonAnimation } from '../AnimationComponents/';
 import Logo from '../../Helpers/Assets/logo.svg';
-
-import { useUserAuth } from '../../providers/UserAuth';
 
 // ------------------------------------------------
 const LoginForm = () => {
-    const { auth, setAuth } = useUserAuth();
-
+    const [errorLogin, setErrorLogin] = React.useState(false);
     const history = useHistory();
-    const { login } = useServices();
+    const classes = InputStyles();
+    const { login, auth } = useServices();
     const {
         register,
         handleSubmit,
@@ -23,21 +26,36 @@ const LoginForm = () => {
         resolver: yupResolver(userLoginSchema)
     });
 
-    const handleForm = (data) => {
-        login(data);
+    const handleForm = async (data) => {
+        const isLogged = await login(data);
+
+        // criar feedback visual de sucesso ou erro
+        isLogged ? history.push('/') : setErrorLogin(true);
+    };
+
+    const goToHome = () => {
         history.push('/');
     };
 
-    return (
+    const handleClose = () => {
+        setErrorLogin(false);
+    };
+
+    return !auth ? (
         <Container>
             <div className="div_svg">
-                <img src={Logo} alt="Logo" />
+                <DefaultButtonAnimation>
+                    <Link to="/">
+                        <img src={Logo} alt="Logo" onClick={goToHome} />
+                    </Link>
+                </DefaultButtonAnimation>
             </div>
 
             <h1>Login</h1>
 
             <form onSubmit={handleSubmit(handleForm)} data-testid="formTestId">
-                <Input
+                <TextField
+                    className={classes.input}
                     data-testid="emailLoginTestId"
                     name="email"
                     type="email"
@@ -49,7 +67,8 @@ const LoginForm = () => {
                     helperText={errors.email?.message}
                 />
 
-                <Input
+                <TextField
+                    className={classes.input}
                     data-testid="passwordTestId"
                     name="password"
                     type="password"
@@ -63,10 +82,38 @@ const LoginForm = () => {
 
                 <Btn type="submit">Login</Btn>
             </form>
-            <p>
-                Don’t have an account yet? <Link to="/register">Register</Link>
-            </p>
+            <div>
+                <p>
+                    Don’t have an account yet?
+                    <br />
+                    <Link className="link-form" to="/register">
+                        Register
+                    </Link>
+                </p>
+            </div>
+            <Snackbar
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center'
+                }}
+                open={errorLogin}
+                autoHideDuration={3000}
+                onClose={handleClose}
+                message="Login failed"
+                action={
+                    <IconButton
+                        size="small"
+                        aria-label="close"
+                        color="inherit"
+                        onClick={handleClose}
+                    >
+                        <CloseIcon fontSize="small" />
+                    </IconButton>
+                }
+            />
         </Container>
+    ) : (
+        <Redirect to="/" />
     );
 };
 
