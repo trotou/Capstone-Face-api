@@ -42,10 +42,17 @@ const FaceApiVideo = () => {
                                 setVideoPlay={setVideoPlay}
                             />
                         ) : (
-                            <>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    flexFlow: 'column nowrap',
+                                    alignItems: 'center'
+                                }}
+                            >
                                 {auth && <FormDialog />}
                                 <Button onClick={() => setVideoPlay(true)}>Try other video</Button>
-                            </>
+                            </div>
                         )}
                     </div>
                 </ChangeVideoAndImage>

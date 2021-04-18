@@ -27,10 +27,7 @@ export const TopBarStyles = makeStyles({
 
         borderWidth: '0px, 0px, 5px 0px',
         borderColor: '#3d3d3d',
-        boxShadow: '0px 0px 30px 0px rgba(61, 61, 61, 1)',
-
-        backgroundColor: '#202020',
-        color: '#fff'
+        boxShadow: '0px 0px 30px 0px rgba(61, 61, 61, 1)'
     },
 
     toolbar: {
@@ -62,7 +59,12 @@ export const TopBarStyles = makeStyles({
 export const theme = createMuiTheme({
     palette: {
         primary: {
-            main: '#c4c4c4'
+            main: '#c4c4c4',
+            contrastText: '#202020'
+        },
+        secondary: {
+            main: '#202020',
+            contrastText: '#c4c4c4'
         }
     }
 });

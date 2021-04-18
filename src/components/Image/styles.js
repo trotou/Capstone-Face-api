@@ -8,7 +8,7 @@ export const ImageContainer = styled.div`
     justify-content: center;
     align-items: center;
 
-    margin: 0 auto;
+    margin: 0.5rem auto;
     padding: 0.5rem;
 
     border-radius: 15px;
