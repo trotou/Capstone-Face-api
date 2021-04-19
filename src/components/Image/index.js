@@ -12,8 +12,10 @@ const Image = () => {
     const { setData64 } = useServices();
 
     const start = async () => {
-        const newEmotions = {};
         setEmotionsImage({});
+        setEmotionsVideo({});
+
+        const newEmotions = {};
         const imgFile = document.getElementById('myFileUpload').files[0];
         const img = await faceapi.bufferToImage(imgFile);
         const myImg = document.getElementById('myImg');
@@ -44,7 +46,6 @@ const Image = () => {
 
         console.log(newEmotions);
         setEmotionsImage(newEmotions);
-        setEmotionsVideo({});
         setData64(img.src);
     };
 

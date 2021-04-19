@@ -36,7 +36,8 @@ const Video = ({ initializing, setInitializing, setVideoPlay }) => {
     };
 
     const handleVideoUpload = (event) => {
-        // setEmotionsVideo({});
+        setEmotionsImage({});
+        setEmotionsVideo({});
         setVideoPath(URL.createObjectURL(event.target.files[0]));
     };
 
@@ -93,7 +94,6 @@ const Video = ({ initializing, setInitializing, setVideoPlay }) => {
                 setVideoPlay(false);
                 setInitializing(false);
                 setEmotionsVideo(newEmotions);
-                setEmotionsImage({});
                 clearInterval(interval);
             }
         }, 100);

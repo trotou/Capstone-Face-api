@@ -29,7 +29,7 @@ const Footer = () => {
                     <div className="container-description__in">
                         <h3>User &amp; Audience Testing</h3>
                         <p>
-                            Which interface features in website, gaming, ot media draw or detract
+                            Which interface features in website, gaming, or media draw or detract
                             from emotional engagement or attention?
                         </p>
                     </div>
@@ -48,7 +48,7 @@ const Footer = () => {
                     <div className="container-description__in">
                         <h3>Competitor Research</h3>
                         <p>
-                            How do consumers rekate emotionally to my products versus the
+                            How do consumers relate emotionally to my products versus the
                             competition?
                         </p>
                     </div>
