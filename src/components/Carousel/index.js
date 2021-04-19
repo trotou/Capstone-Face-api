@@ -58,14 +58,16 @@ const Carrosel = () => {
         await getUserImages(user.id);
     };
 
-    const handleLoadVid = (emotions) => {
-        setEmotionsImage({});
-        setEmotionsVideo(emotions);
+    const handleLoadVid = async (emotions) => {
+        await setEmotionsImage({});
+        await setEmotionsVideo({});
+        await setEmotionsVideo(emotions);
     };
 
-    const handleLoadImg = (emotions) => {
-        setEmotionsVideo({});
-        setEmotionsImage(emotions);
+    const handleLoadImg = async (emotions) => {
+        await setEmotionsVideo({});
+        await setEmotionsImage({});
+        await setEmotionsImage(emotions);
     };
 
     return (
