@@ -1,36 +1,17 @@
 import { useEffect, useState } from 'react';
-import { ResponsiveAreaBump } from '@nivo/bump';
+import { ResponsiveStream } from '@nivo/stream';
 import { Container } from './styles';
 
 // ---------------------------------------------------
 const dataModel = [
     {
-        id: 'angry',
-        data: []
-    },
-    {
-        id: 'disgusted',
-        data: []
-    },
-    {
-        id: 'fearful',
-        data: []
-    },
-    {
-        id: 'happy',
-        data: []
-    },
-    {
-        id: 'neutral',
-        data: []
-    },
-    {
-        id: 'sad',
-        data: []
-    },
-    {
-        id: 'surprised',
-        data: []
+        angry: 0,
+        disgusted: 0,
+        fearful: 0,
+        happy: 0,
+        neutral: 0,
+        sad: 0,
+        surprised: 0
     }
 ];
 // -----------------------------------------
@@ -39,17 +20,19 @@ const LineGraph = ({ emotionsVideo }) => {
 
     useEffect(() => {
         const newData = [];
-        for (const emotion in emotionsVideo) {
-            const newEmotion = {};
-            newEmotion.id = emotion;
 
-            newEmotion.data = emotionsVideo[emotion].map((value, index) => ({
-                x: index,
-                y: parseFloat(value)
-            }));
-
-            newData.push(newEmotion);
+        for (let i = 0; i < emotionsVideo.angry.length; i++) {
+            newData.push({
+                angry: emotionsVideo.angry[i],
+                disgusted: emotionsVideo.disgusted[i],
+                fearful: emotionsVideo.fearful[i],
+                happy: emotionsVideo.happy[i],
+                neutral: emotionsVideo.neutral[i],
+                sad: emotionsVideo.sad[i],
+                surprised: emotionsVideo.surprised[i]
+            });
         }
+
         setGraphData(newData);
 
         // eslint-disable-next-line
@@ -59,16 +42,34 @@ const LineGraph = ({ emotionsVideo }) => {
         <Container>
             <div
                 style={{
-                    width: `${graphData[0].data.length * 25}px`,
+                    width: `${graphData.length * 25}px`,
                     height: '50vh',
                     overflow: 'hidden'
                 }}
             >
-                <ResponsiveAreaBump
+                <ResponsiveStream
                     data={graphData}
+                    keys={['angry', 'disgusted', 'fearful', 'happy', 'neutral', 'sad', 'surprised']}
                     margin={{ top: 40, right: 100, bottom: 40, left: 100 }}
-                    spacing={16}
-                    motionConfig="slow"
+                    axisTop={null}
+                    axisRight={null}
+                    axisBottom={{
+                        orient: 'bottom',
+                        tickSize: 5,
+                        tickPadding: 5,
+                        tickRotation: 0,
+                        legend: '',
+                        legendOffset: 36
+                    }}
+                    axisLeft={{
+                        orient: 'left',
+                        tickSize: 5,
+                        tickPadding: 5,
+                        tickRotation: 0,
+                        legend: '',
+                        legendOffset: -40
+                    }}
+                    offsetType="silhouette"
                     colors={[
                         '#C60000',
                         '#7EBA00',
@@ -78,16 +79,8 @@ const LineGraph = ({ emotionsVideo }) => {
                         '#13365A',
                         '#FF00FF'
                     ]}
-                    startLabel="id"
-                    axisTop={null}
-                    axisBottom={{
-                        tickSize: 5,
-                        tickPadding: 5,
-                        tickRotation: 0,
-                        legend: '',
-                        legendPosition: 'middle',
-                        legendOffset: 32
-                    }}
+                    fillOpacity={0.85}
+                    borderColor={{ theme: 'background' }}
                 />
             </div>
         </Container>
